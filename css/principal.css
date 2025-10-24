@@ -1,0 +1,27 @@
+.Arriba {
+    width: 100%;                         /* Ocupa todo el ancho de la pantalla */
+    background-color: #125CC3;           /* Color de fondo del header */
+    padding: 10px 40px;                  /* Espaciado interno */
+    box-sizing: border-box;              /* Evita que el padding afecte el ancho total */
+    border-radius: 25px;                 /* Bordes redondeados en las esquinas */
+    margin: 10px 0;                      /* Margen superior e inferior */
+    display: flex;                       /* Coloca los elementos uno al lado del otro */
+    align-items: center;                 /* Centra verticalmente los elementos dentro del header */
+    justify-content: space-between;      /* Deja el logo a la izquierda y el perfil a la derecha */
+}
+
+.logo {
+    color: white;                        /* Color de texto */
+    font-size: 24px;                     /* Tamaño de letra */
+    margin: 0;                           /* Elimina márgenes por defecto del h1 */
+    font-weight: bold;                   /* Resalta el texto */
+}
+
+.Ajustesbarra{
+    width: 100%;
+    height: 50px;              /* altura de la barra */
+    background-color: #125CC3; /* color oscuro elegante */
+    display: flex;
+    align-items: center;       /* centra el contenido verticalmente */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

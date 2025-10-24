@@ -1,0 +1,45 @@
+.Perfil {
+    display: flex;                       /* Coloca la imagen y el menú en fila */
+    position: relative;                  /* Permite que el panel .info se posicione respecto a este */
+    align-items: center;                 /* Centra verticalmente la imagen dentro del header */
+    justify-content: flex-end;           /* Alinea el perfil hacia la derecha */
+}
+
+.imagen {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;                  /* Hace la imagen circular */
+    cursor: pointer;                     /* Cambia el cursor al pasar sobre la imagen */
+    object-fit: cover;                  
+}
+
+.info {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    display: none;                       /* Oculto por defecto */
+    position: absolute;                  /* Se posiciona respecto a .Perfil */
+    top: 70px;             
+    right: 0;                            /* Alineado a la derecha */
+    background-color: white;             /* Fondo del panel */
+    color: black;                        /* Texto oscuro */
+    border: 1px solid #ccc;              /* Borde gris claro */
+    border-radius: 8px;                  /* Bordes redondeados */
+    padding: 15px;                       /* Espacio interno */
+    width: 200px;                        /* Ancho fijo */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Sombra para darle profundidad */
+    z-index: 100;                        /* Evita que otros elementos lo tapen */
+}
+
+.info button {
+    margin-top: 10px;                    /* Separación respecto a otros elementos */
+    padding: 8px 12px;                   /* Espacio interno */
+    border: none;                        /* Sin borde */
+    background-color: #125CC3;           /* Color del botón */
+    color: white;                        /* Texto blanco */
+    border-radius: 5px;                  /* Bordes suaves */
+    cursor: pointer;                     /* Cursor de mano al pasar */
+}
+
+.info button:hover {
+    background-color: #0d4491;           /* Color más oscuro al pasar el mouse */
+}

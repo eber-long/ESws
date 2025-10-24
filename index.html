@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ElectroShop/Login</title> 
+    <link rel="stylesheet" href="css/style.css"> <!-- Enlaza el archivo CSS para el diseño -->
+</head>
+<body>
+    <div class="Login"> <!-- Contenedor principal del login -->
+      <h1>Inicio de sesión</h1> <!-- Título visible del formulario -->
+
+       <form id="loginForm"> <!-- Formulario con ID para ser manejado desde JS -->
+
+        <div class="Username">  <!-- Contenedor del campo de usuario -->
+          <input type="text" id="usuario" required> <!-- Input de texto para el usuario, obligatorio -->
+          <label for="usuario">Nombre</label> <!-- Label asociado al input para accesibilidad -->
+          <span></span> <!-- Span vacío, puede usarse para efectos visuales con CSS -->
+        </div>
+
+        <div class="Username"> <!-- Contenedor del campo de contraseña -->
+          <input type="password" id="contrasena" required> <!-- Input de contraseña, obligatorio -->
+          <label for="contrasena">Contraseña</label> <!-- Label asociado al input -->
+          <span></span> <!-- Span vacío para efectos visuales o animaciones -->
+        </div>
+
+        <input type="submit" value="Iniciar"> <!-- Botón de envío del formulario -->
+
+       </form> <!-- Fin del formulario -->
+    </div> <!-- Fin del contenedor principal -->
+
+    <script src="javascrip/java.js"></script> <!-- Enlaza el archivo JS que valida y redirige -->
+</body>
+</html>
+
