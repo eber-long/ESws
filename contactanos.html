@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroShop</title>
     <link rel="stylesheet" href="css/principal.css">
+    <link rel="stylesheet" href="css/contactanos.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
@@ -43,7 +44,7 @@
                  <li><a href="#">Laptops</a></li>
                  <li><a href="#">Ordenadores</a></li>
                  <li><a href="#">Proyectores</a></li>
-                 <li><a href="#">Dispositivos Mobiles</a></li>
+                 <li><a href="#">Dispositivos Móviles</a></li>
                 </ul>
             </div>
 
@@ -56,6 +57,40 @@
 
     </div>
     <h1>Nuestra ubicacion</h1>
-    <script src="javascrip/principal.js"></script>
+    <script src="javascrip/contacto.js"></script>
+    <main class="contacto">
+  <h1>Contáctanos</h1>
+  <p>¿Tienes preguntas, sugerencias o necesitas ayuda? Estamos aquí para atenderte.</p>
+
+  <section class="info-contacto">
+    <h2>Información de contacto</h2>
+    <ul>
+      <li><strong>📍 Dirección:</strong> Plaza Central, Local #12, Carretera Masaya, km 4.5, Managua</li>
+      <li><strong>📞 Teléfono:</strong> +505 2222 3333</li>
+      <li><strong>📧 Correo:</strong> contacto@electroshop.com</li>
+      <li><strong>🕒 Horario:</strong> Lunes a Sábado, 9:00 a.m. – 6:00 p.m.</li>
+    </ul>
+  </section>
+
+  <section class="formulario">
+    <h2>Envíanos un mensaje</h2>
+    <form id="formContacto">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="correo" placeholder="Tu correo" required>
+      <textarea name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="confirmacion" style="display:none;">✅ ¡Gracias por tu mensaje! Te responderemos pronto.</p>
+  </section>
+
+  <section class="mapa">
+    <h2>Ubicación</h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.123456789!2d-86.251234!3d12.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x123456789abcdef!2sElectroShop!5e0!3m2!1ses!2sni!4v1234567890"
+      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
+  </section>
+</main>
+
 </body>
 </html>
