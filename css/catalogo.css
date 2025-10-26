@@ -37,7 +37,10 @@ h1 {
 
 
 /* Imágenes dentro del carrusel */
-.carousel-images, .carousel-images1, .carousel-images2 {
+.carousel-images,
+.carousel-images1,
+.carousel-images2,
+.carousel-images3 {
   margin-top: 30px;
   display: flex;
   transition: transform 1s ease-in-out;
@@ -45,7 +48,10 @@ h1 {
   height: 150%;/*modificacion*/
 }
 
-.carousel-images img, .carousel-images1 img, .carousel-images2 img {
+.carousel-images img,
+.carousel-images1 img,
+.carousel-images2 img,
+.carousel-images3 img {
   width: 100%;
   height: 50%;
   object-fit: contain;
@@ -68,18 +74,9 @@ h1 {
 }
 
 /*modificacion*/
-.boton-carrusel1, .boton-carrusel2 {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-}
-.boton-carrusel3, .boton-carrusel4 {
+.boton-carrusel1, .boton-carrusel2,
+.boton-carrusel3, .boton-carrusel4,
+.boton-carrusel5, .boton-carrusel6 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -91,7 +88,7 @@ h1 {
   font-size: 24px;
 }
 
-.carousel-images a, .carousel-images1 a, .carousel-images2 a {
+.carousel-images a, .carousel-images1 a, .carousel-images2 a, .carousel-images3 a {
   display: block;
   flex-shrink: 0;
   width: 100%;

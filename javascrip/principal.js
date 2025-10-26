@@ -134,7 +134,7 @@ function showImage2(i, animated = true) {
 
 function nextImage2() {
     index2++;
-    showImage1(index2);
+    showImage2(index2);
     if (index2 === total2) {
         setTimeout(() => {
             index2 = 0;
@@ -155,5 +155,40 @@ function prevImage2() {
 document.querySelector('.boton-carrusel4').addEventListener('click', nextImage2);
 document.querySelector('.boton-carrusel3').addEventListener('click', prevImage2);
 
-setInterval(nextImage1, 3000);
+setInterval(nextImage2, 3000);
 
+// Accesorios
+
+const images3 = document.querySelector('.carousel-images3');
+const total3 = images3.children.length / 2;
+let index3 = 0;
+
+function showImage3(i, animated = true) {
+    images3.style.transition = animated ? 'transform 0.5s ease-in-out' : 'none';
+    images3.style.transform = `translateX(-${i * 100}%)`;
+}
+
+function nextImage3() {
+    index3++;
+    showImage3(index3);
+    if (index3 === total3) {
+        setTimeout(() => {
+            index3 = 0;
+            showImage3(index3, false);
+        }, 500);
+    }
+}
+
+function prevImage3() {
+    if (index3 === 0) {
+        index3 = total3;
+        showImage3(index3, false);
+    }
+    index3--;
+    showImage3(index3);
+}
+
+document.querySelector('.boton-carrusel6').addEventListener('click', nextImage3);
+document.querySelector('.boton-carrusel5').addEventListener('click', prevImage3);
+
+setInterval(nextImage3, 3000);
