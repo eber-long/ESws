@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +7,266 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
+    <link rel="stylesheet" href="css/catalogo.css">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <!-- Encabezado -->
     <header class="Arriba">
 
         <div class="logo">
-         <h1>ElectroShop</h1>
+            <a href="principal.html"><h1>ElectroShop</h1></a>
         </div>
         <div class="busqueda">
-           <input type="text" placeholder="Buscar...">
-           <button class="lupa">🔎</button>
+            <input type="text" placeholder="Buscar...">
+            <button class="lupa">🔎</button>
         </div>
         <div class="Perfil">
 
             <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
-
-         <div id="info" class="info">
-            <p id="userName">Usuario</p>
-            <p>Rol: <span id="userType">Común</span></p>
-            <button id="logoutBtn">Cerrar sesión</button>
-         </div>
-
+            <div id="info" class="info">
+                <p id="userName">Usuario</p>
+                <p>Rol: <span id="userType">Común</span></p>
+                <button id="logoutBtn">Cerrar sesión</button>
+            </div>
         </div>
 
     </header>
-    <div class="Ajustesbarra">
-          <div class="Menu">
 
-            <button id="menuBtn">☰ Categorias</button>
+    <div class="Ajustes-barra">
+        <div class="Menu">
+            <button id="menuBtn">☰ Categorías</button>
             <div id="menuPlegable" class="menuPlegable">
                 <ul>
-                 <li><a href="#">Accesorios</a></li>
-                 <li><a href="#">Monitores</a></li>
-                 <li><a href="#">Laptops</a></li>
-                 <li><a href="#">Ordenadores</a></li>
-                 <li><a href="#">Proyectores</a></li>
-                 <li><a href="#">Dispositivos Móviles</a></li>
+                    <li><a href="#Accesorios">Accesorios</a></li>
+                    <li><a href="#Monitores">Monitores</a></li>
+                    <li><a href="#Laptops">Laptops</a></li>
+                    <li><a href="#Ordenadores">Ordenadores</a></li>
+                    <li><a href="#Proyectores">Proyectores</a></li>
+                    <li><a href="#Dispositivos-Móviles">Dispositivos Móviles</a></li>
                 </ul>
             </div>
 
         </div>
         <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
         <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-        <a href="catalogo.html" class="nav-button-style">📰 Catalogo</a>
+        <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
         <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
-        <a href="contactanos.html" class="nav-button-style">📞 Contactanos</a>
+        <a href="contactanos.html" class="nav-button-style">📞 Contáctanos</a>
+    </div>
+   <!-- Separacion entre el cuerpo principal y el catalogo -->
 
-        
-        
-        
+    <h1>Catálogo de productos</h1>
+    <h2 id="Ordenadores">Ordenadores</h2>
+
+    <div class="carrusel-contenedor">
+        <div class="fila-productos">
+
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/7.webp" alt="Ryzen 7 5700X">
+                    <h3>AMD Ryzen 7 5700X</h3>
+                    <p>8 núcleos / 16 hilos</p>
+                    <p class="precio">C$7,708.27</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/intelcorei7.jpg" alt="intelcorei7">
+                    <h3>Intel Core i7-12700K</h3>
+                    <p>12 núcleos / 20 hilos</p>
+                    <p class="precio">C$9,850.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/IntelcoreI7ultra.avif" alt="IntelcoreI7ultra">
+                    <h3>Intel Core i7-12700K</h3>
+                    <p>12 núcleos / 20 hilos</p>
+                    <p class="precio">C$10,450.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/intelcorei5.jpg" alt="IntecoreI5">
+                    <h3>Intel Core i5-12400F</h3>
+                    <p>6 núcleos / 12 hilos</p>
+                    <p class="precio">C$5,950.00</p>
+                </div>
+            </a>
+
+            <div class="carousel">
+                <div class="carousel-images">
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu1.jpg" alt="Imagen 1">
+                    </a>
+                    <a href="Detalle.hml">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu1.jpg" alt="Imagen 1 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3 duplicada">
+                    </a>
+                </div>
+                <button class="boton-carrusel prev">&#10094;</button>
+                <button class="boton-carrusel next">&#10095;</button>
+            </div>
+
+        </div>
     </div>
+
+    <h2 id="Laptops">Laptops</h2>
+    <div class="carrusel-contenedor">
+        <div class="fila-productos">
+
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/HPpavilion.avif" alt="Ryzen 7 5700X">
+                    <h3>HP Pavilion 15</h3>
+                    <p>8 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$17,500.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/Dellinspiron.webp" alt="intelcorei7">
+                    <h3>Dell Inspiron 14</h3>
+                    <p>16 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$22,300.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/ideaPad3.webp" alt="IntelcoreI7ultra">
+                    <h3>Lenovo IdeaPad 3</h3>
+                    <p>8 GB RAM / 256 GB SSD</p>
+                    <p class="precio">C$15,800.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/AcerAsoire5.png" alt="IntecoreI5">
+                    <h3>Acer Aspire 5</h3>
+                    <p>16 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$18,900.00</p>
+                </div>
+            </a>
+
+            <div class="carousel">
+                <div class="carousel-images1">
+                    <a href="Detalle.html">
+                        <img src="imagen/cpu1.jpg" alt="Imagen 1">
+                    </a>
+                    <a href="Detalle.hml">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu1.jpg" alt="Imagen 1 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3 duplicada">
+                    </a>
+                </div>
+                <button class="boton-carrusel1 prev">&#10094;</button>
+                <button class="boton-carrusel2 next">&#10095;</button>
+            </div>
+
+        </div>
     </div>
-    <h1>Catálogo</h1>
+
+    <h2 id="Laptops">Laptops</h2>
+    <div class="carrusel-contenedor">
+        <div class="fila-productos">
+
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/HPpavilion.avif" alt="Ryzen 7 5700X">
+                    <h3>HP Pavilion 15</h3>
+                    <p>8 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$17,500.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/Dellinspiron.webp" alt="intelcorei7">
+                    <h3>Dell Inspiron 14</h3>
+                    <p>16 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$22,300.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/ideaPad3.webp" alt="IntelcoreI7ultra">
+                    <h3>Lenovo IdeaPad 3</h3>
+                    <p>8 GB RAM / 256 GB SSD</p>
+                    <p class="precio">C$15,800.00</p>
+                </div>
+            </a>
+            <a href="detalle-5700x.html" class="tarjeta-producto">
+                <div class="contenido">
+                    <img src="imagen/AcerAsoire5.png" alt="IntecoreI5">
+                    <h3>Acer Aspire 5</h3>
+                    <p>16 GB RAM / 512 GB SSD</p>
+                    <p class="precio">C$18,900.00</p>
+                </div>
+            </a>
+
+            <div class="carousel">
+                <div class="carousel-images2">
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu1.jpg" alt="Imagen 1">
+                    </a>
+                    <a href="Detalle.hml">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu1.jpg" alt="Imagen 1 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu2.jpg" alt="Imagen 2 duplicada">
+                    </a>
+                    <a href="Detalle.html">
+                    <img src="imagen/cpu3.jpg" alt="Imagen 3 duplicada">
+                    </a>
+                </div>
+                <button class="boton-carrusel1 prev">&#10094;</button>
+                <button class="boton-carrusel2 next">&#10095;</button>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 ElectroShop. Todos los derechos reservados.</p>
+            <p>Correo: contacto@electroshop.com</p>
+            <p>Teléfono: +505 2222 3333</p>
+            <p>
+                <a href="#">Política de privacidad</a> |
+                <a href="#">Términos de uso</a>
+            </p>
+        </div>
+    </footer>
+
     <script src="javascrip/principal.js"></script>
-    
+
 </body>
 </html>

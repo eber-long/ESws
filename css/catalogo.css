@@ -1,0 +1,149 @@
+/* Título principal */
+h1 {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor general del carrusel */
+.carrusel-contenedor {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 320px;
+  padding-top: 20px;
+  background: rgb(223, 223, 223);
+  border-radius: 10px;
+  text-align: right;
+}
+
+/* Contenedor de fila para alinear tarjetas y carrusel */
+.fila-productos {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Carrusel de imágenes */
+.carousel {
+  width: 25%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: 15px;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+
+/* Imágenes dentro del carrusel */
+.carousel-images, .carousel-images1, .carousel-images2 {
+  margin-top: 30px;
+  display: flex;
+  transition: transform 1s ease-in-out;
+  width: 100%; /*modificacion*/
+  height: 150%;/*modificacion*/
+}
+
+.carousel-images img, .carousel-images1 img, .carousel-images2 img {
+  width: 100%;
+  height: 50%;
+  object-fit: contain;
+  background-color: white;
+  flex-shrink: 0;
+  
+}
+
+/* Botones del carrusel */
+.boton-carrusel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/*modificacion*/
+.boton-carrusel1, .boton-carrusel2 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+.boton-carrusel3, .boton-carrusel4 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.carousel-images a, .carousel-images1 a, .carousel-images2 a {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+button.prev {
+  left: 10px;
+}
+
+button.next {
+  right: 10px;
+}
+
+/* Tarjetas de producto */
+.tarjeta-producto {
+  margin-left: 15px;
+  width: 15%;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.tarjeta-producto:hover {
+  transform: scale(1.1);
+}
+
+.tarjeta-producto img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background-color: white;
+}
+
+.tarjeta-producto h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+}
+
+.tarjeta-producto p {
+  margin: 5px 0;
+}
+
+.tarjeta-producto .precio {
+  font-weight: bold;
+  color: #d32f2f;
+}
+

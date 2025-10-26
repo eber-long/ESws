@@ -7,9 +7,8 @@
     <link rel="stylesheet" href="css/style.css"> <!-- Enlaza el archivo CSS para el diseño -->
 </head>
 <body>
-  <img src="imagen/" alt="">
     <div class="Login"> <!-- Contenedor principal del login -->
-      <h1>Inicio de sesión</h1> <!-- Título visible del formulario -->
+      <h1>Crea  una cuenta</h1> <!-- Título visible del formulario -->
 
        <form id="loginForm"> <!-- Formulario con ID para ser manejado desde JS -->
 
@@ -24,11 +23,17 @@
           <label for="contrasena">Contraseña</label> <!-- Label asociado al input -->
           <span></span> <!-- Span vacío para efectos visuales o animaciones -->
         </div>
+
+        <div class="Username"> <!-- Contenedor del campo de contraseña -->
+          <input type="password" id="contrasena" required> <!-- Input de contraseña, obligatorio -->
+          <label for="contrasena">Confirmar contraseña</label> <!-- Label asociado al input -->
+          <span></span> <!-- Span vacío para efectos visuales o animaciones -->
+        </div>
         <div class="Registro">
-        <p>No tienes una cuenta? </p> <a href="Registro.html">Registrate aqui</a>
+        <p>Ya tienes una cuenta? </p> <a href="index.html">Iniciar sesión</a>
         </div>
        
-        <input type="submit" value="Iniciar"> <!-- Botón de envío del formulario -->
+        <input type="submit" value="Registrarse"> <!-- Botón de envío del formulario -->
 
        </form> <!-- Fin del formulario -->
     </div> <!-- Fin del contenedor principal -->

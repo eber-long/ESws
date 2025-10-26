@@ -44,7 +44,7 @@
 .menuPlegable.show {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform:translateY(0) translateX(10px);
 }
 
 .menuPlegable ul {
@@ -82,13 +82,14 @@ a.nav-button-style {
     cursor: pointer;
     margin-right: 70px;
     margin-left: 0;
-    transition: background 0.3s;
+    transition: 0.3s;
     display: inline-block; /* 🔹 permite que se comporte como botón */
 }
 
 a.nav-button-style:hover {
+    transition: 0.5s;
     background-color: #0f4ca3;
-    color: #ffffff; /* 🔹 mantiene el color del texto */
+    color: #ffb700; /* 🔹 mantiene el color del texto */
 }
 
 .busqueda{

@@ -1,7 +1,8 @@
 // Lista de usuarios
 const usuarios = [
   { nombre: "admin", contrasena: "1234", tipo: "administrador" },
-  { nombre: "juan", contrasena: "abcd", tipo: "comun" }
+  { nombre: "juan", contrasena: "abcd", tipo: "comun" },
+  { nombre: "paco", contrasena: "1234", tipo: "comun" }
 ];
 
 // Escucha el submit del formulario
