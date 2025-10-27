@@ -1,32 +1,46 @@
-/* Título principal */
 h1 {
   text-align: center;
   font-family: Arial, sans-serif;
+  margin-top: 20px;
 }
 
-/* Contenedor general del carrusel */
+.ajustes-barra1 {
+  margin: 20px 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f86ff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.ajustes-barra1 h2 {
+  color: white;
+  margin: 0;
+}
+
 .carrusel-contenedor {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px;
   height: 320px;
   padding-top: 20px;
   background: rgb(223, 223, 223);
   border-radius: 10px;
-  text-align: right;
-}
-
-/* Contenedor de fila para alinear tarjetas y carrusel */
-.fila-productos {
   display: flex;
   align-items: flex-start;
 }
 
-/* Carrusel de imágenes */
+.fila-productos {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .carousel {
   width: 25%;
   height: 300px;
-  margin-left: auto;
-  margin-right: 15px;
+  margin-left: 15px;
   overflow: hidden;
   background-color: white;
   border: 1px solid #ddd;
@@ -35,65 +49,65 @@ h1 {
   position: relative;
 }
 
-
-/* Imágenes dentro del carrusel */
+/*Carrucel*/
 .carousel-images,
 .carousel-images1,
 .carousel-images2,
-.carousel-images3 {
-  margin-top: 30px;
+.carousel-images3,
+.carousel-images4,
+.carousel-images5 {
   display: flex;
-  transition: transform 1s ease-in-out;
-  width: 100%; /*modificacion*/
-  height: 150%;/*modificacion*/
-}
-
-.carousel-images img,
-.carousel-images1 img,
-.carousel-images2 img,
-.carousel-images3 img {
+  transition: transform 0.5s ease-in-out;
   width: 100%;
-  height: 50%;
-  object-fit: contain;
-  background-color: white;
-  flex-shrink: 0;
-  
+  height: 100%;
 }
 
-/* Botones del carrusel */
-.boton-carrusel {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-/*modificacion*/
-.boton-carrusel1, .boton-carrusel2,
-.boton-carrusel3, .boton-carrusel4,
-.boton-carrusel5, .boton-carrusel6 {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-.carousel-images a, .carousel-images1 a, .carousel-images2 a, .carousel-images3 a {
+.carousel-images a,
+.carousel-images1 a,
+.carousel-images2 a,
+.carousel-images3 a,
+.carousel-images4 a,
+.carousel-images5 a {
   display: block;
   flex-shrink: 0;
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+
+.carousel-images img,
+.carousel-images1 img,
+.carousel-images2 img,
+.carousel-images3 img,
+.carousel-images4 img,
+.carousel-images5 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: white;
+}
+
+.boton-carrusel,
+.boton-carrusel1,
+.boton-carrusel2,
+.boton-carrusel3,
+.boton-carrusel4,
+.boton-carrusel5,
+.boton-carrusel6,
+.boton-carrusel7,
+.boton-carrusel8,
+.boton-carrusel9,
+.boton-carrusel10 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10;
 }
 
 button.prev {
@@ -104,7 +118,6 @@ button.next {
   right: 10px;
 }
 
-/* Tarjetas de producto */
 .tarjeta-producto {
   margin-left: 15px;
   width: 15%;
@@ -144,3 +157,40 @@ button.next {
   color: #d32f2f;
 }
 
+@media screen and (max-width: 1200px) {
+  .tarjeta-producto {
+    width: 22%;
+  }
+  .carousel {
+    width: 28%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .tarjeta-producto {
+    width: 30%;
+  }
+  .carousel {
+    width: 32%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tarjeta-producto {
+    width: 45%;
+  }
+  .carousel {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tarjeta-producto {
+    width: 90%;
+    margin: 10px auto;
+  }
+  .carousel {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
