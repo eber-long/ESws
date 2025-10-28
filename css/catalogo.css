@@ -22,7 +22,7 @@ h1 {
 
 .carrusel-contenedor {
   margin: 20px;
-  height: 320px;
+  height: 362.5px;
   padding-top: 20px;
   background: rgb(223, 223, 223);
   border-radius: 10px;
@@ -39,7 +39,7 @@ h1 {
 
 .carousel {
   width: 25%;
-  height: 300px;
+  height: 340px;
   margin-left: 15px;
   overflow: hidden;
   background-color: white;
@@ -193,4 +193,22 @@ button.next {
     width: 90%;
     margin: 10px auto;
   }
+}
+
+.boton-carrito {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px 0;
+  background-color: #e6c700;
+  color: rgb(0, 0, 0);
+  border: 1px solid #e6c700;
+  border-radius: 5px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-carrito:hover {
+  background-color: #ffffff;
 }
