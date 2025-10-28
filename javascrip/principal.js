@@ -98,67 +98,61 @@ setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel1
 
 
   // Creamos un array para guardar los productos
-const carrito = [];
+// 📦 Lógica para agregar productos (debe estar en la página del catálogo)
 
 document.querySelectorAll('.boton-carrito').forEach(boton => {
     boton.addEventListener('click', function(e) {
-      e.preventDefault(); 
+        e.preventDefault(); 
+        e.stopPropagation(); // Evita que el clic en el botón active el enlace <a>
 
-      const tarjeta = this.closest('.tarjeta-producto');
+        // 1. Obtener la tarjeta completa y su HTML
+        const tarjeta = this.closest('.tarjeta-producto');
+        const htmlTarjeta = tarjeta.outerHTML; // 👈 Captura el HTML completo (incluyendo el <a> y el diseño)
+        
+        // 2. Cargar el carrito de HTML existente (CRÍTICO: evita que se borren los artículos anteriores)
+        // Usamos una clave diferente: 'carritoHTML'
+        let carritoHTML = JSON.parse(localStorage.getItem('carritoHTML')) || []; 
+        
+        // 3. Añadir la nueva cadena HTML (el string) al array
+        carritoHTML.push(htmlTarjeta);
+        
+        // 4. Guardar el array de HTML actualizado en LocalStorage
+        localStorage.setItem('carritoHTML', JSON.stringify(carritoHTML));
 
-      const producto = {
-        nombre: tarjeta.dataset.nombre,
-        precio: parseFloat(tarjeta.dataset.precio),
-        imagen: tarjeta.dataset.img
-      };
-
-      carrito.push(producto);
-
-      console.log('✅ Producto agregado al carrito:', producto);
-      console.log('🛒 Carrito actual:', carrito);
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-
-      alert(`"${producto.nombre}" fue agregado al carrito`);
+        const nombre = tarjeta.dataset.nombre;
+        alert(`"${nombre}" fue agregado al carrito.`);
     });
 });
 
-  
+
+// 🛒 Lógica para mostrar el carrito (debe estar en la página del carrito)
 
 function mostrarCarrito() {
-  const contenedor = document.querySelector('[data-carrito]');
-  const total = document.querySelector('[data-total-carrito]');
-  const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+    // 1. Obtener el array de strings HTML con la clave 'carritoHTML'
+    const carritoGuardado = JSON.parse(localStorage.getItem('carritoHTML')) || []; 
+    const contenedor = document.querySelector('[data-carrito]');
+    // Hemos removido la línea que busca '[data-total-carrito]' porque ya no podemos sumar precios fácilmente.
+    
+    if (!contenedor) return;
 
-  if (!contenedor) return;
+    contenedor.innerHTML = ''; // Limpiar el contenedor
+    
+    if (carritoGuardado.length === 0) {
+        contenedor.innerHTML = '<p>El carrito está vacío. ¡Añade algunos productos!</p>';
+        return;
+    }
 
-  contenedor.innerHTML = '';
-  let suma = 0;
-
-  carritoGuardado.forEach(producto => {
-    const tarjeta = document.createElement('a');
-    tarjeta.href = "detalle-5700x.html";
-    tarjeta.className = "tarjeta-producto";
-    tarjeta.dataset.nombre = producto.nombre;
-    tarjeta.dataset.precio = producto.precio;
-    tarjeta.dataset.img = producto.imagen;
-
-    tarjeta.innerHTML = `
-      <div class="contenido">
-        <img src="${producto.imagen}" alt="${producto.nombre}">
-        <h3>${producto.nombre}</h3>
-        <p>Producto agregado</p>
-        <p class="precio">C$${producto.precio.toFixed(2)}</p>
-        <button class="boton-carrito" disabled>Agregado</button>
-      </div>
-    `;
-
-    contenedor.appendChild(tarjeta);
-    suma += producto.precio;
-  });
-
-  total.textContent = `Total: C$${suma.toFixed(2)}`;
+    // 2. Iterar e inyectar el HTML guardado directamente
+    carritoGuardado.forEach(htmlString => {
+        // Inyectamos el string de HTML tal cual fue guardado
+        contenedor.insertAdjacentHTML('beforeend', htmlString);
+    });
+    
+    // NOTA IMPORTANTE:
+    // Si necesitas mostrar el total de la compra, deberás modificar 
+    // la lógica de agregar al carrito para guardar también el precio 
+    // en un objeto separado y luego iterar sobre esa lista para sumar.
+    // Con esta solución (solo guardando HTML), la suma es muy compleja.
 }
 
 window.addEventListener('DOMContentLoaded', mostrarCarrito);
-
