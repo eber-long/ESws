@@ -40,11 +40,11 @@
             <button id="menuBtn">☰ Categorías</button>
             <div id="menuPlegable" class="menuPlegable">
                 <ul>
-                    <li><a href="#">Accesorios</a></li>
-                    <li><a href="#">Monitores</a></li>
+                    <li><a href="#Accesorios">Accesorios</a></li>
+                    <li><a href="#Monitores">Monitores</a></li>
                     <li><a href="#Laptops">Laptops</a></li>
                     <li><a href="#Ordenadores">Ordenadores</a></li>
-                    <li><a href="#">Proyectores</a></li>
+                    <li><a href="#Proyectores">Proyectores</a></li>
                     <li><a href="#Dispositivos-Móviles">Dispositivos Móviles</a></li>
                 </ul>
             </div>
@@ -54,16 +54,38 @@
         <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
         <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
         <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
-        <a href="contactanos.html" class="nav-button-style">📞 Contáctanos</a>
     </div>
 
   <h1>Carrito de compras</h1>
-     <section>
-            <div class="carrito-compras">
-                 <div data-carrito class="lista-carrito"></div>
-            </div>
-     </section>
-     <p data-total-carrito>Total: C$0.00</p>     
+<div class="cafe-nav">
+  <div class="carrito-contenedor">
+    <section>
+      <div class="carrito-compras">
+
+        <div id="carrito-vacio">
+          <img src="imagen/kindpng_285204.png" alt="Carrito vacío" style="width:80px; opacity:0.7;">
+          <p>Tu carrito está vacío</p>
+        </div>
+
+        <div data-carrito class="lista-carrito"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="merca">
+    <button id="comprarBtn">Finalizar compra por: 
+      <p class="inline" data-total-carrito>C$0.00</p>
+    </button>
+  </div> 
+
+  <div id="modal" style="display: none;">
+    <div id="modalContent">
+      <h1>Compra finalizada</h1>
+      <p>Gracias por su compra</p>
+      <button id="cerrarBtn">Cerrar</button>
+    </div>
+  </div>  
+</div>
 
         <footer>
       <div class="footer-content">
