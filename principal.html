@@ -11,167 +11,248 @@
 </head>
 <body>
 
-    <header class="Arriba">
-
-        <div class="logo">
-            <a href="principal.html"><h1>ElectroShop</h1></a>
-        </div>
-        <div class="busqueda">
-           <input type="text" placeholder="Buscar...">
-           <button class="lupa">🔎</button>
-        </div>
-        <div class="Perfil">
-
-            <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
-
-         <div id="info" class="info">
+<header class="Arriba">
+    <div class="logo">
+        <a href="principal.html"><h1>ElectroShop</h1></a>
+    </div>
+    <div class="busqueda">
+        <input type="text" placeholder="Buscar...">
+        <button class="lupa">🔎</button>
+    </div>
+    <div class="Perfil">
+        <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
+        <div id="info" class="info">
             <p id="userName">Usuario</p>
             <p>Rol: <span id="userType">Común</span></p>
             <button id="logoutBtn">Cerrar sesión</button>
-         </div>
-
-    </header>
-    <div class="Ajustes-barra">
-          <div class="Menu">
-
-            <button id="menuBtn">☰ Categorias</button>
-            <div id="menuPlegable" class="menuPlegable">
-                <ul>
-                 <li><a href="#">Accesorios</a></li>
-                 <li><a href="#">Monitores</a></li>
-                 <li><a href="#">Laptops</a></li>
-                 <li><a href="#">Ordenadores</a></li>
-                 <li><a href="#">Proyectores</a></li>
-                 <li><a href="#">Dispositivos Móviles</a></li>
-                </ul>
-            </div>
-
         </div>
-        <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
-        <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-        <a href="catalogo.html" class="nav-button-style">📰 Catalogo</a>
-        <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
+    </div>
+</header>
+
+<div class="Ajustes-barra">
+    <div class="Menu">
+        <button id="menuBtn">☰ Categorias</button>
+        <div id="menuPlegable" class="menuPlegable">
+            <ul>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Monitores</a></li>
+                <li><a href="#">Laptops</a></li>
+                <li><a href="#">Ordenadores</a></li>
+                <li><a href="#">Proyectores</a></li>
+                <li><a href="#">Dispositivos Móviles</a></li>
+            </ul>
+        </div>
+    </div>
+    <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
+    <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
+    <a href="catalogo.html" class="nav-button-style">📰 Catalogo</a>
+    <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
+</div>
+
+<h1>Compra con nosotros los artículos más nuevos del mercado</h1>
+<div class="destacado"><h2>Nuestros productos destacados de este mes</h2></div>
+
+<div class="Inicio">
+    <div class="Descuento">
+
+        <!-- Producto 1 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="Lenovo LOQ Gen 9" 
+           data-precio="20500" 
+           data-img="imagen/Lenovo LOQ Gen 9.png">
+            <div class="producto">
+                <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
+                <div class="descripción">
+                    <h3 class="nombre-producto">Lenovo LOQ Gen 9</h3>
+                    <h3>Laptop</h3>
+                    <p class="precio">C$ 20,500</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
+
+        <!-- Producto 2 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="Lenovo LOQ 15IAX9I" 
+           data-precio="44400" 
+           data-img="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png">
+            <div class="producto">
+                <img src="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png" alt="Lenovo LOQ 15IAX9I Gaming Laptop">
+                <div class="descripción">
+                    <h3 class="nombre-producto">Lenovo LOQ 15IAX9I</h3>
+                    <h3>Laptop</h3>
+                    <p class="precio">C$ 44,400</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
+
+        <!-- Producto 3 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="G213 Prodigy" 
+           data-precio="5500" 
+           data-img="imagen/G213 Prodigy.png">
+            <div class="producto">
+                <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
+                <div class="descripción">
+                    <h3 class="nombre-producto">G213 Prodigy</h3>
+                    <h3>Teclado</h3>
+                    <p class="precio">C$ 5,500</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
+
+        <!-- Producto 4 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="ASTRO A40 TR" 
+           data-precio="5000" 
+           data-img="imagen/ASTRO A40 TR.png">
+            <div class="producto">
+                <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
+                <div class="descripción">
+                    <h3 class="nombre-producto">ASTRO A40 TR</h3>
+                    <h3>Audífonos</h3>
+                    <p class="precio">C$ 5,000</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
+
+        <!-- Producto 5 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="G502 X PLUS" 
+           data-precio="3000" 
+           data-img="imagen/G502 X PLUS.png">
+            <div class="producto">
+                <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
+                <div class="descripción">
+                    <h3 class="nombre-producto">G502 X PLUS</h3>
+                    <h3>Mouse</h3>
+                    <p class="precio">C$ 3,000</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
     </div>
-   <h1>Compra con nosotros los artítculos más nuevos del mercado </h1>
-   <div class="destacado"><h2>Nuestros productos destacados de este mes</h2></div>
-    <div class="Inicio">
-        <div class="juntos">
+</div>
 
-          <a href="detalle-5700x.html" class="tarjeta-producto">
-         <div class="producto">
-          <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
-          <div class="descripción">
-           <h3>Lenovo LOQ Gen 9</h3>
-           <h3>Laptop</h3>
-           <p class="precio">C$ 20,500</p>
-           <button class="boton-carrito">Agregar al carrito</button>
-          </div>
-         </div> </a> 
+<div class="destacado"><h2>Aprovecha de diversos descuentos en nuestros productos</h2></div>
 
-          <a href="detalle-5700x.html" class="tarjeta-producto">
-          <div class="producto">
-            <img src="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png" alt="Lenovo LOQ 15IAX9I Gaming Laptop">
-          <div class="descripción">
-           <h3>Lenovo LOQ 15IAX9I Gaming</h3>
-           <h3>Laptop</h3>
-           <p class="precio">C$ 44,400</p>
-           <button class="boton-carrito">Agregar al carrito</button>
-          </div>
-         </div></a>
+<div class="Inicio">
+    <div class="Descuento">
 
-          <a href="detalle-5700x.html" class="tarjeta-producto">
-         <div class="producto">
-            <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
-          <div class="descripción">
-           <h3>G213 Prodigy</h3>
-           <h3>Teclado</h3>
-           <p class="precio">C$ 5,500</p>
-           <button class="boton-carrito">Agregar al carrito</button>
-          </div>
-         </div> </a>
+        <!-- Producto 6 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="RYZEN 7 9800X3D" 
+           data-precio="12200" 
+           data-img="imagen/RYZEN 7 9800X3D.png">
+            <div class="producto">
+                <img src="imagen/RYZEN 7 9800X3D.png" alt="RYZEN 7 9800X3D">
+                <div class="descripción">
+                    <h3 class="nombre-producto">RYZEN 7 9800X3D</h3>
+                    <h3>Procesador</h3>
+                    <p class="precio-original">C$ 15,500</p>
+                    <p class="precio-descuento">C$ 12,200</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
-          <a href="detalle-5700x.html" class="tarjeta-producto">
-          <div class="producto">
-            <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
-           <div class="descripción">
-             <h3>ASTRO A40 TR</h3>
-               <h3>Audífonos</h3>
-             <p class="precio">C$ 5,000</p>
-             <button class="boton-carrito">Agregar al carrito</button>
-           </div>
-         </div></a>
-          
-         <a href="detalle-5700x.html" class="tarjeta-producto">
-       <div class="producto">
-         <img src="imagen/G502 X PLUS.png" alt="mouse">
-         <div class="descripción">
-            <h3>G502 X PLUS</h3>
-            <h3>Mouse</h3>
-             <p class="precio">C$ 3,000</p>
-         </div>
-         <button class="boton-carrito">Agregar al carrito</button>
-       </div>    
-     </div></a>
+        <!-- Producto 7 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="Crucial Kit Pro DDR5 RAM de 32 GB" 
+           data-precio="4200" 
+           data-img="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png">
+            <div class="producto">
+                <img src="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png" alt="Crucial Kit Pro DDR5 RAM de 32 GB">
+                <div class="descripción">
+                    <h3 class="nombre-producto">Crucial Kit Pro DDR5 RAM de 32 GB</h3>
+                    <h3>DDR RAM</h3>
+                    <p class="precio-original">C$ 5,500</p>
+                    <p class="precio-descuento">C$ 4,200</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
-        </div>
-       
-        <div class="destacado"><h2>Aprovecha de diversos descuentos en nuestros productos</h2></div>
+        <!-- Producto 8 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="Samsung Galaxy Z Flip7" 
+           data-precio="38200" 
+           data-img="imagen/Galaxy Z Flip7.png">
+            <div class="producto">
+                <img src="imagen/Galaxy Z Flip7.png" alt="Samsung Galaxy Z Flip7">
+                <div class="descripción">
+                    <h3 class="nombre-producto">Samsung Galaxy ZFlip7</h3>
+                    <h3>Smartphone</h3>
+                    <p class="precio-original">C$ 40,500</p>
+                    <p class="precio-descuento">C$ 38,200</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
-       <div class="Inicio">
-        <div class="Descuento">
+        <!-- Producto 9 -->
+        <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="G502 X PLUS (Oferta)" 
+           data-precio="3000" 
+           data-img="imagen/G502 X PLUS.png">
+            <div class="producto">
+                <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
+                <div class="descripción">
+                    <h3 class="nombre-producto">G502 X PLUS</h3>
+                    <h3>Mouse</h3>
+                    <p class="precio-original">C$ 4,300</p>
+                    <p class="precio-descuento">C$ 3,000</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
-           <a href="detalle-5700x.html" class="tarjeta-producto">
-           <div class="producto">
-             <img src="imagen/RYZEN 7 9800X3D.png" alt="mouse">
-              <div class="descripción">
-                <h3>RYZEN 7 9800X3D</h3>
-                <h3>Procesador</h3>
-                <p class="precio-original">C$ 15,500</p>
-                <p class="precio-descuento">C$ 12,200</p>
-             </div>
-               <button class="boton-carrito">Agregar al carrito</button>   
-          </div></a>
+                <a href="detalle-5700x.html" 
+           class="tarjeta-producto" 
+           data-nombre="samsung galaxy watch 6(Oferta)" 
+           data-precio="7,999" 
+           data-img="imagen/watch6">
+            <div class="producto">
+                <img src="imagen/watch6.jpeg" alt="samsung galaxy watch 6">
+                <div class="descripción">
+                    <h3 class="nombre-producto">G502 X PLUS</h3>
+                    <h3>Mouse</h3>
+                    <p class="precio-original">C$ 8,215</p>
+                    <p class="precio-descuento">C$ 7,999</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </a>
 
-      <a href="detalle-5700x.html" class="tarjeta-producto">
-       <div class="producto">
-         <img src="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png" alt="mouse">
-         <div class="descripción">
-            <h3>Crucial Kit Pro DDR5 RAM de 32 GB</h3>
-            <h3>DDR RAM</h3>
-              <p class="precio-original">C$ 5,500</p>
-              <p class="precio-descuento">C$ 4,200</p>
-         </div>
-         <button class="boton-carrito">Agregar al carrito</button>  
-     </div></a>
+    </div>
+</div>
+  <footer>
+      <div class="footer-content">
+         <p>&copy; 2025 ElectroShop. Todos los derechos reservados.</p>
+         <p>Correo: contacto@electroshop.com</p>
+         <p>Telefono: +505 2222 3333</p>
+         <p>
+             <a href="#">Política de privacidad</a> |
+             <a href="#">Términos de uso</a>
+         </p>
+      </div>
+    </footer>
 
-      <a href="detalle-5700x.html" class="tarjeta-producto">
-       <div class="producto">
-         <img src="imagen/Galaxy Z Flip7.png" alt="mouse">
-         <div class="descripción">
-            <h3>Samsung Teléfono celular Galaxy Z Flip7</h3>
-            <h3>Smartphone</h3>
-              <p class="precio-original">C$ 40,500</p>
-              <p class="precio-descuento">C$ 38,200</p>
-         </div>
-         <button class="boton-carrito">Agregar al carrito</button>
-     </div></a>
+<script src="javascrip/principal.js"></script>
+<script src="javascrip/Carrito.js"></script>
 
-      <a href="detalle-5700x.html" class="tarjeta-producto">
-       <div class="producto">
-         <img src="imagen/G502 X PLUS.png" alt="mouse">
-         <div class="descripción">
-            <h3>G502 X PLUS</h3>
-            <h3>Mouse</h3>
-              <p class="precio-original">C$ 4,300</p>
-              <p class="precio-descuento">C$ 3,000</p>
-         </div>
-         <button class="boton-carrito">Agregar al carrito</button>
-     </div></a>
-
-        </div>
-       </div>
-    <script src="javascrip/principal.js"></script>
-      <script src="javascrip/Carrito.js"></script>
 </body>
 </html>
