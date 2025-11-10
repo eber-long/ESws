@@ -1,214 +1,198 @@
-h1 {
-  text-align: center;
-  font-family: Arial, sans-serif;
-  margin-top: 20px;
+/* Reset y estilos base */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Barra de ajustes */
 .ajustes-barra1 {
-  margin: 20px 0;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2f86ff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin: 20px 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f86ff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .ajustes-barra1 h2 {
-  color: white;
-  margin: 0;
+    color: white;
+    margin: 0;
 }
 
+/* Contenedor general de carrusel + tarjetas */
 .carrusel-contenedor {
-  margin: 20px;
-  height: 362.5px;
-  padding-top: 20px;
-  background: rgb(223, 223, 223);
-  border-radius: 10px;
-  display: flex;
-  align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px;
+    padding: 20px;
+    background: rgb(223, 223, 223);
+    border-radius: 10px;
+    justify-content: center;
 }
 
+/* Contenedor de productos */
 .fila-productos {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
 }
 
-.carousel {
-  width: 25%;
-  height: 340px;
-  margin-left: 15px;
-  overflow: hidden;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  position: relative;
+/* Carruseles individuales */
+.carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5 {
+    flex: 1 1 300px;          /* Crece y encoge según el espacio disponible */
+    max-width: 450px;         /* Máximo ancho para pantallas grandes */
+    aspect-ratio: 16/9;       /* Mantiene proporción de las imágenes */
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-/*Carrucel*/
-.carousel-images,
-.carousel-images1,
-.carousel-images2,
-.carousel-images3,
-.carousel-images4,
-.carousel-images5 {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-  height: 100%;
+/* Contenedor de imágenes de cada carrusel */
+.carousel-images, .carousel-images1, .carousel-images2,
+.carousel-images3, .carousel-images4, .carousel-images5 {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
 }
 
-.carousel-images a,
-.carousel-images1 a,
-.carousel-images2 a,
-.carousel-images3 a,
-.carousel-images4 a,
-.carousel-images5 a {
-  display: block;
-  flex-shrink: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+.carousel-images a, .carousel-images1 a, .carousel-images2 a,
+.carousel-images3 a, .carousel-images4 a, .carousel-images5 a {
+    display: block;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
-.carousel-images img,
-.carousel-images1 img,
-.carousel-images2 img,
-.carousel-images3 img,
-.carousel-images4 img,
-.carousel-images5 img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background-color: white;
+.carousel-images img, .carousel-images1 img, .carousel-images2 img,
+.carousel-images3 img, .carousel-images4 img, .carousel-images5 img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Evita que se deformen las imágenes */
 }
 
-.boton-carrusel,
-.boton-carrusel1,
-.boton-carrusel2,
-.boton-carrusel3,
-.boton-carrusel4,
-.boton-carrusel5,
-.boton-carrusel6,
-.boton-carrusel7,
-.boton-carrusel8,
-.boton-carrusel9,
-.boton-carrusel10 {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 10;
+/* Botones de los carruseles */
+.boton-carrusel, .boton-carrusel1, .boton-carrusel2,
+.boton-carrusel3, .boton-carrusel4, .boton-carrusel5,
+.boton-carrusel6, .boton-carrusel7, .boton-carrusel8,
+.boton-carrusel9, .boton-carrusel10, .boton-carrusel11 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
 }
 
 button.prev {
-  left: 10px;
+    left: 10px;
 }
 
 button.next {
-  right: 10px;
+    right: 10px;
 }
 
+/* Tarjetas de productos */
 .tarjeta-producto {
-  margin-left: 15px;
-  width: 15%;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+    display: block;
+    flex: 1 1 200px;           /* Ajusta el tamaño de la tarjeta */
+    max-width: 180px;           /* Limita ancho máximo */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
 }
 
 .tarjeta-producto:hover {
-  transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .tarjeta-producto img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-  background-color: white;
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: white;
 }
 
 .tarjeta-producto h3 {
-  margin: 10px 0 5px;
-  font-size: 1.1em;
+    margin: 10px 0 5px;
+    font-size: 1.1em;
 }
 
 .tarjeta-producto p {
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 .tarjeta-producto .precio {
-  font-weight: bold;
-  color: #d32f2f;
+    font-weight: bold;
+    color: #d32f2f;
 }
 
-@media screen and (max-width: 1200px) {
-  .tarjeta-producto {
-    width: 22%;
-  }
-  .carousel {
-    width: 28%;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .tarjeta-producto {
-    width: 30%;
-  }
-  .carousel {
-    width: 32%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .tarjeta-producto {
-    width: 45%;
-  }
-  .carousel {
-    width: 45%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .tarjeta-producto {
-    width: 90%;
-    margin: 10px auto;
-  }
-  .carousel {
-    width: 90%;
-    margin: 10px auto;
-  }
-}
-
+/* Botón de carrito */
 .boton-carrito {
-  margin-top: 10px;
-  width: 100%;
-  padding: 8px 0;
-  background-color: #e6c700;
-  color: rgb(0, 0, 0);
-  border: 1px solid #e6c700;
-  border-radius: 5px;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px 0;
+    background-color: #e6c700;
+    color: rgb(0, 0, 0);
+    border: 1px solid #e6c700;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .boton-carrito:hover {
-  background-color: #ffffff;
+    background-color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1200px) {
+    .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5 {
+        flex: 1 1 32%;
+    }
+    .tarjeta-producto {
+        flex: 1 1 30%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5 {
+        flex: 1 1 45%;
+    }
+    .tarjeta-producto {
+        flex: 1 1 45%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5,
+    .tarjeta-producto {
+        flex: 1 1 90%;
+        margin: 10px auto;
+    }
 }
