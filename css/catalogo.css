@@ -196,3 +196,15 @@ button.next {
         margin: 10px auto;
     }
 }
+
+.nombre-producto {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;       /* Máximo 3 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 3.3em;                /* Aproximadamente 3 líneas de texto */
+  line-height: 1.1em;
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+}

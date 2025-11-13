@@ -96,3 +96,23 @@ setupInfiniteCarousel('.carousel-images4', '.boton-carrusel7', '.boton-carrusel8
 setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel10');
 
 // Puedes agregar más carruseles según sea necesario
+
+
+    function buscarProductos() {
+        let input = document.getElementById('buscador');
+        let filter = input.value.toLowerCase();
+        let productos = document.querySelectorAll('.tarjeta-producto');
+
+        productos.forEach(function(producto) {
+            let nombre = producto.getAttribute('data-nombre').toLowerCase();
+            if (nombre.includes(filter)) {
+                producto.style.display = '';  // Muestra el producto
+            } else {
+                producto.style.display = 'none';  // Oculta el producto
+            }
+        });
+    }
+
+    // Opcional: Para que se realice la búsqueda en tiempo real mientras el usuario escribe
+    document.getElementById('buscador').addEventListener('input', buscarProductos);
+

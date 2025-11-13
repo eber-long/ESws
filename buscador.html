@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #search-results {
+            margin-top: 20px;
+        }
+        .item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Buscador de Productos</h1>
+
+    <input type="text" id="search-input" placeholder="Escribe para buscar..." onkeyup="searchItems()">
+
+    <div id="search-results">
+        <div class="item">Manzana</div>
+        <div class="item">Pera</div>
+        <div class="item">Plátano</div>
+        <div class="item">Uva</div>
+        <div class="item">Naranja</div>
+        <div class="item">Sandía</div>
+    </div>
+
+    <script>
+        function searchItems() {
+            let input = document.getElementById('search-input').value.toLowerCase();
+            let items = document.getElementsByClassName('item');
+            
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i].textContent.toLowerCase();
+                if (item.includes(input)) {
+                    items[i].style.display = '';
+                } else {
+                    items[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

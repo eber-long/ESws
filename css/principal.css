@@ -57,17 +57,6 @@ footer {
   text-decoration: underline;
 }
 
-.lupa{
-    cursor: pointer;
-}
-
-.lupa:hover{
-  transition: 0.5s;
-  transform: scale(125%);
-  background: rgb(216, 209, 255);
-    cursor: pointer;
-}
-
 /*encabezado*/
 .destacado {
   margin: 20px auto;
@@ -252,3 +241,34 @@ footer {
   font-size: 1.1em;
 }
 
+/* 🔍 Estilo para el buscador centrado en el encabezado */
+.busqueda {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* Centra horizontalmente el input y el botón */
+  flex-grow: 1;             /* Hace que el buscador use el espacio central */
+}
+
+.busqueda input {
+  width: 60%;               /* Ajusta el ancho del input */
+  max-width: 400px;         /* No se hace demasiado grande */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  font-size: 16px;
+}
+
+.busqueda .lupa {
+  background-color: #cfcfcf;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.busqueda .lupa:hover {
+  background-color:  #1681da;
+  transition: 0.3s;
+}
