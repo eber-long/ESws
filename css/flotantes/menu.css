@@ -76,8 +76,8 @@ a.nav-button-style {
     background-color: transparent;
     color: #ffffff;
     border: none;
-    padding: 8px 14px;
-    font-size: 16px;
+    padding: 10px 16px;
+    font-size: 25px;
     border-radius: 6px;
     cursor: pointer;
     margin-right: 100px;
@@ -110,4 +110,94 @@ input{
     border-color: #000000;
     width: 40px;
     border-radius: 0 5px 5px 0;
+}
+
+/* Responsive: adapta el menú y búsqueda en pantallas pequeñas */
+@media (max-width: 1024px) {
+    a.nav-button-style {
+        margin-right: 40px; /* menos espacio en tablet */
+        padding: 9px 14px;
+        font-size: 17px;
+    }
+
+    .busqueda {
+        margin-right: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .Menu {
+        flex-wrap: wrap;
+        padding: 8px 12px;
+    }
+
+    a.nav-button-style {
+        margin-right: 12px;
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+
+    .busqueda {
+        margin-right: 0;
+        width: 100%;
+        padding: 8px 0;
+        order: 3; /* mueve la búsqueda debajo si hace falta */
+        justify-content: center;
+    }
+
+    .busqueda input {
+        width: 90%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .Menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 6px;
+        box-sizing: border-box;
+    }
+
+    a.nav-button-style {
+        display: inline-block;
+        margin: 6px 6px;
+        padding: 10px 12px;
+        font-size: 15px;
+        max-width: 140px; /* evita que ocupen demasiado */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+    #menuBtn {
+        margin-right: 0;
+    }
+
+    .busqueda {
+        width: 100%;
+        margin: 0;
+        order: 3; /* mueve la búsqueda debajo del menú si hace falta */
+        padding: 6px 8px;
+        justify-content: center;
+    }
+
+    .busqueda input {
+        width: 100%;
+        max-width: none;
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 8px;
+    }
+
+    .lupa {
+        width: 40px;
+    }
+
+    /* pequeños ajustes para evitar transformaciones incómodas en touch */
+    .producto:hover, .tarjeta-producto:hover {
+        transform: none;
+    }
 }

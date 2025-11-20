@@ -1,4 +1,111 @@
 // principal.js
+// principal.js - inicialización robusta y defensiva
+
+function initPrincipalUI(){
+    // Obtener elementos (puede que vengan del header dinámico)
+    const userNameElem = document.getElementById('userName');
+    const userTypeElem = document.getElementById('userType');
+    const infoPanel = document.getElementById('info');
+    const profileImg = document.getElementById('imagen');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Recuperar datos del sessionStorage
+    const nombreUsuario = sessionStorage.getItem('NombreUsuario');
+    const tipoUsuario = sessionStorage.getItem('tipoUsuario');
+
+    if (!nombreUsuario || !tipoUsuario) {
+        // No forzar redirección cuando estamos en la página de login
+        if (!location.pathname.endsWith('index.html')) {
+            window.location.href = 'index.html';
+            return;
+        }
+    } else {
+        if (userNameElem) userNameElem.textContent = nombreUsuario;
+        if (userTypeElem) userTypeElem.textContent = (tipoUsuario === 'administrador') ? 'Administrador' : 'Usuario';
+    }
+
+    // Mostrar/ocultar panel al hacer clic en la imagen
+    if (profileImg && infoPanel) {
+        profileImg.addEventListener('click', () => {
+            infoPanel.style.display = (infoPanel.style.display === 'block') ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!infoPanel.contains(e.target) && e.target !== profileImg) {
+                infoPanel.style.display = 'none';
+            }
+        });
+    }
+
+    // Cerrar sesión
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        });
+    }
+
+    const menuBtn = document.getElementById('menuBtn');
+    const menuPlegable = document.getElementById('menuPlegable');
+    if (menuBtn && menuPlegable) {
+        menuBtn.addEventListener('click', () => {
+            menuPlegable.classList.toggle('show');
+        });
+    }
+
+    // Configuración de carruseles (defensiva)
+    setupInfiniteCarousel('.carousel-images', '.prev', '.next');
+    setupInfiniteCarousel('.carousel-images1', '.boton-carrusel1', '.boton-carrusel2');
+    setupInfiniteCarousel('.carousel-images2', '.boton-carrusel3', '.boton-carrusel4');
+    setupInfiniteCarousel('.carousel-images3', '.boton-carrusel5', '.boton-carrusel6');
+    setupInfiniteCarousel('.carousel-images4', '.boton-carrusel7', '.boton-carrusel8');
+    setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel10');
+
+    // Buscar productos (si existe el buscador)
+    const buscadorElem = document.getElementById('buscador');
+    if (buscadorElem) buscadorElem.addEventListener('input', buscarProductos);
+}
+
+function setupInfiniteCarousel(imagesSelector, prevBtnSelector, nextBtnSelector, interval = 3000) {
+    const images = document.querySelector(imagesSelector);
+    if (!images) return null;
+    const slides = images.children;
+    if (!slides || slides.length === 0) return null;
+    const total = Math.floor(slides.length / 2) || slides.length;
+    let index = 0;
+
+    function showImage(i, animated = true) {
+        images.style.transition = animated ? 'transform 0.5s ease-in-out' : 'none';
+        images.style.transform = `translateX(-${i * 100}%)`;
+    }
+
+    function nextImage() {
+        index++;
+        showImage(index);
+        if (index === total) {
+            setTimeout(() => {
+                index = 0;
+                showImage(index, false);
+            }, 500);
+        }
+    }
+
+    function prevImage() {
+        if (index === 0) {
+            index = total;
+            showImage(index, false);
+        }
+        index--;
+        showImage(index);
+    }
+
+    const nextBtn = document.querySelector(nextBtnSelector);
+    const prevBtn = document.querySelector(prevBtnSelector);
+    if (nextBtn) nextBtn.addEventListener('click', nextImage);
+    if (prevBtn) prevBtn.addEventListener('click', prevImage);
+
+    return setInterval(nextImage, interval);
+}
 
 // Obtener elementos del DOM
 // Elementos
@@ -98,21 +205,31 @@ setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel1
 // Puedes agregar más carruseles según sea necesario
 
 
-    function buscarProductos() {
-        let input = document.getElementById('buscador');
-        let filter = input.value.toLowerCase();
-        let productos = document.querySelectorAll('.tarjeta-producto');
+function buscarProductos() {
+    const input = document.getElementById('buscador');
+    if (!input) return;
+    const filter = input.value.toLowerCase();
+    const productos = document.querySelectorAll('.tarjeta-producto');
 
-        productos.forEach(function(producto) {
-            let nombre = producto.getAttribute('data-nombre').toLowerCase();
-            if (nombre.includes(filter)) {
-                producto.style.display = '';  // Muestra el producto
-            } else {
-                producto.style.display = 'none';  // Oculta el producto
-            }
-        });
-    }
+    productos.forEach(function(producto) {
+        const nombre = (producto.getAttribute('data-nombre') || '').toLowerCase();
+        producto.style.display = nombre.includes(filter) ? '' : 'none';
+    });
+}
 
-    // Opcional: Para que se realice la búsqueda en tiempo real mientras el usuario escribe
-    document.getElementById('buscador').addEventListener('input', buscarProductos);
+// Inicialización
+function readyInit(){
+    initPrincipalUI();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', readyInit);
+} else {
+    readyInit();
+}
+
+// Si el header se carga dinámicamente, volver a inicializar UI dependiente
+document.addEventListener('headerInserted', function(){
+    setTimeout(initPrincipalUI, 0);
+});
 

@@ -189,6 +189,27 @@ button.next {
     }
 }
 
+/* Ajustes móviles para controles y botones */
+@media screen and (max-width: 480px) {
+    .boton-carrusel, .boton-carrusel1, .boton-carrusel2,
+    .boton-carrusel3, .boton-carrusel4, .boton-carrusel5 {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5 {
+        flex: 1 1 100%;
+        max-width: 100%;
+        aspect-ratio: auto;
+        height: auto;
+    }
+
+    .tarjeta-producto {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5,
     .tarjeta-producto {
@@ -207,4 +228,25 @@ button.next {
   line-height: 1.1em;
   margin: 10px 0 5px;
   font-size: 1.1em;
+}
+
+/* Ajustes adicionales móviles */
+@media screen and (max-width: 480px) {
+    .carousel, .carousel1, .carousel2, .carousel3, .carousel4, .carousel5 {
+        flex: 1 1 100%;
+        max-width: 100%;
+        aspect-ratio: auto;
+        height: auto;
+    }
+
+    .tarjeta-producto {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 8px auto;
+        padding: 12px;
+    }
+
+    .tarjeta-producto img {
+        height: auto;
+    }
 }

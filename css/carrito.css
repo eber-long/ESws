@@ -140,3 +140,66 @@ body {
   display: block;
   margin: 0 auto 10px;
 }
+
+/* Responsive para carrito */
+@media (max-width: 1024px) {
+  .tarjeta-carrito {
+    width: 45%;
+    display: inline-block;
+  }
+
+  #modalContent {
+    padding: 30px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tarjeta-carrito {
+    width: 90%;
+    display: block;
+    margin: 10px auto;
+  }
+
+  .tarjeta-carrito img {
+    height: auto;
+  }
+
+  .merca {
+    text-align: center;
+    margin-right: 0;
+  }
+
+  #modalContent {
+    padding: 20px;
+    width: 90%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .tarjeta-carrito img {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* modal a pantalla completa en móviles para mejor usabilidad */
+  #modal {
+    align-items: flex-end;
+  }
+
+  #modalContent {
+    width: 100%;
+    max-width: 100%;
+    height: 90vh;
+    border-radius: 12px 12px 0 0;
+    padding: 16px;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+
+  .tarjeta-carrito {
+    width: 100%;
+    margin: 6px 0;
+  }
+}

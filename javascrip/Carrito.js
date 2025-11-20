@@ -87,29 +87,35 @@ const modal = document.getElementById('modal');
 const cerrar = document.getElementById('cerrarBtn');
 
 // 🔹 Mostrar modal al presionar el botón de compra
-boton.addEventListener('click', () => {
-  const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+if (boton) {
+  boton.addEventListener('click', () => {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
 
-  if (carritoGuardado.length === 0) {
-    alert('🛒 Tu carrito está vacío');
-    return;
-  }
+    if (carritoGuardado.length === 0) {
+      alert('🛒 Tu carrito está vacío');
+      return;
+    }
 
-  modal.style.display = 'flex';
-});
+    if (modal) modal.style.display = 'flex';
+  });
+}
 
 // 🔹 Cerrar modal y vaciar carrito
-cerrar.addEventListener('click', () => {
-  modal.style.display = 'none';
-  localStorage.removeItem('carrito');
-  mostrarCarrito();
-});
-
-// 🔹 Cerrar modal si se hace clic fuera del contenido
-window.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    modal.style.display = 'none';
+if (cerrar) {
+  cerrar.addEventListener('click', () => {
+    if (modal) modal.style.display = 'none';
     localStorage.removeItem('carrito');
     mostrarCarrito();
-  }
-});
+  });
+}
+
+// 🔹 Cerrar modal si se hace clic fuera del contenido
+if (modal) {
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      localStorage.removeItem('carrito');
+      mostrarCarrito();
+    }
+  });
+}
