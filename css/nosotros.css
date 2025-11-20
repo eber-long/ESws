@@ -1,5 +1,6 @@
+/* Sección Quiénes Somos */
 .nosotros {
-  padding: 40px;
+  padding: 40px 20px;
   background-color: #f4f4f4;
   color: #333;
   text-align: center;
@@ -8,79 +9,142 @@
 .quienes-somos h1 {
   color: #125CC3;
   margin-bottom: 20px;
+  font-size: 32px;
 }
 
-.valores ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px auto;
-  max-width: 500px;
-  text-align: left;
-}
-
-.valores li {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.galeria {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-}
-
-.imagen-container {
-  width: 500px;
-  height: 300px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.imagen-container img {
+/* Imagen destacada */
+.imagen-nosotros {
   width: 100%;
-  height: 100%;
+  max-width: 200px;
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.imagen-nosotros img {
+  width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
-  transition: opacity 0.5s ease;
+  transition: transform 0.5s ease;
 }
 
-.galeria button {
-  background-color: #125CC3;
-  color: white;
-  border: none;
-  font-size: 24px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+.imagen-nosotros img:hover {
+  transform: scale(1.05);
 }
 
-/* Responsive para nosotros */
+
+/* Valores en cards */
+.valores h2 {
+  color: #125CC3;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+.valores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.valor-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.valor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.valor-card i {
+  color: #125CC3;
+  margin-bottom: 10px;
+}
+.valor-card h3 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+.valor-card p {
+  font-size: 15px;
+  color: #555;
+}
+
+/* Equipo */
+.equipo h2 {
+  color: #125CC3;
+  margin: 40px 0 25px;
+  font-size: 28px;
+}
+/* Equipo */
+.equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* más pequeñas */
+  gap: 15px; /* un poco menos de espacio */
+  max-width: 800px;
+  margin: 0 auto;
+}
+.miembro {
+  background-color: white;
+  padding: 10px; /* menos padding */
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* sombra más sutil */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+.miembro:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.miembro img {
+  width: 80px; /* más pequeña */
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  object-fit: cover;
+}
+.miembro h3 {
+  margin: 6px 0 2px;
+  font-size: 16px; /* más pequeño */
+}
+.miembro p {
+  font-size: 13px; /* más pequeño */
+  color: #555;
+}
+
+
+/* Mapa */
+.mapa h2 {
+  color: #125CC3;
+  margin: 40px 0 20px;
+  font-size: 28px;
+}
+.mapa iframe {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .galeria {
-    flex-direction: column;
-    gap: 12px;
+  .valores-grid, .equipo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
-
-  .imagen-container {
-    width: 100%;
-    height: auto;
+  .valor-card h3, .miembro h3 {
+    font-size: 16px;
   }
-
-  .galeria button {
-    font-size: 18px;
-    padding: 8px 14px;
+  .valor-card p, .miembro p {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .valores {
-    max-width: 100%;
-    padding: 0 12px;
+  .nosotros {
+    padding: 20px 10px;
   }
-
-  .imagen-container {
-    border-radius: 8px;
+  .valores-grid, .equipo-grid {
+    gap: 15px;
   }
 }

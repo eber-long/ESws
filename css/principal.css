@@ -34,6 +34,19 @@ h1 {
     font-weight: bold;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* espacio entre logo y texto */
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-img {
+    width: 50px; /* ajusta tamaño según tu logo */
+    height: auto;
+}
+
 /* Barra ajustes */
 .Ajustes-barra {
     width: 100%;

@@ -12,28 +12,27 @@
 </head>
 <body>
     <header class="Arriba">
-
-      <div class="logo">
-        <a href="principal.html"><h1>ElectroShop</h1></a>
-      </div>
-      <div class="busqueda">
-         <input type="text" placeholder="Buscar...">
-         <button class="lupa">🔎</button>
-      </div>
-      <div class="Perfil">
-
+    <div class="logo">
+        <a href="principal.html" class="logo-link">
+            <img src="imagen/ES.png" alt="Logo ElectroShop" class="logo-img">
+            <h1>ElectroShop</h1>
+        </a>
+    </div>
+    <div class="busqueda">
+        <input type="text" placeholder="Buscar...">
+        <button class="lupa">🔎</button>
+    </div>
+    <div class="Perfil">
         <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
         <button class="logout-action" title="Cerrar sesión">🚪 Cerrar</button>
+        <div id="info" class="info">
+            <p id="userName">Usuario</p>
+            <p>Rol: <span id="userType">Común</span></p>
+            <button id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </div>
+</header>
 
-       <div id="info" class="info">
-        <p id="userName">Usuario</p>
-        <p>Rol: <span id="userType">Común</span></p>
-        <button id="logoutBtn">Cerrar sesión</button>
-       </div>
-
-      </div>
-
-    </header>
     <div class="Ajustes-barra">
           <div class="Menu">
             <button id="menuBtn">☰ Categorias</button>
@@ -59,37 +58,80 @@
     <script src="javascrip/nosotros.js"></script>
 
    <main class="nosotros">
+  <!-- Sección Quiénes Somos -->
   <section class="quienes-somos">
     <h1>Sobre ElectroShop</h1>
     <p>
-      En ElectroShop nos apasiona la tecnología. Somos una tienda especializada en productos electrónicos de alta calidad, desde laptops y monitores hasta accesorios y dispositivos móviles. Nuestro compromiso es ofrecer soluciones modernas, accesibles y confiables para todos los amantes de la innovación.
+      En <strong>ElectroShop</strong> nos apasiona la tecnología. Somos una tienda especializada en productos electrónicos de alta calidad, desde laptops y monitores hasta accesorios y dispositivos móviles. Nuestro compromiso es ofrecer soluciones modernas, accesibles y confiables para todos los amantes de la innovación.
     </p>
     <p>
       Fundada en 2022, ElectroShop nació con la misión de acercar la tecnología a cada hogar y oficina en Nicaragua. Nos destacamos por nuestro servicio personalizado, atención al cliente y selección de productos cuidadosamente curada.
     </p>
+    <!-- Imagen destacada -->
+    <div class="imagen-nosotros">
+      <img src="imagen/ES.png" alt="ElectroShop Tienda" />
+    </div>
   </section>
 
+  <!-- Sección Valores -->
   <section class="valores">
     <h2>¿Qué nos distingue?</h2>
-    <ul>
-      <li>✅ Atención personalizada y asesoría técnica</li>
-      <li>✅ Productos garantizados y originales</li>
-      <li>✅ Envíos rápidos y seguros</li>
-      <li>✅ Soporte postventa confiable</li>
-    </ul>
+    <div class="valores-grid">
+      <div class="valor-card">
+        <i class="fa-solid fa-user-headset fa-2x"></i>
+        <h3>Atención personalizada</h3>
+        <p>Asesoría técnica y soporte directo para cada cliente.</p>
+      </div>
+      <div class="valor-card">
+        <i class="fa-solid fa-shield-check fa-2x"></i>
+        <h3>Productos garantizados</h3>
+        <p>Garantía de calidad y originalidad en todos nuestros productos.</p>
+      </div>
+      <div class="valor-card">
+        <i class="fa-solid fa-truck-fast fa-2x"></i>
+        <h3>Envíos rápidos</h3>
+        <p>Entrega segura y veloz en todo el país.</p>
+      </div>
+      <div class="valor-card">
+        <i class="fa-solid fa-headset fa-2x"></i>
+        <h3>Soporte confiable</h3>
+        <p>Asistencia postventa disponible cuando la necesites.</p>
+      </div>
+    </div>
   </section>
 
- <section class="mapa">
+  <!-- Sección Equipo -->
+  <section class="equipo">
+    <h2>Conoce a nuestro equipo</h2>
+    <div class="equipo-grid">
+      <div class="miembro">
+        <img src="imagen/mc.webp" alt="Juan Pérez">
+        <h3>McLovin</h3>
+        <p>CEO & Fundador</p>
+      </div>
+      <div class="miembro">
+        <img src="imagen/g.webp" alt="María López">
+        <h3>Seth</h3>
+        <p>Gerente de Ventas</p>
+      </div>
+      <div class="miembro">
+        <img src="imagen/m.jpg" alt="Carlos Gómez">
+        <h3>Evan</h3>
+        <p>Soporte Técnico</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Ubicación -->
+  <section class="mapa">
     <h2>Ubicación</h2>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.123456789!2d-86.251234!3d12.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x123456789abcdef!2sElectroShop!5e0!3m2!1ses!2sni!4v1234567890"
-      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+      width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
     </iframe>
   </section>
-
-
-    
 </main>
+
 
   <footer>
       <div class="footer-content">
