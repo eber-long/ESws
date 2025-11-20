@@ -37,13 +37,14 @@ function initPrincipalUI(){
         });
     }
 
-    // Cerrar sesión
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            sessionStorage.clear();
-            window.location.href = 'index.html';
-        });
+    // Cerrar sesión: manejar tanto el botón interno como los botones visibles (.logout-action)
+    const logoutActions = document.querySelectorAll('.logout-action');
+    function doLogout() {
+        sessionStorage.clear();
+        window.location.href = 'index.html';
     }
+    if (logoutBtn) logoutBtn.addEventListener('click', doLogout);
+    if (logoutActions && logoutActions.length) logoutActions.forEach(el => el.addEventListener('click', doLogout));
 
     const menuBtn = document.getElementById('menuBtn');
     const menuPlegable = document.getElementById('menuPlegable');
@@ -135,11 +136,14 @@ profileImg.addEventListener('click', () => {
     infoPanel.style.display = (infoPanel.style.display === 'block') ? 'none' : 'block';
 });
 
-// Cerrar sesión
-logoutBtn.addEventListener('click', () => {
-    sessionStorage.clear(); // borra toda la sesión
-    window.location.href = 'index.html'; // vuelve al login
-});
+// Cerrar sesión (elementos fuera de init)
+const logoutActionsGlobal = document.querySelectorAll('.logout-action');
+function doLogoutGlobal(){
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+if (logoutBtn) logoutBtn.addEventListener('click', doLogoutGlobal);
+if (logoutActionsGlobal && logoutActionsGlobal.length) logoutActionsGlobal.forEach(el => el.addEventListener('click', doLogoutGlobal));
 
 // Opcional: cerrar el panel si se hace clic fuera de él
 document.addEventListener('click', (e) => {

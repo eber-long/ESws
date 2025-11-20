@@ -43,3 +43,26 @@
 .info button:hover {
     background-color: #0d4491;           /* Color más oscuro al pasar el mouse */
 }
+
+/* Botón de cerrar sesión visible junto al avatar */
+.logout-action {
+        background: transparent;
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.15);
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 20px;
+}
+
+.logout-action:hover {
+        background: rgba(255,255,255,0.08);
+}
+
+@media (max-width: 480px) {
+    .logout-action {
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+}

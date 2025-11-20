@@ -103,6 +103,36 @@
     function onInput(e){
       const q = e.target.value;
       const results = filterProducts(q);
+      // ==========================
+// OCULTAR / MOSTRAR SECCIONES EXTRA
+// ==========================
+
+const carruseles = document.querySelectorAll(".carousel");
+const categorias = document.querySelectorAll(".ajustes-barra1, h1");
+const filas = document.querySelectorAll(".fila-productos");
+const carruselCont = document.querySelectorAll(".carrusel-contenedor");
+
+if(q.trim() !== ""){
+    // Ocultar carruseles
+    carruseles.forEach(c => c.style.display = "none");
+
+    // Ocultar títulos de categorías y h1
+    categorias.forEach(c => c.style.display = "none");
+
+    // Evitar espacios vacíos horizontales
+    filas.forEach(f => f.style.flexDirection = "column");
+
+    // Asegurar que los contenedores no ocupen altura innecesaria
+    carruselCont.forEach(cc => cc.style.height = "auto");
+
+} else {
+    // Restaurar si no se está buscando
+    carruseles.forEach(c => c.style.display = "");
+    categorias.forEach(c => c.style.display = "");
+    filas.forEach(f => f.style.flexDirection = "");
+    carruselCont.forEach(cc => cc.style.height = "");
+}
+  
 
       // If this page contains tarjeta-producto elements, show/hide them
       const pageCards = document.querySelectorAll('.tarjeta-producto');
