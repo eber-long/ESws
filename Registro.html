@@ -3,43 +3,44 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>ElectroShop/Login</title> 
-    <link rel="stylesheet" href="css/style.css"> <!-- Enlaza el archivo CSS para el diseño -->
+    <title>ElectroShop/Registro</title> 
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
-  <div class="Login"> <!-- Contenedor principal del login -->
-      <h1>Crea  una cuenta</h1> <!-- Título visible del formulario -->
+  <div class="Login">
+      <h1>Crea una cuenta</h1>
 
-       <form id="loginForm"> <!-- Formulario con ID para ser manejado desde JS -->
+       <form id="registerForm">
 
-        <div class="Username">  <!-- Contenedor del campo de usuario -->
-          <input type="text" id="usuario" required> <!-- Input de texto para el usuario, obligatorio -->
-          <label for="usuario">Nombre</label> <!-- Label asociado al input para accesibilidad -->
-          <span></span> <!-- Span vacío, puede usarse para efectos visuales con CSS -->
+        <div class="Username">
+          <input type="text" id="usuario" required>
+          <label for="usuario">Nombre</label>
+          <span></span>
         </div>
 
-        <div class="Username"> <!-- Contenedor del campo de contraseña -->
-          <input type="password" id="contrasena" required> <!-- Input de contraseña, obligatorio -->
-          <label for="contrasena">Contraseña</label> <!-- Label asociado al input -->
-          <span></span> <!-- Span vacío para efectos visuales o animaciones -->
+        <div class="Username">
+          <input type="password" id="contrasena1" required>
+          <label for="contrasena1">Contraseña</label>
+          <span></span>
         </div>
 
-        <div class="Username"> <!-- Contenedor del campo de contraseña -->
-          <input type="password" id="contrasena" required> <!-- Input de contraseña, obligatorio -->
-          <label for="contrasena">Confirmar contraseña</label> <!-- Label asociado al input -->
-          <span></span> <!-- Span vacío para efectos visuales o animaciones -->
+        <div class="Username">
+          <input type="password" id="contrasena2" required>
+          <label for="contrasena2">Confirmar contraseña</label>
+          <span></span>
         </div>
+
         <div class="Registro">
-        <p>Ya tienes una cuenta? </p> <a href="index.html">Iniciar sesión</a>
+          <p>Ya tienes una cuenta? </p> 
+          <a href="index.html">Iniciar sesión</a>
         </div>
        
-        <input type="submit" value="Registrarse"> <!-- Botón de envío del formulario -->
+        <input type="submit" value="Registrarse">
 
-       </form> <!-- Fin del formulario -->
-    </div> <!-- Fin del contenedor principal -->
+       </form>
+    </div>
 
-    <script src="javascrip/java.js"></script> <!-- Enlaza el archivo JS que valida y redirige -->
+    <script src="javascript/registro.js"></script> 
 </body>
 </html>
-

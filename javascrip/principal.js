@@ -1,239 +1,206 @@
-// principal.js
-// principal.js - inicialización robusta y defensiva
+/* ============================================
+   📌 1. MANEJO DE USUARIO (perfil + logout)
+============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+    const profileImg = document.getElementById("imagen");
+    const infoBox = document.getElementById("info");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const quickLogout = document.querySelector(".logout-action");
 
-function initPrincipalUI(){
-    // Obtener elementos (puede que vengan del header dinámico)
-    const userNameElem = document.getElementById('userName');
-    const userTypeElem = document.getElementById('userType');
-    const infoPanel = document.getElementById('info');
-    const profileImg = document.getElementById('imagen');
-    const logoutBtn = document.getElementById('logoutBtn');
+    // Mostrar/ocultar panel de usuario
+    profileImg?.addEventListener("click", () => {
+        infoBox.classList.toggle("visible");
+    });
 
-    // Recuperar datos del sessionStorage
-    const nombreUsuario = sessionStorage.getItem('NombreUsuario');
-    const tipoUsuario = sessionStorage.getItem('tipoUsuario');
+    // Logout unificado
+    const logout = () => {
+        localStorage.removeItem("usuario");
+        window.location.href = "index.html";
+    };
 
-    if (!nombreUsuario || !tipoUsuario) {
-        // No forzar redirección cuando estamos en la página de login
-        if (!location.pathname.endsWith('index.html')) {
-            window.location.href = 'index.html';
+    logoutBtn?.addEventListener("click", logout);
+    quickLogout?.addEventListener("click", logout);
+
+    // Cargar datos del usuario
+    const user = JSON.parse(localStorage.getItem("usuario"));
+    if (user) {
+        document.getElementById("userName").textContent = user.nombre || "Usuario";
+        document.getElementById("userType").textContent = user.tipo || "Común";
+    }
+});
+
+/* ============================================
+   📌 2. MENÚ DESPLEGABLE (categorías)
+============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menuBtn");
+    const menu = document.getElementById("menuPlegable");
+
+    menuBtn?.addEventListener("click", () => {
+        menu.classList.toggle("activo");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+            menu.classList.remove("activo");
+        }
+    });
+});
+
+/* ============================================
+   📌 3. FUNCIÓN PARA FORMATEAR NÚMEROS
+============================================ */
+function formatCurrency(num) {
+    return num.toLocaleString("es-NI", {
+        style: "currency",
+        currency: "NIO"
+    });
+}
+
+/* ============================================
+   📌 4. CARRITO DE COMPRAS
+============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+
+    const listaCarrito = document.querySelector("[data-carrito]");
+    const totalCarrito = document.querySelector("[data-total-carrito]");
+    const carritoVacio = document.getElementById("carrito-vacio");
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    const guardarCarrito = () => {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    };
+
+    const renderCarrito = () => {
+        listaCarrito.innerHTML = "";
+        
+        if (carrito.length === 0) {
+            carritoVacio.style.display = "block";
+            totalCarrito.textContent = formatCurrency(0);
             return;
         }
-    } else {
-        if (userNameElem) userNameElem.textContent = nombreUsuario;
-        if (userTypeElem) userTypeElem.textContent = (tipoUsuario === 'administrador') ? 'Administrador' : 'Usuario';
-    }
 
-    // Mostrar/ocultar panel al hacer clic en la imagen
-    if (profileImg && infoPanel) {
-        profileImg.addEventListener('click', () => {
-            infoPanel.style.display = (infoPanel.style.display === 'block') ? 'none' : 'block';
+        carritoVacio.style.display = "none";
+
+        carrito.forEach((item, index) => {
+            const div = document.createElement("div");
+            div.className = "producto-carrito";
+            div.innerHTML = `
+                <img src="${item.imagen}" class="producto-img">
+                <div>
+                    <p>${item.nombre}</p>
+                    <p>Cantidad: ${item.cantidad}</p>
+                    <p>Subtotal: ${formatCurrency(item.precio * item.cantidad)}</p>
+                </div>
+                <button class="btn-eliminar" data-index="${index}">❌</button>
+            `;
+            listaCarrito.appendChild(div);
         });
 
-        document.addEventListener('click', (e) => {
-            if (!infoPanel.contains(e.target) && e.target !== profileImg) {
-                infoPanel.style.display = 'none';
-            }
+        totalCarrito.textContent = formatCurrency(
+            carrito.reduce((t, p) => t + p.precio * p.cantidad, 0)
+        );
+    };
+
+    // Evento para eliminar producto
+    listaCarrito.addEventListener("click", (e) => {
+        if (e.target.matches(".btn-eliminar")) {
+            carrito.splice(e.target.dataset.index, 1);
+            guardarCarrito();
+            renderCarrito();
+        }
+    });
+
+    renderCarrito();
+
+    /* Finalizar compra */
+    const modal = document.getElementById("modal");
+    const comprarBtn = document.getElementById("comprarBtn");
+    const cerrarBtn = document.getElementById("cerrarBtn");
+
+    comprarBtn?.addEventListener("click", () => {
+        if (carrito.length === 0) return;
+        modal.style.display = "flex";
+        carrito = [];
+        guardarCarrito();
+        renderCarrito();
+    });
+
+    cerrarBtn?.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+});
+
+/* ============================================
+   📌 5. BUSCADOR GLOBAL (filtra productos)
+============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+    const buscador = document.querySelector(".busqueda input");
+
+    buscador?.addEventListener("input", () => {
+        const query = buscador.value.toLowerCase();
+        document.querySelectorAll(".producto").forEach(card => {
+            const name = card.querySelector("h3").textContent.toLowerCase();
+            card.style.display = name.includes(query) ? "flex" : "none";
         });
+    });
+});
+
+// ================= CARRUSEL INFINITO =================
+function setupInfiniteCarousel(imagesSelector, prevBtnSelector, nextBtnSelector, interval = 3000) {
+    const imagesContainer = document.querySelector(imagesSelector);
+    if (!imagesContainer) return;
+
+    const slides = Array.from(imagesContainer.children);
+    if (slides.length === 0) return;
+
+    let index = 0;
+
+    function showSlide(i) {
+        imagesContainer.style.transition = 'transform 0.5s ease-in-out';
+        imagesContainer.style.transform = `translateX(-${i * 100}%)`;
     }
 
-    // Cerrar sesión: manejar tanto el botón interno como los botones visibles (.logout-action)
-    const logoutActions = document.querySelectorAll('.logout-action');
-    function doLogout() {
-        sessionStorage.clear();
-        window.location.href = 'index.html';
-    }
-    if (logoutBtn) logoutBtn.addEventListener('click', doLogout);
-    if (logoutActions && logoutActions.length) logoutActions.forEach(el => el.addEventListener('click', doLogout));
-
-    const menuBtn = document.getElementById('menuBtn');
-    const menuPlegable = document.getElementById('menuPlegable');
-    if (menuBtn && menuPlegable) {
-        menuBtn.addEventListener('click', () => {
-            menuPlegable.classList.toggle('show');
-        });
+    function nextSlide() {
+        index = (index + 1) % slides.length;
+        showSlide(index);
     }
 
-    // Configuración de carruseles (defensiva)
+    function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+    }
+
+    const nextBtn = document.querySelector(nextBtnSelector);
+    const prevBtn = document.querySelector(prevBtnSelector);
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+    });
+
+    // Rotación automática
+    let auto = setInterval(nextSlide, interval);
+
+    // Reiniciar interval si se hace clic en botones
+    function resetInterval() {
+        clearInterval(auto);
+        auto = setInterval(nextSlide, interval);
+    }
+}
+
+// ==================== INICIALIZAR CARRUSELES ====================
+document.addEventListener('DOMContentLoaded', () => {
     setupInfiniteCarousel('.carousel-images', '.prev', '.next');
     setupInfiniteCarousel('.carousel-images1', '.boton-carrusel1', '.boton-carrusel2');
     setupInfiniteCarousel('.carousel-images2', '.boton-carrusel3', '.boton-carrusel4');
     setupInfiniteCarousel('.carousel-images3', '.boton-carrusel5', '.boton-carrusel6');
     setupInfiniteCarousel('.carousel-images4', '.boton-carrusel7', '.boton-carrusel8');
     setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel10');
-
-    // Buscar productos (si existe el buscador)
-    const buscadorElem = document.getElementById('buscador');
-    if (buscadorElem) buscadorElem.addEventListener('input', buscarProductos);
-}
-
-function setupInfiniteCarousel(imagesSelector, prevBtnSelector, nextBtnSelector, interval = 3000) {
-    const images = document.querySelector(imagesSelector);
-    if (!images) return null;
-    const slides = images.children;
-    if (!slides || slides.length === 0) return null;
-    const total = Math.floor(slides.length / 2) || slides.length;
-    let index = 0;
-
-    function showImage(i, animated = true) {
-        images.style.transition = animated ? 'transform 0.5s ease-in-out' : 'none';
-        images.style.transform = `translateX(-${i * 100}%)`;
-    }
-
-    function nextImage() {
-        index++;
-        showImage(index);
-        if (index === total) {
-            setTimeout(() => {
-                index = 0;
-                showImage(index, false);
-            }, 500);
-        }
-    }
-
-    function prevImage() {
-        if (index === 0) {
-            index = total;
-            showImage(index, false);
-        }
-        index--;
-        showImage(index);
-    }
-
-    const nextBtn = document.querySelector(nextBtnSelector);
-    const prevBtn = document.querySelector(prevBtnSelector);
-    if (nextBtn) nextBtn.addEventListener('click', nextImage);
-    if (prevBtn) prevBtn.addEventListener('click', prevImage);
-
-    return setInterval(nextImage, interval);
-}
-
-// Obtener elementos del DOM
-// Elementos
-const userNameElem = document.getElementById('userName');
-const userTypeElem = document.getElementById('userType');
-const infoPanel = document.getElementById('info');
-const profileImg = document.getElementById('imagen');
-const logoutBtn = document.getElementById('logoutBtn');
-
-// Recuperar datos del sessionStorage
-const nombreUsuario = sessionStorage.getItem('NombreUsuario');
-const tipoUsuario = sessionStorage.getItem('tipoUsuario');
-
-// Si no hay sesión activa, redirigir al login
-if (!nombreUsuario || !tipoUsuario) {
-    window.location.href = "index.html";
-} else {
-    // Mostrar los datos en el header
-    userNameElem.textContent = nombreUsuario;
-    
-    // Mostrar tipo "Admin" o "Común" según corresponda
-    userTypeElem.textContent = (tipoUsuario === 'administrador') ? 'Administrador' : 'Usuario';
-}
-
-// Mostrar/ocultar panel al hacer clic en la imagen
-profileImg.addEventListener('click', () => {
-    infoPanel.style.display = (infoPanel.style.display === 'block') ? 'none' : 'block';
 });
-
-// Cerrar sesión (elementos fuera de init)
-const logoutActionsGlobal = document.querySelectorAll('.logout-action');
-function doLogoutGlobal(){
-    sessionStorage.clear();
-    window.location.href = 'index.html';
-}
-if (logoutBtn) logoutBtn.addEventListener('click', doLogoutGlobal);
-if (logoutActionsGlobal && logoutActionsGlobal.length) logoutActionsGlobal.forEach(el => el.addEventListener('click', doLogoutGlobal));
-
-// Opcional: cerrar el panel si se hace clic fuera de él
-document.addEventListener('click', (e) => {
-    if (!infoPanel.contains(e.target) && e.target !== profileImg) {
-        infoPanel.style.display = 'none';
-    }
-});
-
-const menuBtn = document.getElementById('menuBtn');
-const menuPlegable = document.getElementById('menuPlegable');
-
-
-menuBtn.addEventListener('click', () => {
-    menuPlegable.classList.toggle('show');
-});
-
-
-function setupInfiniteCarousel(imagesSelector, prevBtnSelector, nextBtnSelector, interval = 3000) {
-    const images = document.querySelector(imagesSelector);
-    const slides = images.children;
-    const total = slides.length / 2; // la mitad son clonadas
-    let index = 0;
-
-    function showImage(i, animated = true) {
-        images.style.transition = animated ? 'transform 0.5s ease-in-out' : 'none';
-        images.style.transform = `translateX(-${i * 100}%)`;
-    }
-
-    function nextImage() {
-        index++;
-        showImage(index);
-        if (index === total) {
-            setTimeout(() => {
-                index = 0;
-                showImage(index, false);
-            }, 500);
-        }
-    }
-
-    function prevImage() {
-        if (index === 0) {
-            index = total;
-            showImage(index, false);
-        }
-        index--;
-        showImage(index);
-    }
-
-    document.querySelector(nextBtnSelector).addEventListener('click', nextImage);
-    document.querySelector(prevBtnSelector).addEventListener('click', prevImage);
-
-    return setInterval(nextImage, interval);
-}
-
-// Configuración de carruseles
-setupInfiniteCarousel('.carousel-images', '.prev', '.next');
-setupInfiniteCarousel('.carousel-images1', '.boton-carrusel1', '.boton-carrusel2');
-setupInfiniteCarousel('.carousel-images2', '.boton-carrusel3', '.boton-carrusel4');
-setupInfiniteCarousel('.carousel-images3', '.boton-carrusel5', '.boton-carrusel6');
-setupInfiniteCarousel('.carousel-images4', '.boton-carrusel7', '.boton-carrusel8');
-setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel10');
-
-// Puedes agregar más carruseles según sea necesario
-
-
-function buscarProductos() {
-    const input = document.getElementById('buscador');
-    if (!input) return;
-    const filter = input.value.toLowerCase();
-    const productos = document.querySelectorAll('.tarjeta-producto');
-
-    productos.forEach(function(producto) {
-        const nombre = (producto.getAttribute('data-nombre') || '').toLowerCase();
-        producto.style.display = nombre.includes(filter) ? '' : 'none';
-    });
-}
-
-// Inicialización
-function readyInit(){
-    initPrincipalUI();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', readyInit);
-} else {
-    readyInit();
-}
-
-// Si el header se carga dinámicamente, volver a inicializar UI dependiente
-document.addEventListener('headerInserted', function(){
-    setTimeout(initPrincipalUI, 0);
-});
-

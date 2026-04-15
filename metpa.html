@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pago - ElectroShop</title>
+  <link rel="stylesheet" href="css/pago.css">
+</head>
+<body>
+  <header>
+    <h1>ElectroShop - Pago</h1>
+  </header>
+
+  <main class="pago-form">
+    <h2>Total a pagar: <span id="totalPago">C$0.00</span></h2>
+    
+    <form id="formPago">
+      <label>Nombre del titular:
+        <input type="text" name="nombre" required>
+      </label>
+
+      <label>Número de tarjeta:
+        <input type="text" name="numero" maxlength="16" required>
+      </label>
+
+      <label>Fecha de expiración:
+        <input type="month" name="expiracion" required>
+      </label>
+
+      <label>CVV:
+        <input type="text" name="cvv" maxlength="4" required>
+      </label>
+
+      <button type="submit">Pagar</button>
+    </form>
+  </main>
+
+  <script>
+    // Mostrar total
+    const totalElem = document.getElementById('totalPago');
+    const total = sessionStorage.getItem('carritoTotal') || 0;
+    totalElem.textContent = `C$${parseFloat(total).toLocaleString('es-NI', {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+
+    // Manejar formulario
+    const form = document.getElementById('formPago');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      alert('✅ Pago procesado correctamente!');
+
+      // Vaciar carrito
+      localStorage.removeItem('carrito');
+      sessionStorage.removeItem('carritoTotal');
+
+      // Redirigir a página principal o agradecimiento
+      window.location.href = 'principal.html';
+    });
+  </script>
+</body>
+</html>
