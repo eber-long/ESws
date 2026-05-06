@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectroShop</title>
+    <title>ElectroShop — Tu tienda de tecnología</title>
+    <meta name="description" content="ElectroShop: las mejores ofertas en laptops gaming, accesorios, monitores y más. Compra online con envío rápido.">
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
@@ -11,6 +12,7 @@
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <header class="Arriba">
     <div class="logo">
         <a href="principal.html" class="logo-link">
@@ -19,8 +21,8 @@
         </a>
     </div>
     <div class="busqueda">
-        <input type="text" placeholder="Buscar...">
-        <button class="lupa">🔎</button>
+        <input type="text" id="searchInput" placeholder="Buscar productos...">
+        <button class="lupa" id="lupaBtn" aria-label="Buscar">🔎</button>
     </div>
     <div class="Perfil">
         <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
@@ -31,8 +33,9 @@
             <button id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
-</header> 
+</header>
 
+<!-- ===== NAVBAR ===== -->
 <div class="Ajustes-barra">
     <div class="Menu">
         <button id="menuBtn">☰ Categorias</button>
@@ -49,213 +52,457 @@
     </div>
     <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
     <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-    <a href="catalogo.html" class="nav-button-style">📰 Catalogo</a>
+    <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
     <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
 </div>
 
-<div class="destacado"><h2>Nuestros productos destacados de este mes</h2></div>
+<!-- ============================================================
+     SECCIÓN 1: HERO BANNER
+============================================================ -->
+<section class="hero" id="hero">
+    <img class="hero-bg" src="imagen/hero_gaming_setup.png" alt="Gaming Setup ElectroShop">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <span class="hero-badge">⚡ Ofertas exclusivas</span>
+        <h2 class="hero-title">Lleva tu setup al<br><span>siguiente nivel</span></h2>
+        <p class="hero-subtitle">Las mejores marcas en tecnología y gaming con precios que no encontrarás en otro lugar.</p>
+        <a href="catalogo.html" class="hero-cta">Ver Ofertas →</a>
+    </div>
+</section>
 
-<div class="Inicio">
-    <div class="Descuento">
+<!-- ============================================================
+     SECCIÓN 2: PRODUCTOS DESTACADOS
+============================================================ -->
+<section class="section" id="destacados">
+    <div class="section-header-home">
+        <div>
+            <div class="section-title__accent"></div>
+            <h2>Productos Destacados</h2>
+        </div>
+        <a href="catalogo.html" class="btn-ver-catalogo">Ver todo el catálogo <span class="arrow">→</span></a>
+    </div>
+
+    <div class="products-grid">
 
         <!-- Producto 1 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="Lenovo LOQ Gen 9" 
-           data-precio="20500" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Lenovo LOQ Gen 9"
+           data-precio="20500"
            data-img="imagen/Lenovo LOQ Gen 9.png">
             <div class="producto">
                 <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
-                <div class="descripción">
-                    <h3 class="nombre-producto">Lenovo LOQ Gen 9</h3>
-                    <h3>Laptop</h3>
-                    <p class="precio">C$ 20,500</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Laptop</p>
+                <h3 class="nombre-producto">Lenovo LOQ Gen 9</h3>
+                <p class="precio">C$ 20,500</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 2 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="Lenovo LOQ 15IAX9I" 
-           data-precio="44400" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Lenovo LOQ 15IAX9I"
+           data-precio="44400"
            data-img="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png">
             <div class="producto">
                 <img src="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png" alt="Lenovo LOQ 15IAX9I Gaming Laptop">
-                <div class="descripción">
-                    <h3 class="nombre-producto">Lenovo LOQ 15IAX9I</h3>
-                    <h3>Laptop</h3>
-                    <p class="precio">C$ 44,400</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Laptop Gaming</p>
+                <h3 class="nombre-producto">Lenovo LOQ 15IAX9I</h3>
+                <p class="precio">C$ 44,400</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 3 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="G213 Prodigy" 
-           data-precio="5500" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="G213 Prodigy"
+           data-precio="5500"
            data-img="imagen/G213 Prodigy.png">
             <div class="producto">
                 <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
-                <div class="descripción">
-                    <h3 class="nombre-producto">G213 Prodigy</h3>
-                    <h3>Teclado</h3>
-                    <p class="precio">C$ 5,500</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Teclado</p>
+                <h3 class="nombre-producto">G213 Prodigy</h3>
+                <p class="precio">C$ 5,500</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 4 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="ASTRO A40 TR" 
-           data-precio="5000" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="ASTRO A40 TR"
+           data-precio="5000"
            data-img="imagen/ASTRO A40 TR.png">
             <div class="producto">
                 <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
-                <div class="descripción">
-                    <h3 class="nombre-producto">ASTRO A40 TR</h3>
-                    <h3>Audífonos</h3>
-                    <p class="precio">C$ 5,000</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Audífonos</p>
+                <h3 class="nombre-producto">ASTRO A40 TR</h3>
+                <p class="precio">C$ 5,000</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 5 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="G502 X PLUS" 
-           data-precio="3000" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="G502 X PLUS"
+           data-precio="3000"
            data-img="imagen/G502 X PLUS.png">
             <div class="producto">
                 <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
-                <div class="descripción">
-                    <h3 class="nombre-producto">G502 X PLUS</h3>
-                    <h3>Mouse</h3>
-                    <p class="precio">C$ 3,000</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Mouse</p>
+                <h3 class="nombre-producto">G502 X PLUS</h3>
+                <p class="precio">C$ 3,000</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
     </div>
-</div>
+</section>
 
-<div class="destacado"><h2>Aprovecha de diversos descuentos en nuestros productos</h2></div>
+<!-- ============================================================
+     SECCIÓN 3: OFERTAS IMPERDIBLES
+============================================================ -->
+<section class="section section--alt" id="ofertas">
+    <div class="section-header-home">
+        <div>
+            <div class="section-title__accent"></div>
+            <h2>Ofertas Imperdibles</h2>
+        </div>
+        <a href="catalogo.html" class="btn-ver-catalogo">Ver todas las ofertas <span class="arrow">→</span></a>
+    </div>
 
-<div class="Inicio">
-    <div class="Descuento">
+    <div class="products-grid">
 
         <!-- Producto 6 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="RYZEN 7 9800X3D" 
-           data-precio="12200" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="RYZEN 7 9800X3D"
+           data-precio="12200"
            data-img="imagen/RYZEN 7 9800X3D.png">
+            <span class="badge-descuento">−21%</span>
             <div class="producto">
                 <img src="imagen/RYZEN 7 9800X3D.png" alt="RYZEN 7 9800X3D">
-                <div class="descripción">
-                    <h3 class="nombre-producto">RYZEN 7 9800X3D</h3>
-                    <h3>Procesador</h3>
-                    <p class="precio-original">C$ 15,500</p>
-                    <p class="precio-descuento">C$ 12,200</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Procesador</p>
+                <h3 class="nombre-producto">RYZEN 7 9800X3D</h3>
+                <p class="precio-original">C$ 15,500</p>
+                <p class="precio-descuento">C$ 12,200</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 7 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="Crucial Kit Pro DDR5 RAM de 32 GB" 
-           data-precio="4200" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Crucial Kit Pro DDR5 RAM de 32 GB"
+           data-precio="4200"
            data-img="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png">
+            <span class="badge-descuento">−24%</span>
             <div class="producto">
                 <img src="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png" alt="Crucial Kit Pro DDR5 RAM de 32 GB">
-                <div class="descripción">
-                    <h3 class="nombre-producto">Crucial Kit Pro DDR5 RAM de 32 GB</h3>
-                    <h3>DDR RAM</h3>
-                    <p class="precio-original">C$ 5,500</p>
-                    <p class="precio-descuento">C$ 4,200</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Memoria RAM</p>
+                <h3 class="nombre-producto">Crucial Kit Pro DDR5 32 GB</h3>
+                <p class="precio-original">C$ 5,500</p>
+                <p class="precio-descuento">C$ 4,200</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 8 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="Samsung Galaxy Z Flip7" 
-           data-precio="38200" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Samsung Galaxy Z Flip7"
+           data-precio="38200"
            data-img="imagen/Galaxy Z Flip7.png">
+            <span class="badge-descuento">−6%</span>
             <div class="producto">
                 <img src="imagen/Galaxy Z Flip7.png" alt="Samsung Galaxy Z Flip7">
-                <div class="descripción">
-                    <h3 class="nombre-producto">Samsung Galaxy ZFlip7</h3>
-                    <h3>Smartphone</h3>
-                    <p class="precio-original">C$ 40,500</p>
-                    <p class="precio-descuento">C$ 38,200</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Smartphone</p>
+                <h3 class="nombre-producto">Samsung Galaxy Z Flip7</h3>
+                <p class="precio-original">C$ 40,500</p>
+                <p class="precio-descuento">C$ 38,200</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 9 -->
-        <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="G502 X PLUS (Oferta)" 
-           data-precio="3000" 
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="G502 X PLUS"
+           data-precio="3000"
            data-img="imagen/G502 X PLUS.png">
+            <span class="badge-descuento">−30%</span>
             <div class="producto">
                 <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
-                <div class="descripción">
-                    <h3 class="nombre-producto">G502 X PLUS</h3>
-                    <h3>Mouse</h3>
-                    <p class="precio-original">C$ 4,300</p>
-                    <p class="precio-descuento">C$ 3,000</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <p class="categoria-producto">Mouse Gaming</p>
+                <h3 class="nombre-producto">G502 X PLUS</h3>
+                <p class="precio-original">C$ 4,300</p>
+                <p class="precio-descuento">C$ 3,000</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
-                <a href="detalle-5700x.html" 
-           class="tarjeta-producto" 
-           data-nombre="samsung galaxy watch 6(Oferta)" 
-           data-precio="7,999" 
-           data-img="imagen/watch6">
+        <!-- Producto 10 -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Galaxy Watch 6 Classic"
+           data-precio="7999"
+           data-img="imagen/watch6.jpeg">
+            <span class="badge-descuento">−3%</span>
             <div class="producto">
-                <img src="imagen/watch6.jpeg" alt="samsung galaxy watch 6">
-                <div class="descripción">
-                    <h3 class="nombre-producto">Galaxy Watch 6 classic</h3>
-                    <h3>Watch</h3>
-                    <p class="precio-original">C$ 8,215</p>
-                    <p class="precio-descuento">C$ 7,999</p>
-                    <button class="boton-carrito">Agregar al carrito</button>
-                </div>
+                <img src="imagen/watch6.jpeg" alt="Samsung Galaxy Watch 6 Classic">
+                <p class="categoria-producto">Smartwatch</p>
+                <h3 class="nombre-producto">Galaxy Watch 6 Classic</h3>
+                <p class="precio-original">C$ 8,215</p>
+                <p class="precio-descuento">C$ 7,999</p>
+                <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
     </div>
-</div>
-  <footer>
-      <div class="footer-content">
-         <p>&copy; 2025 ElectroShop. Todos los derechos reservados.</p>
-         <p>Correo: contacto@electroshop.com</p>
-         <p>Telefono: +505 2222 3333</p>
-         <p>
-             <a href="polterm/politica.html">Política de privacidad</a> |
-             <a href="polterm/termuso.html">Términos de uso</a>
-         </p>
-      </div>
-    </footer>
+</section>
 
-<script src="javascrip/principal.js"></script>
-<script src="javascrip/Carrito.js"></script>
+<!-- ============================================================
+     SECCIÓN 4: LOS FAVORITOS DE LA COMUNIDAD
+============================================================ -->
+<section class="section" id="favoritos">
+    <div class="section-title">
+        <div class="section-title__accent"></div>
+        <h2>Los Favoritos de la Comunidad</h2>
+        <p>Los productos más elegidos por nuestros clientes</p>
+    </div>
+
+    <div class="ranking-grid">
+
+        <!-- Ranking 1 -->
+        <div class="ranking-item">
+            <span class="rank-number">1</span>
+            <a href="detalle-5700x.html"
+               class="tarjeta-producto"
+               data-nombre="Lenovo LOQ Gen 9"
+               data-precio="20500"
+               data-img="imagen/Lenovo LOQ Gen 9.png">
+                <div class="producto">
+                    <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
+                    <p class="categoria-producto">Laptop Gaming</p>
+                    <h3 class="nombre-producto">Lenovo LOQ Gen 9</h3>
+                    <p class="precio">C$ 20,500</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ranking 2 -->
+        <div class="ranking-item">
+            <span class="rank-number">2</span>
+            <a href="detalle-5700x.html"
+               class="tarjeta-producto"
+               data-nombre="G502 X PLUS"
+               data-precio="3000"
+               data-img="imagen/G502 X PLUS.png">
+                <div class="producto">
+                    <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
+                    <p class="categoria-producto">Mouse Gaming</p>
+                    <h3 class="nombre-producto">G502 X PLUS</h3>
+                    <p class="precio">C$ 3,000</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ranking 3 -->
+        <div class="ranking-item">
+            <span class="rank-number">3</span>
+            <a href="detalle-5700x.html"
+               class="tarjeta-producto"
+               data-nombre="ASTRO A40 TR"
+               data-precio="5000"
+               data-img="imagen/ASTRO A40 TR.png">
+                <div class="producto">
+                    <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
+                    <p class="categoria-producto">Audífonos Gaming</p>
+                    <h3 class="nombre-producto">ASTRO A40 TR</h3>
+                    <p class="precio">C$ 5,000</p>
+                    <button class="boton-carrito">Agregar al carrito</button>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 5: DOMINIO GAMING (fondo oscuro)
+============================================================ -->
+<section class="section section--dark" id="gaming">
+    <div class="section-header-home">
+        <div>
+            <div class="section-title__accent"></div>
+            <h2>Dominio Gaming</h2>
+        </div>
+        <a href="catalogo.html#Gaming" class="btn-ver-catalogo">Ver todo Gaming <span class="arrow">→</span></a>
+    </div>
+
+    <div class="products-grid">
+
+        <!-- RedMagic Gaming Laptop -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="RedMagic Gaming Laptop 16 Pro"
+           data-precio="62000"
+           data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg">
+            <div class="producto">
+                <img src="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg" alt="RedMagic Gaming Laptop 16 Pro">
+                <p class="categoria-producto">Laptop Gaming</p>
+                <h3 class="nombre-producto">RedMagic Gaming Laptop 16 Pro</h3>
+                <p class="precio">C$ 62,000</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- Audífonos Gamer -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Audífonos Gamer Pro"
+           data-precio="8500"
+           data-img="imagen/Audifonosgamer.png">
+            <div class="producto">
+                <img src="imagen/Audifonosgamer.png" alt="Audífonos Gamer Pro">
+                <p class="categoria-producto">Audífonos Gaming</p>
+                <h3 class="nombre-producto">Audífonos Gamer Pro</h3>
+                <p class="precio">C$ 8,500</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- G213 Prodigy -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="G213 Prodigy"
+           data-precio="5500"
+           data-img="imagen/G213 Prodigy.png">
+            <div class="producto">
+                <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
+                <p class="categoria-producto">Teclado Gaming</p>
+                <h3 class="nombre-producto">G213 Prodigy</h3>
+                <p class="precio">C$ 5,500</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- Mouse Redragon -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Mouse Redragon Gaming"
+           data-precio="1800"
+           data-img="imagen/MouseRedragon.webp">
+            <div class="producto">
+                <img src="imagen/MouseRedragon.webp" alt="Mouse Redragon Gaming">
+                <p class="categoria-producto">Mouse Gaming</p>
+                <h3 class="nombre-producto">Mouse Redragon Gaming</h3>
+                <p class="precio">C$ 1,800</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 6: COMPLETA TU ESPACIO DE TRABAJO
+============================================================ -->
+<section class="section section--light" id="accesorios">
+    <div class="section-header-home">
+        <div>
+            <div class="section-title__accent"></div>
+            <h2>Completa tu Espacio de Trabajo</h2>
+        </div>
+        <a href="catalogo.html#Accesorios" class="btn-ver-catalogo">Ver todo Accesorios <span class="arrow">→</span></a>
+    </div>
+
+    <div class="products-grid">
+
+        <!-- AOC Monitor -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="AOC Monitor"
+           data-precio="9800"
+           data-img="imagen/AOCMonitor.png">
+            <div class="producto">
+                <img src="imagen/AOCMonitor.png" alt="AOC Monitor">
+                <p class="categoria-producto">Monitor</p>
+                <h3 class="nombre-producto">AOC Monitor Full HD</h3>
+                <p class="precio">C$ 9,800</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- BenQ Monitor -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="BenQ EX2510S MOBIUZ"
+           data-precio="13500"
+           data-img="imagen/BenQ EX2510S MOBIUZ.avif">
+            <div class="producto">
+                <img src="imagen/BenQ EX2510S MOBIUZ.avif" alt="BenQ EX2510S MOBIUZ">
+                <p class="categoria-producto">Monitor Gaming</p>
+                <h3 class="nombre-producto">BenQ EX2510S MOBIUZ</h3>
+                <p class="precio">C$ 13,500</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- Mouse Logitech MX Master -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="Logitech MX Master 3S"
+           data-precio="4800"
+           data-img="imagen/Mouse Logitech MX Master 3S.jpg">
+            <div class="producto">
+                <img src="imagen/Mouse Logitech MX Master 3S.jpg" alt="Logitech MX Master 3S">
+                <p class="categoria-producto">Mouse</p>
+                <h3 class="nombre-producto">Logitech MX Master 3S</h3>
+                <p class="precio">C$ 4,800</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+        <!-- Bocina JBL -->
+        <a href="detalle-5700x.html"
+           class="tarjeta-producto"
+           data-nombre="JBL PartyBox Encore Essential"
+           data-precio="11200"
+           data-img="imagen/Bocina JBL PartyBox Encore Essential.jpg">
+            <div class="producto">
+                <img src="imagen/Bocina JBL PartyBox Encore Essential.jpg" alt="JBL PartyBox Encore Essential">
+                <p class="categoria-producto">Audio</p>
+                <h3 class="nombre-producto">JBL PartyBox Encore Essential</h3>
+                <p class="precio">C$ 11,200</p>
+                <button class="boton-carrito">Agregar al carrito</button>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 ElectroShop. Todos los derechos reservados.</p>
+        <p>Correo: contacto@electroshop.com</p>
+        <p>Teléfono: +505 2222 3333</p>
+        <p>
+            <a href="polterm/politica.html">Política de privacidad</a> |
+            <a href="polterm/termuso.html">Términos de uso</a>
+        </p>
+    </div>
+</footer>
+
+<script src="js/principal.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/buscador.js"></script>
 
 </body>
 </html>

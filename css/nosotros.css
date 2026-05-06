@@ -1,150 +1,244 @@
-/* Sección Quiénes Somos */
+/* ============================================
+   👥 NOSOTROS — Styles
+============================================ */
+
 .nosotros {
-  padding: 40px 20px;
-  background-color: #f4f4f4;
-  color: #333;
-  text-align: center;
+    padding: 48px 20px;
+    background: linear-gradient(180deg, #f0f4f8 0%, #e8edf4 100%);
+    color: #1a1a2e;
+    text-align: center;
+}
+
+/* ============================================
+   📖 QUIÉNES SOMOS
+============================================ */
+.quienes-somos {
+    max-width: 800px;
+    margin: 0 auto 40px;
 }
 
 .quienes-somos h1 {
-  color: #125CC3;
-  margin-bottom: 20px;
-  font-size: 32px;
+    color: #1a6ddb;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.quienes-somos p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #555770;
+    text-align: left;
 }
 
 /* Imagen destacada */
 .imagen-nosotros {
-  width: 100%;
-  max-width: 200px;
-  margin: 20px auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 200px;
+    margin: 28px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
 .imagen-nosotros img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
 .imagen-nosotros img:hover {
-  transform: scale(1.05);
+    transform: scale(1.08);
 }
 
+/* ============================================
+   💎 VALORES
+============================================ */
+.valores {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+}
 
-/* Valores en cards */
 .valores h2 {
-  color: #125CC3;
-  margin-bottom: 25px;
-  font-size: 28px;
+    color: #1a6ddb;
+    margin-bottom: 28px;
+    font-size: 1.6rem;
+    font-weight: 700;
 }
+
 .valores-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
+
 .valor-card {
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    padding: 28px 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.5s ease-out both;
 }
+
+.valor-card:nth-child(1) { animation-delay: 0.05s; }
+.valor-card:nth-child(2) { animation-delay: 0.10s; }
+.valor-card:nth-child(3) { animation-delay: 0.15s; }
+.valor-card:nth-child(4) { animation-delay: 0.20s; }
+
 .valor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
+
 .valor-card i {
-  color: #125CC3;
-  margin-bottom: 10px;
+    color: #1a6ddb;
+    margin-bottom: 12px;
+    font-size: 2rem;
 }
+
 .valor-card h3 {
-  margin: 10px 0;
-  font-size: 20px;
+    margin: 10px 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a1a2e;
 }
+
 .valor-card p {
-  font-size: 15px;
-  color: #555;
+    font-size: 0.95rem;
+    color: #555770;
+    line-height: 1.5;
 }
 
-/* Equipo */
+/* ============================================
+   👨‍💻 EQUIPO
+============================================ */
+.equipo {
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
 .equipo h2 {
-  color: #125CC3;
-  margin: 40px 0 25px;
-  font-size: 28px;
+    color: #1a6ddb;
+    margin: 40px 0 28px;
+    font-size: 1.6rem;
+    font-weight: 700;
 }
-/* Equipo */
+
 .equipo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* más pequeñas */
-  gap: 15px; /* un poco menos de espacio */
-  max-width: 800px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
+
 .miembro {
-  background-color: white;
-  padding: 10px; /* menos padding */
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* sombra más sutil */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
+    background: white;
+    padding: 24px 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    animation: fadeInUp 0.5s ease-out both;
 }
+
+.miembro:nth-child(1) { animation-delay: 0.05s; }
+.miembro:nth-child(2) { animation-delay: 0.10s; }
+.miembro:nth-child(3) { animation-delay: 0.15s; }
+
 .miembro:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
+
 .miembro img {
-  width: 80px; /* más pequeña */
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-  object-fit: cover;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border: 3px solid rgba(26, 109, 219, 0.2);
+    transition: border-color 0.3s ease;
 }
+
+.miembro:hover img {
+    border-color: #1a6ddb;
+}
+
 .miembro h3 {
-  margin: 6px 0 2px;
-  font-size: 16px; /* más pequeño */
+    margin: 8px 0 4px;
+    font-size: 1rem;
+    font-weight: 700;
 }
+
 .miembro p {
-  font-size: 13px; /* más pequeño */
-  color: #555;
+    font-size: 0.85rem;
+    color: #555770;
 }
 
+/* ============================================
+   🗺️ MAPA
+============================================ */
+.mapa {
+    max-width: 1000px;
+    margin: 0 auto;
+}
 
-/* Mapa */
 .mapa h2 {
-  color: #125CC3;
-  margin: 40px 0 20px;
-  font-size: 28px;
-}
-.mapa iframe {
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: #1a6ddb;
+    margin: 40px 0 20px;
+    font-size: 1.6rem;
+    font-weight: 700;
 }
 
-/* Responsive */
+.mapa iframe {
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   📱 RESPONSIVE
+============================================ */
 @media (max-width: 768px) {
-  .valores-grid, .equipo-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-  .valor-card h3, .miembro h3 {
-    font-size: 16px;
-  }
-  .valor-card p, .miembro p {
-    font-size: 14px;
-  }
+    .valores-grid, .equipo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .valor-card h3, .miembro h3 {
+        font-size: 1rem;
+    }
+    .valor-card p, .miembro p {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
-  .nosotros {
-    padding: 20px 10px;
-  }
-  .valores-grid, .equipo-grid {
-    gap: 15px;
-  }
+    .nosotros {
+        padding: 24px 12px;
+    }
+    .valores-grid, .equipo-grid {
+        gap: 16px;
+    }
+}
+
+/* ============================================
+   🎞 ANIMATION
+============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

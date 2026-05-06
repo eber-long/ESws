@@ -1,68 +1,134 @@
+/* ============================================
+   👤 PERFIL — Panel de usuario
+============================================ */
+
 .Perfil {
-    display: flex;                       /* Coloca la imagen y el menú en fila */
-    position: relative;                  /* Permite que el panel .info se posicione respecto a este */
-    align-items: center;                 /* Centra verticalmente la imagen dentro del header */
-    justify-content: flex-end;           /* Alinea el perfil hacia la derecha */
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .imagen {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;                  /* Hace la imagen circular */
-    cursor: pointer;                     /* Cambia el cursor al pasar sobre la imagen */
-    object-fit: cover;                  
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
 }
 
+.imagen:hover {
+    border-color: #ffb700;
+    box-shadow: 0 0 12px rgba(255, 183, 0, 0.3);
+}
+
+/* ============================================
+   📋 INFO PANEL
+============================================ */
 .info {
-    border-bottom: 1px solid #ccc;
     text-align: center;
-    display: none;                       /* Oculto por defecto */
-    position: absolute;                  /* Se posiciona respecto a .Perfil */
-    top: 70px;             
-    right: 0;                            /* Alineado a la derecha */
-    background-color: white;             /* Fondo del panel */
-    color: black;                        /* Texto oscuro */
-    border: 1px solid #ccc;              /* Borde gris claro */
-    border-radius: 8px;                  /* Bordes redondeados */
-    padding: 15px;                       /* Espacio interno */
-    width: 200px;                        /* Ancho fijo */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Sombra para darle profundidad */
-    z-index: 100;                        /* Evita que otros elementos lo tapen */
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    color: #1a1a2e;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    padding: 20px;
+    width: 220px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    animation: panelIn 0.2s ease-out;
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.info.visible {
+    display: block;
+}
+
+.info p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+}
+
+.info #userName {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #1a1a2e;
 }
 
 .info button {
-    margin-top: 10px;                    /* Separación respecto a otros elementos */
-    padding: 8px 12px;                   /* Espacio interno */
-    border: none;                        /* Sin borde */
-    background-color: #125CC3;           /* Color del botón */
-    color: white;                        /* Texto blanco */
-    border-radius: 5px;                  /* Bordes suaves */
-    cursor: pointer;                     /* Cursor de mano al pasar */
+    margin-top: 12px;
+    padding: 8px 16px;
+    border: none;
+    background: linear-gradient(135deg, #1a6ddb 0%, #0a3575 100%);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    width: 100%;
 }
 
 .info button:hover {
-    background-color: #0d4491;           /* Color más oscuro al pasar el mouse */
+    background: linear-gradient(135deg, #4a90e2 0%, #1a6ddb 100%);
+    transform: translateY(-1px);
 }
 
-/* Botón de cerrar sesión visible junto al avatar */
+/* ============================================
+   🚪 LOGOUT BUTTON (header)
+============================================ */
 .logout-action {
-        background: transparent;
-        color: #ffffff;
-        border: 1px solid rgba(255,255,255,0.15);
-        padding: 6px 10px;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-left: 10px;
-        font-size: 20px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
 }
 
 .logout-action:hover {
-        background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
+/* ============================================
+   📱 RESPONSIVE
+============================================ */
 @media (max-width: 480px) {
     .logout-action {
         padding: 6px 8px;
-        font-size: 13px;
+        font-size: 0.8rem;
+    }
+
+    .imagen {
+        width: 40px;
+        height: 40px;
+    }
+
+    .info {
+        width: 180px;
+        padding: 16px;
+        right: -10px;
     }
 }

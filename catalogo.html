@@ -20,8 +20,8 @@
         </a>
     </div>
     <div class="busqueda">
-        <input type="text" placeholder="Buscar...">
-        <button class="lupa">🔎</button>
+        <input type="text" id="searchInput" placeholder="Buscar productos...">
+        <button class="lupa" id="lupaBtn" aria-label="Buscar">🔎</button>
     </div>
     <div class="Perfil">
         <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
@@ -38,12 +38,13 @@
             <button id="menuBtn">☰ Categorías</button>
             <div id="menuPlegable" class="menuPlegable">
                 <ul>
-                    <li><a href="#Accesorios">Accesorios</a></li>
-                    <li><a href="#Monitores">Monitores</a></li>
-                    <li><a href="#Laptops">Laptops</a></li>
                     <li><a href="#Procesadores">Procesadores</a></li>
-                    <li><a href="#Proyectores">Proyectores</a></li>
+                    <li><a href="#Laptops">Laptops</a></li>
                     <li><a href="#Dispositivos-Móviles">Dispositivos Móviles</a></li>
+                    <li><a href="#Gaming">Gaming</a></li>
+                    <li><a href="#Monitores">Monitores</a></li>
+                    <li><a href="#Accesorios">Accesorios</a></li>
+                    <li><a href="#Proyectores">Proyectores</a></li>
                 </ul>
             </div>
 
@@ -56,7 +57,10 @@
    <!-- Separacion entre el cuerpo principal y el catalogo -->
 
     <h1>Catálogo de productos</h1>
-    <div class="ajustes-barra1"><h2 id="Procesadores">Procesadores</h2></div>
+    <div class="section-header">
+        <h2 id="Procesadores">Procesadores</h2>
+        <a href="catalogo.html#Procesadores" class="btn-ver-todo">Ver todo el catálogo de Procesadores <span class="arrow">→</span></a>
+    </div>
 
     <div class="carrusel-contenedor">
         <div class="fila-productos">
@@ -130,7 +134,10 @@
         </div>
     </div>
 
-    <div class="ajustes-barra1"><h2 id="Laptops">Laptops</h2></div>
+    <div class="section-header">
+        <h2 id="Laptops">Laptops</h2>
+        <a href="catalogo.html#Laptops" class="btn-ver-todo">Ver todo el catálogo de Laptops <span class="arrow">→</span></a>
+    </div>
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
@@ -203,7 +210,10 @@
         </div>
     </div>
 
-    <div class="ajustes-barra1"><h2 id="Dispositivos-Móviles">Dispositivos Móviles</h2></div>
+    <div class="section-header">
+        <h2 id="Dispositivos-Móviles">Dispositivos Móviles</h2>
+        <a href="catalogo.html#Dispositivos-Móviles" class="btn-ver-todo">Ver todo el catálogo de Móviles <span class="arrow">→</span></a>
+    </div>
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
@@ -276,8 +286,63 @@
         </div>
     </div>
 
-    <div class="ajustes-barra1"><h2 id="Accesorios">Accesorios</h2></div>
-    <div class="carrusel-contenedor">
+<!-- ===== SECCIÓN GAMING (fondo oscuro) ===== -->
+    <div class="section-header section-header--dark">
+        <h2 id="Gaming">🎮 Gaming</h2>
+        <a href="catalogo.html#Gaming" class="btn-ver-todo btn-ver-todo--dark">Ver todo Gaming <span class="arrow">→</span></a>
+    </div>
+    <div class="carrusel-contenedor carrusel-contenedor--dark">
+        <div class="fila-productos">
+
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="RedMagic Gaming Laptop 16 Pro" data-precio="62000" data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg">
+  <div class="contenido">
+    <img src="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg" alt="RedMagic Gaming Laptop 16 Pro">
+    <h3 class="nombre-producto">RedMagic Gaming Laptop 16 Pro</h3>
+    <p>RTX 4070 / 32 GB RAM</p>
+    <p class="precio">C$62,000.00</p>
+    <button class="boton-carrito">Agregar al carrito</button>
+  </div>
+</a>
+
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Audífonos Gamer Pro" data-precio="8500" data-img="imagen/Audifonosgamer.png">
+  <div class="contenido">
+    <img src="imagen/Audifonosgamer.png" alt="Audífonos Gamer Pro">
+    <h3 class="nombre-producto">Audífonos Gamer Pro</h3>
+    <p>7.1 Surround / RGB</p>
+    <p class="precio">C$8,500.00</p>
+    <button class="boton-carrito">Agregar al carrito</button>
+  </div>
+</a>
+
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="G213 Prodigy" data-precio="5500" data-img="imagen/G213 Prodigy.png">
+  <div class="contenido">
+    <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
+    <h3 class="nombre-producto">Logitech G213 Prodigy</h3>
+    <p>RGB / Mech-Dome</p>
+    <p class="precio">C$5,500.00</p>
+    <button class="boton-carrito">Agregar al carrito</button>
+  </div>
+</a>
+
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="1800" data-img="imagen/MouseRedragon.webp">
+  <div class="contenido">
+    <img src="imagen/MouseRedragon.webp" alt="Mouse Redragon Gaming">
+    <h3 class="nombre-producto">Mouse Redragon Gaming</h3>
+    <p>DPI: 7200 / RGB</p>
+    <p class="precio">C$1,800.00</p>
+    <button class="boton-carrito">Agregar al carrito</button>
+  </div>
+</a>
+
+        </div>
+    </div>
+
+<!-- ===== SECCIÓN ACCESORIOS (fondo claro) ===== -->
+    <div class="section-header">
+        <h2 id="Accesorios">Accesorios</h2>
+        <a href="catalogo.html#Accesorios" class="btn-ver-todo">Ver todo el catálogo de Accesorios <span class="arrow">→</span></a>
+    </div>
+    <div class="carrusel-contenedor carrusel-contenedor--light">
         <div class="fila-productos">
 
 <a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="890" data-img="imagen/MouseRedragon.webp">
@@ -349,7 +414,10 @@
         </div>
     </div>
 
-    <div class="ajustes-barra1"><h2 id="Monitores">Monitores</h2></div>
+    <div class="section-header">
+        <h2 id="Monitores">Monitores</h2>
+        <a href="catalogo.html#Monitores" class="btn-ver-todo">Ver todo el catálogo de Monitores <span class="arrow">→</span></a>
+    </div>
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
@@ -422,7 +490,10 @@
         </div>
     </div>
 
-    <div class="ajustes-barra1"><h2 id="Proyectores">Proyectores</h2></div>
+    <div class="section-header">
+        <h2 id="Proyectores">Proyectores</h2>
+        <a href="catalogo.html#Proyectores" class="btn-ver-todo">Ver todo el catálogo de Proyectores <span class="arrow">→</span></a>
+    </div>
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
@@ -507,9 +578,9 @@
       </div>
     </footer>
 
-    <script src="javascrip/Carrito.js"></script>
-    <script src="javascrip/buscador.js"></script>
-    <script src="javascrip/principal.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/buscador.js"></script>
+    <script src="js/principal.js"></script>
 
 </body>
 </html>

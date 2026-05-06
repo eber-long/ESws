@@ -1,235 +1,750 @@
-/* ====================== */
-/*      CONFIG GENERAL    */
-/* ====================== */
+/* ============================================
+   🎨 DESIGN SYSTEM — CSS Variables
+============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap');
+
+:root {
+    /* Primary palette */
+    --primary: #1a6ddb;
+    --primary-dark: #0f4ca3;
+    --primary-darker: #0a3575;
+    --primary-light: #4a90e2;
+    --primary-gradient: linear-gradient(135deg, #1a6ddb 0%, #0a3575 100%);
+
+    /* Accent — naranja ElectroShop */
+    --accent: #f97316;
+    --accent-hover: #ea6a0a;
+    --accent-light: #fed7aa;
+
+    /* Neutral */
+    --bg-body: #f9f9f9;
+    --bg-white: #ffffff;
+    --bg-alt: #f0f4f8;
+    --bg-dark: #0f0f1a;
+    --bg-dark-card: #1a1a2e;
+
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    --text-white: #ffffff;
+
+    --border-subtle: rgba(0, 0, 0, 0.07);
+
+    /* Danger / sale */
+    --danger: #dc2626;
+    --success: #16a34a;
+
+    /* Shadows */
+    --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.06);
+    --shadow-card-hover: 0 12px 35px rgba(0, 0, 0, 0.12);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.14);
+    --shadow-glow-accent: 0 0 24px rgba(249, 115, 22, 0.4);
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-full: 50%;
+
+    /* Transition */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-blur: blur(16px);
+}
+
+/* ============================================
+   ⚙️ RESET & BASE
+============================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
-    font-family: arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* ====================== */
-/*       HEADER           */
-/* ====================== */
-
+/* ============================================
+   🔝 HEADER — Glassmorphism
+============================================ */
 .Arriba {
     width: 100%;
-    background-color: #125CC3;
-    padding: 10px 40px;
+    background: var(--primary-gradient);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    padding: 12px 40px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .logo a {
     text-decoration: none;
     color: white;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .logo-link {
     display: flex;
     align-items: center;
-    gap: 10px; /* espacio entre logo y texto */
+    gap: 12px;
     text-decoration: none;
     color: inherit;
+    transition: var(--transition-fast);
+}
+
+.logo-link:hover {
+    transform: scale(1.02);
 }
 
 .logo-img {
-    width: 50px; /* ajusta tamaño según tu logo */
+    width: 48px;
     height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Barra ajustes */
+/* ============================================
+   📍 NAV BAR
+============================================ */
 .Ajustes-barra {
     width: 100%;
-    height: 50px;
-    background-color: #1567da;
+    min-height: 52px;
+    background: linear-gradient(135deg, #1567da 0%, var(--primary) 100%);
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
 }
 
-/* ====================== */
-/*      FOOTER            */
-/* ====================== */
+/* ============================================
+   🦶 FOOTER
+============================================ */
 footer {
-  background-color: #125CC3; 
-  color: #fff;
-  text-align: center;
-  width: 100%;
+    background: var(--primary-gradient);
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    padding: 40px 20px;
+    font-size: 0.9rem;
 }
 
 .footer-content a {
-  color: #00bfff;
-  text-decoration: none;
-  margin: 0 10px;
+    color: var(--accent-light);
+    text-decoration: none;
+    margin: 0 10px;
+    transition: var(--transition-fast);
 }
 
 .footer-content a:hover {
-  text-decoration: underline;
+    color: #fff;
+    text-decoration: underline;
 }
 
-/* ====================== */
-/*      DESTACADO         */
-/* ====================== */
-
-.destacado {
-  margin: 20px auto;
-  width: 100%;
-  max-width: 1200px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffd000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.footer-content p {
+    margin: 6px 0;
+    line-height: 1.6;
 }
 
-.destacado h2 {
-  color: rgb(0, 0, 0);
-  margin: 0;
+/* ============================================
+   🖼️ HERO SECTION
+============================================ */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #0f0f1a;
 }
 
-/* ====================== */
-/*  CONTENEDOR PRODUCTOS  */
-/* ====================== */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.55;
+}
 
-.Descuento {
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 10, 30, 0.85) 0%,
+        rgba(10, 53, 117, 0.5) 50%,
+        rgba(10, 10, 30, 0.85) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 700px;
+    animation: heroFadeIn 0.9s ease-out both;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(249, 115, 22, 0.15);
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    color: #fb923c;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+}
+
+.hero-title span {
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 36px;
+    line-height: 1.6;
+}
+
+.hero-cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 14px 36px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35);
+    letter-spacing: 0.01em;
+}
+
+.hero-cta:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(249, 115, 22, 0.45);
+}
+
+/* ============================================
+   📐 SECTION CONTAINERS
+============================================ */
+.section {
+    padding: 72px 40px;
+    background: var(--bg-white);
+}
+
+.section--alt {
+    background: var(--bg-alt);
+}
+
+.section--dark {
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.section--light {
+    background: var(--bg-body);
+}
+
+/* Dark section LED ambient glow */
+.section--dark::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.section--dark::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ============================================
+   📝 SECTION TITLES (reemplaza .destacado)
+============================================ */
+.section-title {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.section-title h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.section-title p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 480px;
+    margin-inline: auto;
+    line-height: 1.6;
+}
+
+.section-title--dark h2 {
+    color: #ffffff;
+}
+
+.section-title--dark p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.section-title__accent {
+    display: inline-block;
+    width: 48px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 14px;
+}
+
+/* ============================================
+   📦 PRODUCT GRID
+============================================ */
+.products-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
     justify-content: center;
-    padding: 40px;
-    background-color: #0f4ca3;
-    max-width: 1350px;
+    max-width: 1300px;
     margin: 0 auto;
-    border: 2px solid #ffd000;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Tarjeta general */
+/* ============================================
+   🃏 TARJETA DE PRODUCTO — Refinada
+============================================ */
 .tarjeta-producto {
-  display: flex;
-  flex-direction: column;
-  width: 220px;
-  background-color: #6fa2ee;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px #f1b50e;
-  transition: 0.3s;
-  text-decoration: none;
-  color: inherit;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 0;
+    /* Shadow-only — no border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: var(--transition-normal);
+    text-decoration: none;
+    color: inherit;
+    animation: fadeInUp 0.5s ease-out both;
+    overflow: hidden;
+    border: none;
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.13);
+}
+
+/* Dark-section card variant */
+.section--dark .tarjeta-producto {
+    background: var(--bg-white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.section--dark .tarjeta-producto:hover {
+    box-shadow: 0 12px 40px rgba(249, 115, 22, 0.25);
 }
 
 /* Tarjeta interna */
 .producto {
-  min-height: 380px;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px #f1b50e;
-  text-align: center;
-  padding: 10px;
-  background-color: #ffffff;
-  transition: 0.5s;
-}
-
-.producto:hover{
-  transform: scale(1.07);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px;
+    text-align: center;
+    background: transparent;
 }
 
 .producto img {
-  width: 100%;
-  height: 160px;
-  object-fit: contain;
-  border-radius: 6px;
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-slow);
+    margin-bottom: 12px;
+}
+
+.tarjeta-producto:hover .producto img {
+    transform: scale(1.06);
+}
+
+/* Categoría — pequeña y gris */
+.categoria-producto {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
 }
 
 /* Nombre */
 .nombre-producto {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 3.3em;
-  line-height: 1.1em;
+    font-family: 'Poppins', sans-serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+    line-height: 1.35;
+    min-height: 2.7em;
+}
+
+/* Remove legacy h3 styling inside cards */
+.producto h3:not(.nombre-producto) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+    font-weight: 400;
 }
 
 /* Precios */
+.precio {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--danger);
+    margin: 0 0 12px;
+}
+
 .precio-original {
-  text-decoration: line-through;
-  color: #888;
+    text-decoration: line-through;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0;
 }
 
 .precio-descuento {
-  font-weight: bold;
-  color: #d32f2f;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--danger);
+    font-size: 1.1rem;
+    margin: 2px 0 12px;
 }
 
-/* Botón */
+/* ============================================
+   🏷️ BADGE DESCUENTO
+============================================ */
+.badge-descuento {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 9px;
+    border-radius: 20px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+}
+
+/* ============================================
+   🛒 BOTÓN CARRITO — Ghost style
+============================================ */
 .boton-carrito {
-  margin-top: 10px;
-  width: 100%;
-  padding: 8px 0;
-  background-color: #e6c700;
-  border: 1px solid #e6c700;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+    display: block;
+    margin-top: auto;
+    width: 100%;
+    padding: 10px 0;
+    /* Ghost: fondo blanco con borde naranja */
+    background: #ffffff;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    color: var(--accent);
+    letter-spacing: 0.02em;
 }
 
+/* Se rellena al pasar el cursor */
 .boton-carrito:hover {
-  background-color: #fff;
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
 }
 
-/* ====================== */
-/*     BUSCADOR           */
-/* ====================== */
+.boton-carrito:active {
+    transform: translateY(0);
+}
 
+/* ============================================
+   📌 SECTION HEADER — Título + Ver todo (homepage)
+============================================ */
+.section-header-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 0 auto 32px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.section-header-home h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.section-header-home p {
+    display: none; /* subtitle hidden when in header row */
+}
+
+.section-title--dark .section-header-home h2 {
+    color: #ffffff;
+}
+
+/* "Ver todo" button for homepage */
+.btn-ver-catalogo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.btn-ver-catalogo:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-ver-catalogo .arrow {
+    transition: transform 0.2s ease;
+}
+
+.btn-ver-catalogo:hover .arrow {
+    transform: translateX(3px);
+}
+
+/* Dark section variant */
+.section--dark .btn-ver-catalogo {
+    border-color: #fb923c;
+    color: #fb923c;
+}
+
+.section--dark .btn-ver-catalogo:hover {
+    background: #f97316;
+    color: #fff;
+}
+
+/* ============================================
+   🏆 RANKING SECTION — Favoritos
+============================================ */
+.ranking-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ranking-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    text-decoration: none;
+    color: inherit;
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.rank-number {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+    z-index: 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.ranking-item .tarjeta-producto {
+    width: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+/* ============================================
+   🔍 BUSCADOR
+============================================ */
 .busqueda {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 .busqueda input {
-  width: 60%;
-  max-width: 400px;
-  padding: 8px 12px;
-  border-radius: 20px 0 0 20px;
-  border: none;
-  outline: none;
+    width: 60%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 24px 0 0 24px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.95);
+    transition: var(--transition-fast);
+}
+
+.busqueda input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
 }
 
 .busqueda .lupa {
-  background-color: #cfcfcf;
-  border: none;
-  border-radius: 0 20px 20px 0;
-  padding: 8px 12px;
+    background: var(--accent);
+    border: none;
+    border-radius: 0 24px 24px 0;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 1rem;
 }
 
 .busqueda .lupa:hover {
-  background-color:  #1681da;
+    background: var(--accent-hover);
 }
 
-/* ====================== */
-/*     RESPONSIVE         */
-/* ====================== */
+/* ============================================
+   🎞️ ANIMATIONS
+============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered card animations */
+.tarjeta-producto:nth-child(1) { animation-delay: 0.05s; }
+.tarjeta-producto:nth-child(2) { animation-delay: 0.1s; }
+.tarjeta-producto:nth-child(3) { animation-delay: 0.15s; }
+.tarjeta-producto:nth-child(4) { animation-delay: 0.2s; }
+.tarjeta-producto:nth-child(5) { animation-delay: 0.25s; }
+
+.ranking-item:nth-child(1) { animation-delay: 0.1s; }
+.ranking-item:nth-child(2) { animation-delay: 0.2s; }
+.ranking-item:nth-child(3) { animation-delay: 0.3s; }
+
+/* ============================================
+   📱 RESPONSIVE
+============================================ */
 
 /* ----- TABLET (1024px) ----- */
 @media (max-width: 1024px) {
-
     .Arriba {
         flex-wrap: wrap;
         padding: 10px 20px;
@@ -249,16 +764,23 @@ footer {
         order: 2;
     }
 
-    /* Productos: 3 por fila */
+    .section {
+        padding: 56px 24px;
+    }
+
     .tarjeta-producto {
         width: calc(33.33% - 20px);
-        min-width: 240px;
+        min-width: 200px;
+    }
+
+    .ranking-item {
+        width: calc(33.33% - 28px);
+        min-width: 200px;
     }
 }
 
-/* ----- MÓVIL GRANDE (768px) ----- */
+/* ----- TABLET (768px) ----- */
 @media (max-width: 768px) {
-
     .Ajustes-barra {
         flex-wrap: wrap;
         height: auto;
@@ -266,14 +788,31 @@ footer {
         gap: 10px;
     }
 
-    /* Productos: 2 por fila */
-    .tarjeta-producto {
-        width: calc(50% - 20px);
-        min-width: 200px;
+    .section {
+        padding: 48px 16px;
     }
 
-    .producto img {
-        height: 150px;
+    .hero {
+        min-height: 420px;
+    }
+
+    .tarjeta-producto {
+        width: calc(50% - 16px);
+        min-width: 180px;
+    }
+
+    .ranking-item {
+        width: calc(50% - 20px);
+        min-width: 180px;
+    }
+
+    .ranking-item:nth-child(3) {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .produto img {
+        height: 140px;
     }
 
     .busqueda input {
@@ -281,13 +820,13 @@ footer {
     }
 }
 
-/* ----- MÓVIL PEQUEÑO (480px) ----- */
+/* ----- MÓVIL (480px) ----- */
 @media (max-width: 480px) {
-
     .Arriba {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 12px;
     }
 
     .busqueda {
@@ -307,17 +846,33 @@ footer {
         gap: 8px;
     }
 
-    /* Productos: 1 por fila */
+    .section {
+        padding: 40px 12px;
+    }
+
+    .hero {
+        min-height: 360px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
     .tarjeta-producto {
+        width: calc(100% - 24px);
+        max-width: 320px;
+    }
+
+    .ranking-item {
         width: 100%;
+        max-width: 320px;
     }
 
-    .producto img {
-        max-height: 200px;
-        height: auto;
+    .rank-number {
+        font-size: 4rem;
     }
 
-    .producto:hover {
-        transform: none;
+    footer {
+        padding: 24px 12px;
     }
 }

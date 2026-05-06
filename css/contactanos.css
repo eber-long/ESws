@@ -1,88 +1,160 @@
+/* ============================================
+   📞 CONTACTO — Styles
+============================================ */
+
 .contacto {
-  padding: 40px;
-  background-color: #f4f4f4;
-  color: #333;
+    padding: 48px 40px;
+    background: linear-gradient(180deg, #f0f4f8 0%, #e8edf4 100%);
+    color: #1a1a2e;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .contacto h1, .contacto h2 {
-  color: #125CC3;
-  margin-bottom: 20px;
+    color: #1a6ddb;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.contacto h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.info-contacto {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
 }
 
 .info-contacto ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .info-contacto li {
-  margin-bottom: 10px;
-  font-size: 16px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   📝 FORMULARIO
+============================================ */
+.formulario {
+    background: white;
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
 }
 
 .formulario form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .formulario input, .formulario textarea {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px;
+    border: 2px solid #e0e4ea;
+    outline: none;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+}
+
+.formulario input:focus, .formulario textarea:focus {
+    border-color: #1a6ddb;
+    box-shadow: 0 0 0 3px rgba(26, 109, 219, 0.1);
+    background: white;
 }
 
 .formulario button {
-  background-color: #125CC3;
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
+    background: linear-gradient(135deg, #1a6ddb 0%, #0a3575 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .formulario button:hover {
-  background-color: #0f4ca3;
+    background: linear-gradient(135deg, #4a90e2 0%, #1a6ddb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 109, 219, 0.3);
+}
+
+/* ============================================
+   🗺️ MAPA
+============================================ */
+.mapa {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .mapa iframe {
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive para contacto */
+/* Confirmation message */
+#confirmacion {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    padding: 16px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+/* ============================================
+   📱 RESPONSIVE
+============================================ */
 @media (max-width: 768px) {
-  .contacto {
-    padding: 20px;
-  }
+    .contacto {
+        padding: 24px 16px;
+    }
 
-  .formulario form {
-    max-width: 100%;
-    padding: 0 10px;
-  }
+    .formulario {
+        padding: 20px;
+    }
 
-  .mapa iframe {
-    width: 100%;
-    height: 300px;
-  }
+    .formulario form {
+        max-width: 100%;
+    }
+
+    .mapa iframe {
+        width: 100%;
+        height: 300px;
+    }
 }
 
 @media (max-width: 480px) {
-  .contacto {
-    padding: 12px;
-  }
+    .contacto {
+        padding: 16px 12px;
+    }
 
-  .formulario input, .formulario textarea {
-    font-size: 15px;
-    padding: 8px;
-  }
+    .formulario input, .formulario textarea {
+        font-size: 15px;
+        padding: 10px 12px;
+    }
 
-  .formulario button {
-    padding: 10px;
-    font-size: 15px;
-  }
+    .formulario button {
+        padding: 12px;
+        font-size: 15px;
+    }
 }

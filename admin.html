@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroShop — Panel de Administración</title>
+    <meta name="description" content="Panel de administración de ElectroShop. Gestión de productos, usuarios y pedidos.">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================
+         📜 SIDEBAR
+    ============================================ -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <img src="imagen/ES.png" alt="ElectroShop">
+            <h2>ElectroShop</h2>
+            <span>Admin</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">General</div>
+            <a href="#" class="nav-link active" data-section="dashboard">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="nav-link" data-section="products">
+                <span class="icon">📦</span> Productos
+            </a>
+            <a href="#" class="nav-link" data-section="users">
+                <span class="icon">👥</span> Usuarios
+            </a>
+            <a href="#" class="nav-link" data-section="orders">
+                <span class="icon">🧾</span> Pedidos
+            </a>
+
+            <div class="nav-section" style="margin-top: 24px;">Tienda</div>
+            <a href="principal.html">
+                <span class="icon">🏠</span> Ir a la tienda
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" id="adminLogout">
+                <span class="icon">🚪</span> Cerrar sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- ============================================
+         📄 MAIN CONTENT
+    ============================================ -->
+    <main class="admin-main">
+
+        <!-- Top Bar -->
+        <div class="admin-topbar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="btn-mobile-menu" id="mobileMenuBtn">☰</button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="topbar-actions">
+                <div class="topbar-user">
+                    👤 <strong id="adminName">Admin</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content">
+
+            <!-- ============================================
+                 📊 DASHBOARD SECTION
+            ============================================ -->
+            <div class="admin-section active" id="section-dashboard">
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-label">Productos</div>
+                        <div class="stat-value" id="statProducts">0</div>
+                        <div class="stat-change positive">Catálogo activo</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-label">Usuarios</div>
+                        <div class="stat-value" id="statUsers">0</div>
+                        <div class="stat-change positive">Registrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧾</div>
+                        <div class="stat-label">Pedidos</div>
+                        <div class="stat-value" id="statOrders">0</div>
+                        <div class="stat-change positive">Este mes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-label">Ingresos</div>
+                        <div class="stat-value" id="statRevenue">C$0</div>
+                        <div class="stat-change positive">↑ Este mes</div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Pedidos recientes</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 📦 PRODUCTS SECTION
+            ============================================ -->
+            <div class="admin-section" id="section-products">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Gestión de Productos</h3>
+                        <button class="btn btn-primary" id="btnAddProduct">
+                            ➕ Agregar producto
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 👥 USERS SECTION
+            ============================================ -->
+            <div class="admin-section" id="section-users">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Gestión de Usuarios</h3>
+                        <button class="btn btn-primary" id="btnAddUser">
+                            ➕ Agregar usuario
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 🧾 ORDERS SECTION
+            ============================================ -->
+            <div class="admin-section" id="section-orders">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Historial de Pedidos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Productos</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- ============================================
+     📝 MODAL: Add/Edit Product
+============================================ -->
+<div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="productModalTitle">Agregar Producto</h3>
+            <button class="modal-close" id="closeProductModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="prodName">Nombre del producto</label>
+                    <input type="text" id="prodName" required placeholder="Ej: AMD Ryzen 7 5700X">
+                </div>
+                <div class="form-group">
+                    <label for="prodCategory">Categoría</label>
+                    <select id="prodCategory" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="Procesadores">Procesadores</option>
+                        <option value="Laptops">Laptops</option>
+                        <option value="Monitores">Monitores</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Dispositivos Móviles">Dispositivos Móviles</option>
+                        <option value="Proyectores">Proyectores</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prodPrice">Precio (C$)</label>
+                    <input type="number" id="prodPrice" required step="0.01" min="0" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="prodStock">Stock</label>
+                    <input type="number" id="prodStock" required min="0" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label for="prodImage">URL de imagen</label>
+                    <input type="text" id="prodImage" placeholder="imagen/producto.png">
+                </div>
+                <div class="form-group">
+                    <label for="prodDesc">Descripción</label>
+                    <textarea id="prodDesc" rows="3" placeholder="Descripción breve del producto..."></textarea>
+                </div>
+                <input type="hidden" id="prodEditIndex" value="-1">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" id="cancelProductModal">Cancelar</button>
+            <button class="btn btn-primary" id="saveProduct">💾 Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     📝 MODAL: Add/Edit User
+============================================ -->
+<div class="modal-overlay" id="userModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="userModalTitle">Agregar Usuario</h3>
+            <button class="modal-close" id="closeUserModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName">Nombre de usuario</label>
+                    <input type="text" id="userNameInput" required placeholder="Nombre de usuario">
+                </div>
+                <div class="form-group">
+                    <label for="userPass">Contraseña</label>
+                    <input type="text" id="userPass" required placeholder="Contraseña">
+                </div>
+                <div class="form-group">
+                    <label for="userType">Tipo de usuario</label>
+                    <select id="userTypeSelect" required>
+                        <option value="comun">Común</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <input type="hidden" id="userEditIndex" value="-1">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" id="cancelUserModal">Cancelar</button>
+            <button class="btn btn-primary" id="saveUser">💾 Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
