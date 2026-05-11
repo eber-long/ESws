@@ -41,7 +41,32 @@
        </form>
     </div>
 
-    <!-- TODO: Crear js/registro.js para manejar el registro -->
+    <script src="js/registro.js"></script>
+
+    <style>
+        .registro-mensaje {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 12px 0;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .registro-mensaje.success {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        .registro-mensaje.error {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ============================================
-   🛡️ ElectroShop — Admin Panel JS
+   🛡️ ElectroShop — Admin Panel JS (con API Backend)
 ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,15 +21,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (adminNameEl) adminNameEl.textContent = userName;
 
     /* ============================================
-       📦 DATA STORE (localStorage)
+       🔌 API HELPER
     ============================================ */
-    const STORAGE_KEYS = {
-        products: 'admin_products',
-        users: 'admin_users',
-        orders: 'admin_orders'
+    const API = {
+        async get(endpoint) {
+            const res = await fetch(`/api/${endpoint}`);
+            if (!res.ok) throw new Error(`GET /api/${endpoint} → ${res.status}`);
+            return res.json();
+        },
+        async post(endpoint, data) {
+            const res = await fetch(`/api/${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || `POST /api/${endpoint} → ${res.status}`);
+            }
+            return res.json();
+        },
+        async put(endpoint, data) {
+            const res = await fetch(`/api/${endpoint}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error(`PUT /api/${endpoint} → ${res.status}`);
+            return res.json();
+        },
+        async delete(endpoint) {
+            const res = await fetch(`/api/${endpoint}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error(`DELETE /api/${endpoint} → ${res.status}`);
+            return res.json();
+        }
     };
 
-    // Default products (from catalog)
+    /* ============================================
+       📦 DATA (cargado desde API)
+    ============================================ */
+    let products = [];
+    let users = [];
+    let orders = [];
+
+    // Defaults como fallback
     const defaultProducts = [
         { nombre: "AMD Ryzen 7 5700X", categoria: "Procesadores", precio: 7708.27, stock: 15, imagen: "imagen/7.webp", descripcion: "8 núcleos / 16 hilos" },
         { nombre: "Intel Core i7-12700K", categoria: "Procesadores", precio: 9850, stock: 10, imagen: "imagen/intelcorei7.jpg", descripcion: "12 núcleos / 20 hilos" },
@@ -50,37 +85,52 @@ document.addEventListener('DOMContentLoaded', () => {
         { nombre: "RYZEN 7 9800X3D", categoria: "Procesadores", precio: 12200, stock: 8, imagen: "imagen/RYZEN 7 9800X3D.png", descripcion: "Procesador Gaming" },
     ];
 
-    // Default users
     const defaultUsers = [
         { nombre: "admin", contrasena: "1234", tipo: "administrador" },
         { nombre: "juan", contrasena: "abcd", tipo: "comun" },
         { nombre: "paco", contrasena: "1234", tipo: "comun" }
     ];
 
-    // Sample orders
     const defaultOrders = [
-        { id: "ES-001", cliente: "juan", productos: ["AMD Ryzen 7 5700X", "Mouse Redragon M607"], total: 8598.27, estado: "completado", fecha: "2025-04-18" },
-        { id: "ES-002", cliente: "paco", productos: ["HP Pavilion 15"], total: 17500, estado: "pendiente", fecha: "2025-04-19" },
-        { id: "ES-003", cliente: "juan", productos: ["Samsung Galaxy S25", "Audífonos JBL 510BT"], total: 46250, estado: "completado", fecha: "2025-04-17" },
-        { id: "ES-004", cliente: "paco", productos: ["G502 X PLUS"], total: 3000, estado: "cancelado", fecha: "2025-04-16" },
-        { id: "ES-005", cliente: "juan", productos: ["Lenovo LOQ Gen 9"], total: 20500, estado: "completado", fecha: "2025-04-15" },
+        { id: 1, codigo: "ES-001", cliente: "juan", productos: ["AMD Ryzen 7 5700X", "Mouse Redragon M607"], total: 8598.27, estado: "completado", fecha: "2025-04-18" },
+        { id: 2, codigo: "ES-002", cliente: "paco", productos: ["HP Pavilion 15"], total: 17500, estado: "pendiente", fecha: "2025-04-19" },
+        { id: 3, codigo: "ES-003", cliente: "juan", productos: ["Samsung Galaxy S25", "Audífonos JBL 510BT"], total: 46250, estado: "completado", fecha: "2025-04-17" },
+        { id: 4, codigo: "ES-004", cliente: "paco", productos: ["G502 X PLUS"], total: 3000, estado: "cancelado", fecha: "2025-04-16" },
+        { id: 5, codigo: "ES-005", cliente: "juan", productos: ["Lenovo LOQ Gen 9"], total: 20500, estado: "completado", fecha: "2025-04-15" },
     ];
 
-    // Load or init data
-    function loadData(key, defaults) {
-        const stored = localStorage.getItem(key);
-        if (stored) return JSON.parse(stored);
-        localStorage.setItem(key, JSON.stringify(defaults));
-        return [...defaults];
-    }
+    // Controla si estamos usando API o fallback
+    let usingAPI = false;
 
-    function saveData(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-    }
+    /* ============================================
+       🔄 CARGAR DATOS DESDE API
+    ============================================ */
+    async function loadAllData() {
+        try {
+            const [prods, usrs, ords] = await Promise.all([
+                API.get('productos'),
+                API.get('usuarios'),
+                API.get('pedidos')
+            ]);
 
-    let products = loadData(STORAGE_KEYS.products, defaultProducts);
-    let users = loadData(STORAGE_KEYS.users, defaultUsers);
-    let orders = loadData(STORAGE_KEYS.orders, defaultOrders);
+            products = prods;
+            users = usrs;
+            orders = ords;
+            usingAPI = true;
+            console.log('✅ Datos cargados desde API');
+        } catch (err) {
+            console.warn('⚠️ API no disponible, usando datos locales:', err.message);
+            products = [...defaultProducts];
+            users = [...defaultUsers];
+            orders = [...defaultOrders];
+            usingAPI = false;
+        }
+
+        updateDashboard();
+        renderProducts();
+        renderUsers();
+        renderOrders();
+    }
 
     /* ============================================
        📊 DASHBOARD
@@ -92,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const totalRevenue = orders
             .filter(o => o.estado === 'completado')
-            .reduce((sum, o) => sum + o.total, 0);
+            .reduce((sum, o) => sum + parseFloat(o.total), 0);
         document.getElementById('statRevenue').textContent = `C$${totalRevenue.toLocaleString('es-NI')}`;
 
         // Recent orders
@@ -102,13 +152,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
 
             const statusClass = order.estado === 'completado' ? 'completed' :
-                                order.estado === 'pendiente' ? 'pending' : 'cancelled';
+                order.estado === 'pendiente' ? 'pending' : 'cancelled';
             const statusText = order.estado.charAt(0).toUpperCase() + order.estado.slice(1);
+            const orderCode = order.codigo || order.id;
 
             tr.innerHTML = `
-                <td><strong>${order.id}</strong></td>
+                <td><strong>${orderCode}</strong></td>
                 <td>${order.cliente}</td>
-                <td>C$${order.total.toLocaleString('es-NI', {minimumFractionDigits: 2})}</td>
+                <td>C$${parseFloat(order.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}</td>
                 <td><span class="order-status"><span class="status-dot ${statusClass}"></span> ${statusText}</span></td>
                 <td>${order.fecha}</td>
             `;
@@ -136,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </td>
                 <td><span class="badge badge-category">${prod.categoria}</span></td>
-                <td>C$${prod.precio.toLocaleString('es-NI', {minimumFractionDigits: 2})}</td>
+                <td>C$${parseFloat(prod.precio).toLocaleString('es-NI', { minimumFractionDigits: 2 })}</td>
                 <td>${prod.stock}</td>
                 <td>
                     <button class="btn btn-ghost btn-sm btn-edit-product" data-index="${index}">✏️</button>
@@ -156,13 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Delete buttons
         document.querySelectorAll('.btn-delete-product').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const idx = parseInt(btn.dataset.index);
-                if (confirm(`¿Eliminar "${products[idx].nombre}"?`)) {
+                if (!confirm(`¿Eliminar "${products[idx].nombre}"?`)) return;
+
+                try {
+                    if (usingAPI && products[idx].id) {
+                        await API.delete(`productos/${products[idx].id}`);
+                    }
                     products.splice(idx, 1);
-                    saveData(STORAGE_KEYS.products, products);
                     renderProducts();
                     updateDashboard();
+                } catch (err) {
+                    console.error('Error eliminando producto:', err);
+                    alert('Error al eliminar producto');
                 }
             });
         });
@@ -202,17 +260,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Delete buttons
         document.querySelectorAll('.btn-delete-user').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const idx = parseInt(btn.dataset.index);
                 if (users[idx].nombre === userName) {
                     alert('⚠️ No puedes eliminarte a ti mismo.');
                     return;
                 }
-                if (confirm(`¿Eliminar usuario "${users[idx].nombre}"?`)) {
+                if (!confirm(`¿Eliminar usuario "${users[idx].nombre}"?`)) return;
+
+                try {
+                    if (usingAPI && users[idx].id) {
+                        await API.delete(`usuarios/${users[idx].id}`);
+                    }
                     users.splice(idx, 1);
-                    saveData(STORAGE_KEYS.users, users);
                     renderUsers();
                     updateDashboard();
+                } catch (err) {
+                    console.error('Error eliminando usuario:', err);
+                    alert('Error al eliminar usuario');
                 }
             });
         });
@@ -228,21 +293,23 @@ document.addEventListener('DOMContentLoaded', () => {
         orders.forEach((order, index) => {
             const tr = document.createElement('tr');
             const statusClass = order.estado === 'completado' ? 'completed' :
-                                order.estado === 'pendiente' ? 'pending' : 'cancelled';
+                order.estado === 'pendiente' ? 'pending' : 'cancelled';
             const statusText = order.estado.charAt(0).toUpperCase() + order.estado.slice(1);
+            const orderCode = order.codigo || order.id;
+            const productsList = Array.isArray(order.productos) ? order.productos.join(', ') : order.productos;
 
             tr.innerHTML = `
-                <td><strong>${order.id}</strong></td>
+                <td><strong>${orderCode}</strong></td>
                 <td>${order.cliente}</td>
-                <td>${order.productos.join(', ')}</td>
-                <td>C$${order.total.toLocaleString('es-NI', {minimumFractionDigits: 2})}</td>
+                <td>${productsList}</td>
+                <td>C$${parseFloat(order.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}</td>
                 <td><span class="order-status"><span class="status-dot ${statusClass}"></span> ${statusText}</span></td>
                 <td>${order.fecha}</td>
                 <td>
                     <select class="btn btn-ghost btn-sm order-status-select" data-index="${index}" style="padding:4px 8px;font-size:0.75rem;">
-                        <option value="pendiente" ${order.estado==='pendiente'?'selected':''}>Pendiente</option>
-                        <option value="completado" ${order.estado==='completado'?'selected':''}>Completado</option>
-                        <option value="cancelado" ${order.estado==='cancelado'?'selected':''}>Cancelado</option>
+                        <option value="pendiente" ${order.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+                        <option value="completado" ${order.estado === 'completado' ? 'selected' : ''}>Completado</option>
+                        <option value="cancelado" ${order.estado === 'cancelado' ? 'selected' : ''}>Cancelado</option>
                     </select>
                 </td>
             `;
@@ -251,12 +318,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Status change
         document.querySelectorAll('.order-status-select').forEach(sel => {
-            sel.addEventListener('change', () => {
+            sel.addEventListener('change', async () => {
                 const idx = parseInt(sel.dataset.index);
-                orders[idx].estado = sel.value;
-                saveData(STORAGE_KEYS.orders, orders);
-                renderOrders();
-                updateDashboard();
+                const newEstado = sel.value;
+
+                try {
+                    if (usingAPI && orders[idx].id) {
+                        await API.put(`pedidos/${orders[idx].id}`, { estado: newEstado });
+                    }
+                    orders[idx].estado = newEstado;
+                    renderOrders();
+                    updateDashboard();
+                } catch (err) {
+                    console.error('Error actualizando pedido:', err);
+                    alert('Error al actualizar estado del pedido');
+                }
             });
         });
     }
@@ -349,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('closeProductModal')?.addEventListener('click', closeProductModalFn);
     document.getElementById('cancelProductModal')?.addEventListener('click', closeProductModalFn);
 
-    document.getElementById('saveProduct')?.addEventListener('click', () => {
+    document.getElementById('saveProduct')?.addEventListener('click', async () => {
         const name = document.getElementById('prodName').value.trim();
         const category = document.getElementById('prodCategory').value;
         const price = parseFloat(document.getElementById('prodPrice').value);
@@ -372,16 +448,30 @@ document.addEventListener('DOMContentLoaded', () => {
             descripcion: desc
         };
 
-        if (editIdx >= 0) {
-            products[editIdx] = productData;
-        } else {
-            products.push(productData);
-        }
+        try {
+            if (usingAPI) {
+                if (editIdx >= 0 && products[editIdx].id) {
+                    const updated = await API.put(`productos/${products[editIdx].id}`, productData);
+                    products[editIdx] = updated;
+                } else {
+                    const created = await API.post('productos', productData);
+                    products.push(created);
+                }
+            } else {
+                if (editIdx >= 0) {
+                    products[editIdx] = productData;
+                } else {
+                    products.push(productData);
+                }
+            }
 
-        saveData(STORAGE_KEYS.products, products);
-        renderProducts();
-        updateDashboard();
-        closeProductModalFn();
+            renderProducts();
+            updateDashboard();
+            closeProductModalFn();
+        } catch (err) {
+            console.error('Error guardando producto:', err);
+            alert('Error al guardar producto: ' + err.message);
+        }
     });
 
     /* ============================================
@@ -397,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = users[editIndex];
             document.getElementById('userModalTitle').textContent = 'Editar Usuario';
             document.getElementById('userNameInput').value = user.nombre;
-            document.getElementById('userPass').value = user.contrasena;
+            document.getElementById('userPass').value = user.contrasena || '';
             document.getElementById('userTypeSelect').value = user.tipo;
         } else {
             document.getElementById('userModalTitle').textContent = 'Agregar Usuario';
@@ -416,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('closeUserModal')?.addEventListener('click', closeUserModalFn);
     document.getElementById('cancelUserModal')?.addEventListener('click', closeUserModalFn);
 
-    document.getElementById('saveUser')?.addEventListener('click', () => {
+    document.getElementById('saveUser')?.addEventListener('click', async () => {
         const name = document.getElementById('userNameInput').value.trim();
         const pass = document.getElementById('userPass').value;
         const type = document.getElementById('userTypeSelect').value;
@@ -429,21 +519,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const userData = { nombre: name, contrasena: pass, tipo: type };
 
-        if (editIdx >= 0) {
-            users[editIdx] = userData;
-        } else {
-            // Check duplicate
-            if (users.some(u => u.nombre === name)) {
-                alert('Ya existe un usuario con ese nombre.');
-                return;
+        try {
+            if (usingAPI) {
+                if (editIdx >= 0 && users[editIdx].id) {
+                    const updated = await API.put(`usuarios/${users[editIdx].id}`, userData);
+                    users[editIdx] = updated;
+                } else {
+                    const created = await API.post('usuarios', userData);
+                    users.push(created);
+                }
+            } else {
+                if (editIdx >= 0) {
+                    users[editIdx] = userData;
+                } else {
+                    if (users.some(u => u.nombre === name)) {
+                        alert('Ya existe un usuario con ese nombre.');
+                        return;
+                    }
+                    users.push(userData);
+                }
             }
-            users.push(userData);
-        }
 
-        saveData(STORAGE_KEYS.users, users);
-        renderUsers();
-        updateDashboard();
-        closeUserModalFn();
+            renderUsers();
+            updateDashboard();
+            closeUserModalFn();
+        } catch (err) {
+            console.error('Error guardando usuario:', err);
+            alert('Error al guardar usuario: ' + err.message);
+        }
     });
 
     /* ============================================
@@ -457,10 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ============================================
-       🔄 INITIAL RENDER
+       🔄 INITIAL LOAD — Cargar datos desde API
     ============================================ */
-    updateDashboard();
-    renderProducts();
-    renderUsers();
-    renderOrders();
+    loadAllData();
 });
