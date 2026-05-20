@@ -120,12 +120,14 @@ a.nav-button-style:hover {
     display: flex;
 }
 
-input {
+.busqueda input {
     width: 400px;
+    max-width: 100%;
     justify-content: center;
     padding: 10px 14px;
     border-radius: 8px 0 0 8px;
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
 }
 
 .lupa {
@@ -133,6 +135,7 @@ input {
     width: 42px;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 /* ============================================

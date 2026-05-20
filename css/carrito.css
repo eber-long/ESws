@@ -1,303 +1,352 @@
-/* ============================================
-   🛒 CARRITO — Styles
-============================================ */
-
+/* --- CONFIGURACIÓN GENERAL --- */
 body {
-    background-color: #f0f4f8;
+  background-color: rgb(192, 229, 255);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* ============================================
-   📦 CONTENEDOR PRINCIPAL
-============================================ */
-.cafe-nav {
-    min-height: 400px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
+/* Contenedor del carrito */
 .carrito-compras {
-    margin: 20px auto;
-    padding: 24px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    min-height: 300px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  padding: 24px;
+  min-height: 200px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-/* ============================================
-   🃏 TARJETA DE PRODUCTO EN CARRITO
-============================================ */
+.lista-carrito {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cafe-nav {
+  min-height: 100px;
+  width: 100%;    
+  background-color: rgb(192, 229, 255);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Wrapper flex para Carrito y Lista de Deseos lado a lado */
+.carrito-y-deseos-wrapper {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.carrito-contenedor {
+  flex: 3;
+  width: 100%;
+}
+
+/* --- TARJETAS DE PRODUCTOS --- */
 .tarjeta-carrito {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    padding: 16px;
-    margin: 12px;
-    text-align: left;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-block;
-    width: 22%;
-    vertical-align: top;
-    animation: fadeInUp 0.4s ease-out both;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid #f0f0f0;
+  padding: 16px;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .tarjeta-carrito:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
+/* Control total de imágenes */
 .tarjeta-carrito img {
-    width: 100%;
-    height: 180px;
-    object-fit: contain;
-    border-radius: 10px;
-    background: #f8fafc;
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #fafafa;
+  margin-bottom: 10px;
 }
 
-.tarjeta-carrito h3 {
-    font-weight: 600;
-    margin: 10px 0 4px;
-    font-size: 0.95rem;
-}
-
-.tarjeta-carrito .precio {
-    color: #e53935;
-    font-weight: 700;
-}
-
-/* ============================================
-   ❌ BOTÓN ELIMINAR
-============================================ */
+/* --- BOTONES Y SECCIONES --- */
 .boton-eliminar {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    margin-top: 8px;
-    width: 100%;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%; /* Botón completo para fácil click en móviles */
+  text-align: center;
+  margin-top: 10px;
 }
 
 .boton-eliminar:hover {
-    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  background-color: #c0392b;
 }
 
-/* ============================================
-   💰 TOTAL / COMPRAR
-============================================ */
 .merca {
-    text-align: right;
-    margin: 20px 30px;
+  grid-column: 1 / -1; /* Hace que la sección del botón de pago ocupe todo el ancho del grid */
+  text-align: right;
+  padding: 10px 0;
 }
 
 .merca button {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25);
+  background: rgb(161, 255, 196);
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid rgb(33, 146, 40);
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .merca button:hover {
-    background: linear-gradient(135deg, #27ae60 0%, #219a52 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.35);
-}
-
-.merca button:active {
-    transform: translateY(0);
+  background: rgb(63, 193, 72);
+  color: rgb(255, 255, 255);
+  transform: scale(0.98);
 }
 
 .merca button p.inline {
-    display: inline;
-    margin: 0;
-    padding: 0;
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
-/* ============================================
-   🪟 MODAL
-============================================ */
+/* --- MODAL (CORREGIDO) --- */
 #modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  display: none;               /* Oculto por defecto */
+  position: fixed;             
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); 
+  justify-content: center;     
+  align-items: center;         
+  z-index: 1000;               
+}
+
+/* Clase auxiliar para mostrar el modal desde JavaScript */
+#modal.mostrar {
+  display: flex; /* Se activa esta clase cuando abras el modal */
 }
 
 #modalContent {
-    background: white;
-    padding: 40px 60px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    animation: modalIn 0.3s ease-out;
-}
-
-@keyframes modalIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 90%;
+  box-sizing: border-box;
 }
 
 #modalContent h1 {
-    margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a2e;
+  margin: 0;
+  font-size: 28px;
+  color: #333;
 }
 
 #modalContent p {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: #555770;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #666;
 }
 
 #cerrarBtn {
-    margin-top: 24px;
-    padding: 10px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #1a6ddb 0%, #0a3575 100%);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+  margin-top: 20px;
+  padding: 8px 24px;
+  font-size: 16px;
+  border-radius: 20px;
+  background-color: #125CC3;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-#cerrarBtn:hover {
-    background: linear-gradient(135deg, #4a90e2 0%, #1a6ddb 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(26, 109, 219, 0.3);
-}
-
-/* ============================================
-   🛒 CARRITO VACÍO
-============================================ */
 #carrito-vacio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #8e8ea0;
-    padding: 60px 20px;
-    font-size: 1.1rem;
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #afafaf;
+  padding: 40px 0;
+  font-size: 18px;
 }
 
 #carrito-vacio img {
-    display: block;
-    margin: 0 auto 16px;
-    opacity: 0.5;
+  display: block;
+  margin: 0 auto 10px;
 }
 
-#carrito-vacio p {
-    font-weight: 500;
+/* --- PANEL LATERAL DE DESEADOS --- */
+.deseos-panel-contenedor {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  padding: 20px;
+  min-width: 280px;
+  box-sizing: border-box;
 }
-
-/* ============================================
-   📱 RESPONSIVE
-============================================ */
-@media (max-width: 1024px) {
-    .tarjeta-carrito {
-        width: 45%;
-        display: inline-block;
-    }
-
-    #modalContent {
-        padding: 30px 40px;
-    }
+.deseos-panel-contenedor h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #125cc3;
+  border-bottom: 2px solid #f4f4f4;
+  padding-bottom: 10px;
+  font-weight: 700;
 }
-
+.deseos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.deseos-lista::-webkit-scrollbar {
+  width: 6px;
+}
+.deseos-lista::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.deseos-lista::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.deseos-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.deseos-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.deseos-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.deseos-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.deseos-item-nombre {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.deseos-item-precio {
+  font-size: 0.8rem;
+  color: #e74c3c;
+  font-weight: 700;
+  margin: 0;
+}
+.deseos-item-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.btn-deseos-agregar {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s, transform 0.1s;
+  font-weight: bold;
+}
+.btn-deseos-agregar:hover {
+  background: #27ae60;
+  transform: scale(1.05);
+}
+.btn-deseos-eliminar {
+  background: transparent;
+  color: #e74c3c;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  transition: transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-deseos-eliminar:hover {
+  transform: scale(1.15);
+}
+.deseos-vacio {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  padding: 30px 10px;
+  line-height: 1.4;
+}
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 992px) {
+  .carrito-y-deseos-wrapper {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+  .deseos-panel-contenedor {
+    width: 100%;
+    min-width: 100%;
+  }
+}
 @media (max-width: 768px) {
-    .tarjeta-carrito {
-        width: 90%;
-        display: block;
-        margin: 10px auto;
-    }
-
-    .tarjeta-carrito img {
-        height: auto;
-    }
-
-    .merca {
-        text-align: center;
-        margin-right: 0;
-    }
-
-    #modalContent {
-        padding: 20px;
-        width: 90%;
-        box-sizing: border-box;
-    }
-}
-
-@media (max-width: 480px) {
-    .tarjeta-carrito {
-        width: 100%;
-        margin: 8px 0;
-    }
-
-    .tarjeta-carrito img {
-        height: 160px;
-    }
-
-    #modal {
-        align-items: flex-end;
-    }
-
-    #modalContent {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        max-height: 90vh;
-        border-radius: 16px 16px 0 0;
-        padding: 20px;
-        overflow: auto;
-        box-sizing: border-box;
-    }
-}
-
-/* ============================================
-   🎞 ANIMATION
-============================================ */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  .lista-carrito {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  .tarjeta-carrito img {
+    height: 140px;
+  }
+  .merca {
+    text-align: center;
+  }
+  #modal {
+    align-items: flex-end;
+  }
+  #modalContent {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 80vh;
+    border-radius: 12px 12px 0 0;
+    padding: 20px;
+  }
 }

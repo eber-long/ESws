@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) UNIQUE NOT NULL,
     contrasena VARCHAR(200) NOT NULL,
-    tipo VARCHAR(20) NOT NULL DEFAULT 'comun'
+    tipo VARCHAR(20) NOT NULL DEFAULT 'comun',
+    lista_deseos TEXT[] DEFAULT '{}'
 );
 
 -- =====================

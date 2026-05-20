@@ -121,12 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             carrito.forEach((item, index) => {
                 const div = document.createElement("div");
-                div.className = "producto-carrito";
+                div.className = "tarjeta-carrito";
 
                 // Use textContent instead of innerHTML for security
                 const img = document.createElement("img");
                 img.src = item.imagen;
-                img.className = "producto-img";
                 img.alt = item.nombre;
 
                 const info = document.createElement("div");
@@ -144,8 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 info.append(pName, pQty, pSub);
 
                 const btn = document.createElement("button");
-                btn.className = "btn-eliminar";
-                btn.textContent = "❌";
+                btn.className = "boton-eliminar";
+                btn.textContent = "🗑️ Eliminar";
                 btn.dataset.index = index;
 
                 div.append(img, info, btn);
@@ -161,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Evento para eliminar producto
         listaCarrito.addEventListener("click", (e) => {
-            if (e.target.matches(".btn-eliminar")) {
+            if (e.target.matches(".boton-eliminar")) {
                 carrito.splice(parseInt(e.target.dataset.index), 1);
                 guardarCarrito();
                 renderCarrito();
@@ -186,6 +185,141 @@ document.addEventListener("DOMContentLoaded", () => {
         cerrarBtn?.addEventListener("click", () => {
             if (modal) modal.style.display = "none";
         });
+
+        // --- PANEL DE DESEADOS ---
+        const deseosLista = document.getElementById("deseos-lista");
+
+        const renderDeseosPanel = async () => {
+            if (!deseosLista) return;
+            deseosLista.innerHTML = "";
+
+            let listDeseos = [];
+            const user = sessionStorage.getItem("NombreUsuario");
+            if (user) {
+                try {
+                    const res = await fetch(`/api/usuarios/${user}/deseos`);
+                    if (res.ok) {
+                        listDeseos = await res.json();
+                    }
+                } catch (e) {
+                    console.error("Error al obtener lista de deseos:", e);
+                }
+            } else {
+                listDeseos = JSON.parse(localStorage.getItem("lista_deseos_local")) || [];
+            }
+
+            if (listDeseos.length === 0) {
+                deseosLista.innerHTML = '<div class="deseos-vacio">No tienes productos en tu lista de deseos 🤍</div>';
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/productos");
+                if (res.ok) {
+                    const todosProductos = await res.json();
+                    const productosFavoritos = todosProductos.filter(p => listDeseos.includes(p.nombre));
+
+                    if (productosFavoritos.length === 0) {
+                        deseosLista.innerHTML = '<div class="deseos-vacio">No tienes productos en tu lista de deseos 🤍</div>';
+                        return;
+                    }
+
+                    productosFavoritos.forEach(prod => {
+                        const itemDiv = document.createElement("div");
+                        itemDiv.className = "deseos-item";
+
+                        const img = document.createElement("img");
+                        img.src = prod.imagen;
+                        img.alt = prod.nombre;
+
+                        const infoDiv = document.createElement("div");
+                        infoDiv.className = "deseos-item-info";
+
+                        const nameP = document.createElement("p");
+                        nameP.className = "deseos-item-nombre";
+                        nameP.textContent = prod.nombre;
+
+                        const priceP = document.createElement("p");
+                        priceP.className = "deseos-item-precio";
+                        priceP.textContent = formatCurrency(parseFloat(prod.precio));
+
+                        infoDiv.append(nameP, priceP);
+
+                        const actionsDiv = document.createElement("div");
+                        actionsDiv.className = "deseos-item-acciones";
+
+                        const btnAdd = document.createElement("button");
+                        btnAdd.className = "btn-deseos-agregar";
+                        btnAdd.textContent = "🛒 +";
+                        btnAdd.title = "Agregar al carrito";
+
+                        btnAdd.addEventListener("click", () => {
+                            const producto = {
+                                nombre: prod.nombre,
+                                precio: parseFloat(prod.precio),
+                                imagen: prod.imagen
+                            };
+                            
+                            let localCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+                            const existing = localCarrito.find(p => p.nombre === producto.nombre);
+                            if (existing) {
+                                existing.cantidad = (existing.cantidad || 1) + 1;
+                            } else {
+                                producto.cantidad = 1;
+                                localCarrito.push(producto);
+                            }
+                            localStorage.setItem("carrito", JSON.stringify(localCarrito));
+                            
+                            carrito = localCarrito;
+                            renderCarrito();
+                            
+                            btnAdd.textContent = "✓";
+                            btnAdd.style.background = "#2ecc71";
+                            setTimeout(() => {
+                                btnAdd.textContent = "🛒 +";
+                                btnAdd.style.background = "";
+                            }, 1000);
+                        });
+
+                        const btnRemove = document.createElement("button");
+                        btnRemove.className = "btn-deseos-eliminar";
+                        btnRemove.innerHTML = "🗑️";
+                        btnRemove.title = "Eliminar de favoritos";
+
+                        btnRemove.addEventListener("click", async () => {
+                            if (user) {
+                                try {
+                                    const delRes = await fetch(`/api/usuarios/${user}/deseos`, {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ producto: prod.nombre })
+                                    });
+                                    if (delRes.ok) {
+                                        renderDeseosPanel();
+                                    }
+                                } catch (e) {
+                                    console.error("Error al eliminar de deseos:", e);
+                                }
+                            } else {
+                                let localDeseos = JSON.parse(localStorage.getItem("lista_deseos_local")) || [];
+                                localDeseos = localDeseos.filter(name => name !== prod.nombre);
+                                localStorage.setItem("lista_deseos_local", JSON.stringify(localDeseos));
+                                renderDeseosPanel();
+                            }
+                        });
+
+                        actionsDiv.append(btnAdd, btnRemove);
+                        itemDiv.append(img, infoDiv, actionsDiv);
+                        deseosLista.appendChild(itemDiv);
+                    });
+                }
+            } catch (e) {
+                console.error("Error rendering deseos:", e);
+                deseosLista.innerHTML = '<div class="deseos-vacio">Error al cargar favoritos 😔</div>';
+            }
+        };
+
+        renderDeseosPanel();
     }
 
     /* ============================================

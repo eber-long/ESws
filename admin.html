@@ -6,6 +6,7 @@
     <title>ElectroShop — Panel de Administración</title>
     <meta name="description" content="Panel de administración de ElectroShop. Gestión de productos, usuarios y pedidos.">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -76,6 +77,16 @@
             ============================================ -->
             <div class="admin-section active" id="section-dashboard">
 
+                <!-- Stock Alert Banner -->
+                <div class="stock-alert-banner" id="stockAlertBanner" style="display:none;">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-text">
+                        <div class="alert-title">Alerta de Stock Bajo</div>
+                        <div class="alert-desc" id="stockAlertDesc">Hay productos con menos de 5 unidades disponibles.</div>
+                    </div>
+                    <div class="alert-count" id="stockAlertCount">0</div>
+                </div>
+
                 <!-- Stats Cards -->
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -104,10 +115,22 @@
                     </div>
                 </div>
 
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-panel">
+                        <h4>💰 Ventas Generales</h4>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="chart-panel">
+                        <h4>📂 Ventas por Categoría</h4>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
                 <!-- Recent Orders -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h3>Pedidos recientes</h3>
+                        <h3>Pedidos recientes <span class="live-badge"><span class="live-dot"></span> LIVE</span></h3>
                     </div>
                     <div class="panel-body">
                         <table class="admin-table">
@@ -256,8 +279,22 @@
                     <input type="number" id="prodStock" required min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label for="prodImage">URL de imagen</label>
-                    <input type="text" id="prodImage" placeholder="imagen/producto.png">
+                    <label>Imagen del producto</label>
+                    <div class="upload-mode-toggle">
+                        <button type="button" class="active" id="btnModeUpload">📁 Subir archivo</button>
+                        <button type="button" id="btnModeUrl">🔗 URL manual</button>
+                    </div>
+                    <div id="uploadModeFile">
+                        <div class="image-upload-area" id="imageDropzone">
+                            <div class="upload-icon">📸</div>
+                            <div class="upload-text"><strong>Clic para seleccionar</strong> o arrastra una imagen</div>
+                            <input type="file" id="prodImageFile" accept="image/*">
+                            <img class="image-preview" id="imagePreview" alt="Preview">
+                        </div>
+                    </div>
+                    <div id="uploadModeUrl" style="display:none;">
+                        <input type="text" id="prodImage" placeholder="imagen/producto.png">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="prodDesc">Descripción</label>
@@ -308,6 +345,9 @@
         </div>
     </div>
 </div>
+
+<!-- Toast Notifications Container -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script src="js/admin.js"></script>
 </body>

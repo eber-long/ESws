@@ -130,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderProducts();
         renderUsers();
         renderOrders();
+        renderCharts();
+        startOrderPolling();
     }
 
     /* ============================================
@@ -144,6 +146,23 @@ document.addEventListener('DOMContentLoaded', () => {
             .filter(o => o.estado === 'completado')
             .reduce((sum, o) => sum + parseFloat(o.total), 0);
         document.getElementById('statRevenue').textContent = `C$${totalRevenue.toLocaleString('es-NI')}`;
+
+        // Stock alert banner
+        const lowStockProducts = products.filter(p => parseInt(p.stock) < 5);
+        const alertBanner = document.getElementById('stockAlertBanner');
+        const alertCount = document.getElementById('stockAlertCount');
+        const alertDesc = document.getElementById('stockAlertDesc');
+        if (alertBanner) {
+            if (lowStockProducts.length > 0) {
+                alertBanner.style.display = 'flex';
+                alertCount.textContent = lowStockProducts.length;
+                const names = lowStockProducts.map(p => p.nombre).slice(0, 3).join(', ');
+                const extra = lowStockProducts.length > 3 ? ` y ${lowStockProducts.length - 3} más` : '';
+                alertDesc.textContent = `Stock bajo: ${names}${extra}`;
+            } else {
+                alertBanner.style.display = 'none';
+            }
+        }
 
         // Recent orders
         const tbody = document.getElementById('recentOrdersBody');
@@ -176,6 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         products.forEach((prod, index) => {
             const tr = document.createElement('tr');
+            const stockNum = parseInt(prod.stock);
+            const isLowStock = stockNum < 5;
+
+            if (isLowStock) {
+                tr.classList.add('stock-low');
+            }
+
+            const stockDisplay = isLowStock
+                ? `<span class="stock-badge-low ${stockNum === 0 ? 'stock-badge-critical' : ''}">⚠️ ${prod.stock}</span>`
+                : `${prod.stock}`;
+
             tr.innerHTML = `
                 <td>
                     <div class="product-cell">
@@ -188,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td><span class="badge badge-category">${prod.categoria}</span></td>
                 <td>C$${parseFloat(prod.precio).toLocaleString('es-NI', { minimumFractionDigits: 2 })}</td>
-                <td>${prod.stock}</td>
+                <td>${stockDisplay}</td>
                 <td>
                     <button class="btn btn-ghost btn-sm btn-edit-product" data-index="${index}">✏️</button>
                     <button class="btn btn-danger btn-sm btn-delete-product" data-index="${index}">🗑️</button>
@@ -395,9 +425,96 @@ document.addEventListener('DOMContentLoaded', () => {
     ============================================ */
     const productModal = document.getElementById('productModal');
     const productForm = document.getElementById('productForm');
+    let selectedImageFile = null;
+    let imageUploadMode = 'file'; // 'file' or 'url'
+
+    // Upload mode toggle
+    const btnModeUpload = document.getElementById('btnModeUpload');
+    const btnModeUrl = document.getElementById('btnModeUrl');
+    const uploadModeFile = document.getElementById('uploadModeFile');
+    const uploadModeUrl = document.getElementById('uploadModeUrl');
+
+    btnModeUpload?.addEventListener('click', () => {
+        imageUploadMode = 'file';
+        btnModeUpload.classList.add('active');
+        btnModeUrl.classList.remove('active');
+        uploadModeFile.style.display = 'block';
+        uploadModeUrl.style.display = 'none';
+    });
+
+    btnModeUrl?.addEventListener('click', () => {
+        imageUploadMode = 'url';
+        btnModeUrl.classList.add('active');
+        btnModeUpload.classList.remove('active');
+        uploadModeFile.style.display = 'none';
+        uploadModeUrl.style.display = 'block';
+    });
+
+    // Image file input + preview + drag & drop
+    const imageFileInput = document.getElementById('prodImageFile');
+    const imagePreview = document.getElementById('imagePreview');
+    const imageDropzone = document.getElementById('imageDropzone');
+
+    imageFileInput?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            selectedImageFile = file;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                imagePreview.src = ev.target.result;
+                imagePreview.classList.add('active');
+                imageDropzone.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    imageDropzone?.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        imageDropzone.classList.add('dragover');
+    });
+    imageDropzone?.addEventListener('dragleave', () => {
+        imageDropzone.classList.remove('dragover');
+    });
+    imageDropzone?.addEventListener('drop', (e) => {
+        e.preventDefault();
+        imageDropzone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            selectedImageFile = file;
+            imageFileInput.files = e.dataTransfer.files;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                imagePreview.src = ev.target.result;
+                imagePreview.classList.add('active');
+                imageDropzone.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    async function uploadImage(file) {
+        const formData = new FormData();
+        formData.append('imagen', file);
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        if (!res.ok) throw new Error('Error al subir imagen');
+        const data = await res.json();
+        return data.path;
+    }
+
+    function resetImageUpload() {
+        selectedImageFile = null;
+        if (imagePreview) {
+            imagePreview.src = '';
+            imagePreview.classList.remove('active');
+        }
+        if (imageDropzone) imageDropzone.classList.remove('has-image');
+        if (imageFileInput) imageFileInput.value = '';
+    }
 
     function openProductModal(editIndex = -1) {
         document.getElementById('prodEditIndex').value = editIndex;
+        resetImageUpload();
 
         if (editIndex >= 0) {
             const prod = products[editIndex];
@@ -406,12 +523,26 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('prodCategory').value = prod.categoria;
             document.getElementById('prodPrice').value = prod.precio;
             document.getElementById('prodStock').value = prod.stock;
-            document.getElementById('prodImage').value = prod.imagen || '';
             document.getElementById('prodDesc').value = prod.descripcion || '';
+            // Show current image in preview
+            if (prod.imagen) {
+                imagePreview.src = prod.imagen;
+                imagePreview.classList.add('active');
+                imageDropzone?.classList.add('has-image');
+            }
+            const prodImageEl = document.getElementById('prodImage');
+            if (prodImageEl) prodImageEl.value = prod.imagen || '';
         } else {
             document.getElementById('productModalTitle').textContent = 'Agregar Producto';
             productForm.reset();
         }
+
+        // Reset to file upload mode
+        imageUploadMode = 'file';
+        btnModeUpload?.classList.add('active');
+        btnModeUrl?.classList.remove('active');
+        if (uploadModeFile) uploadModeFile.style.display = 'block';
+        if (uploadModeUrl) uploadModeUrl.style.display = 'none';
 
         productModal.classList.add('active');
     }
@@ -419,6 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeProductModalFn() {
         productModal.classList.remove('active');
         productForm.reset();
+        resetImageUpload();
     }
 
     document.getElementById('btnAddProduct')?.addEventListener('click', () => openProductModal());
@@ -430,7 +562,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = document.getElementById('prodCategory').value;
         const price = parseFloat(document.getElementById('prodPrice').value);
         const stock = parseInt(document.getElementById('prodStock').value);
-        const image = document.getElementById('prodImage').value.trim();
         const desc = document.getElementById('prodDesc').value.trim();
         const editIdx = parseInt(document.getElementById('prodEditIndex').value);
 
@@ -439,16 +570,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const productData = {
-            nombre: name,
-            categoria: category,
-            precio: price,
-            stock: stock,
-            imagen: image || 'imagen/ES.png',
-            descripcion: desc
-        };
+        let imagePath = 'imagen/ES.png';
 
         try {
+            // Upload image if file selected
+            if (imageUploadMode === 'file' && selectedImageFile) {
+                imagePath = await uploadImage(selectedImageFile);
+            } else if (imageUploadMode === 'url') {
+                const urlVal = document.getElementById('prodImage')?.value.trim();
+                imagePath = urlVal || 'imagen/ES.png';
+            } else if (editIdx >= 0 && products[editIdx].imagen) {
+                imagePath = products[editIdx].imagen;
+            }
+
+            const productData = {
+                nombre: name,
+                categoria: category,
+                precio: price,
+                stock: stock,
+                imagen: imagePath,
+                descripcion: desc
+            };
+
             if (usingAPI) {
                 if (editIdx >= 0 && products[editIdx].id) {
                     const updated = await API.put(`productos/${products[editIdx].id}`, productData);
@@ -467,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             renderProducts();
             updateDashboard();
+            renderCharts();
             closeProductModalFn();
         } catch (err) {
             console.error('Error guardando producto:', err);
@@ -558,6 +702,289 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.removeItem('tipoUsuario');
         window.location.href = 'index.html';
     });
+
+    /* ============================================
+       📊 CHARTS — Ventas Generales y por Categoría
+    ============================================ */
+    let salesChartInstance = null;
+    let categoryChartInstance = null;
+
+    function renderCharts() {
+        if (typeof Chart === 'undefined') {
+            console.warn('Chart.js no está cargado');
+            return;
+        }
+
+        renderSalesChart();
+        renderCategoryChart();
+    }
+
+    function renderSalesChart() {
+        const canvas = document.getElementById('salesChart');
+        if (!canvas) return;
+
+        if (salesChartInstance) salesChartInstance.destroy();
+
+        // Group completed orders by month
+        const completedOrders = orders.filter(o => o.estado === 'completado');
+        const monthlyData = {};
+        const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+        completedOrders.forEach(o => {
+            const date = new Date(o.fecha);
+            const key = `${date.getFullYear()}-${String(date.getMonth()).padStart(2, '0')}`;
+            const label = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+            if (!monthlyData[key]) monthlyData[key] = { label, total: 0 };
+            monthlyData[key].total += parseFloat(o.total);
+        });
+
+        const sorted = Object.keys(monthlyData).sort();
+        const labels = sorted.map(k => monthlyData[k].label);
+        const data = sorted.map(k => monthlyData[k].total);
+
+        // If no data, show total as single bar
+        if (labels.length === 0) {
+            labels.push('Sin ventas');
+            data.push(0);
+        }
+
+        salesChartInstance = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Ingresos (C$)',
+                    data,
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#182635',
+                        titleColor: '#e0e6ed',
+                        bodyColor: '#e0e6ed',
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: ctx => `C$ ${ctx.raw.toLocaleString('es-NI', { minimumFractionDigits: 2 })}`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: {
+                            color: '#7a8a9e',
+                            callback: v => `C$${(v / 1000).toFixed(0)}k`
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#7a8a9e' }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderCategoryChart() {
+        const canvas = document.getElementById('categoryChart');
+        if (!canvas) return;
+
+        if (categoryChartInstance) categoryChartInstance.destroy();
+
+        // Calculate sales by category from completed orders
+        const completedOrders = orders.filter(o => o.estado === 'completado');
+        const categoryTotals = {};
+
+        completedOrders.forEach(order => {
+            const orderProducts = Array.isArray(order.productos) ? order.productos : [];
+            orderProducts.forEach(prodName => {
+                const prod = products.find(p => p.nombre === prodName);
+                if (prod) {
+                    if (!categoryTotals[prod.categoria]) categoryTotals[prod.categoria] = 0;
+                    categoryTotals[prod.categoria] += parseFloat(prod.precio);
+                }
+            });
+        });
+
+        // If no category data, use product catalog distribution
+        if (Object.keys(categoryTotals).length === 0) {
+            products.forEach(p => {
+                if (!categoryTotals[p.categoria]) categoryTotals[p.categoria] = 0;
+                categoryTotals[p.categoria] += parseFloat(p.precio);
+            });
+        }
+
+        const labels = Object.keys(categoryTotals);
+        const data = Object.values(categoryTotals);
+
+        const colors = [
+            'rgba(59, 130, 246, 0.8)',
+            'rgba(245, 158, 11, 0.8)',
+            'rgba(34, 197, 94, 0.8)',
+            'rgba(239, 68, 68, 0.8)',
+            'rgba(168, 85, 247, 0.8)',
+            'rgba(236, 72, 153, 0.8)',
+            'rgba(20, 184, 166, 0.8)',
+        ];
+
+        categoryChartInstance = new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels,
+                datasets: [{
+                    data,
+                    backgroundColor: colors.slice(0, labels.length),
+                    borderColor: '#182635',
+                    borderWidth: 3,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#7a8a9e',
+                            padding: 16,
+                            usePointStyle: true,
+                            pointStyleWidth: 12,
+                            font: { size: 12, family: 'Inter' }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#182635',
+                        titleColor: '#e0e6ed',
+                        bodyColor: '#e0e6ed',
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: ctx => ` ${ctx.label}: C$ ${ctx.raw.toLocaleString('es-NI', { minimumFractionDigits: 2 })}`
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    /* ============================================
+       🔔 REAL-TIME POLLING — Pedidos cada 10s
+    ============================================ */
+    let pollingInterval = null;
+    let lastOrderCount = 0;
+
+    function startOrderPolling() {
+        lastOrderCount = orders.length;
+
+        if (pollingInterval) clearInterval(pollingInterval);
+
+        pollingInterval = setInterval(async () => {
+            if (!usingAPI) return;
+
+            try {
+                const newOrders = await API.get('pedidos');
+                if (newOrders.length > lastOrderCount) {
+                    const diff = newOrders.length - lastOrderCount;
+                    const newest = newOrders.slice(0, diff);
+
+                    orders = newOrders;
+                    lastOrderCount = newOrders.length;
+
+                    renderOrders();
+                    updateDashboard();
+                    renderCharts();
+
+                    // Toast notification
+                    newest.forEach(o => {
+                        showToast(
+                            '🛒 Nuevo Pedido',
+                            `${o.cliente} — C$${parseFloat(o.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`,
+                            'success'
+                        );
+                    });
+
+                    // Audio notification
+                    playNotificationSound();
+
+                    // Highlight new rows
+                    setTimeout(() => {
+                        const rows = document.querySelectorAll('#ordersTableBody tr');
+                        for (let i = 0; i < Math.min(diff, rows.length); i++) {
+                            rows[i].classList.add('new-order-highlight');
+                        }
+                    }, 100);
+                } else {
+                    // Update order states silently
+                    orders = newOrders;
+                    lastOrderCount = newOrders.length;
+                }
+            } catch (err) {
+                console.warn('Polling error:', err.message);
+            }
+        }, 10000);
+    }
+
+    /* ============================================
+       🔔 TOAST NOTIFICATIONS
+    ============================================ */
+    function showToast(title, message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        const icon = type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+        toast.innerHTML = `
+            <div class="toast-icon">${icon}</div>
+            <div class="toast-body">
+                <div class="toast-title">${title}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+        `;
+        container.appendChild(toast);
+
+        // Auto-dismiss after 5s
+        setTimeout(() => {
+            toast.classList.add('toast-out');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
+    /* ============================================
+       🔊 NOTIFICATION SOUND
+    ============================================ */
+    function playNotificationSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(880, ctx.currentTime);
+            osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.3);
+        } catch (e) { /* Audio not available */ }
+    }
 
     /* ============================================
        🔄 INITIAL LOAD — Cargar datos desde API

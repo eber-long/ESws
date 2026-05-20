@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Lista de Deseos - ElectroShop</title>
+    <link rel="stylesheet" href="css/principal.css">
+    <link rel="stylesheet" href="css/flotantes/secion.css">
+    <link rel="stylesheet" href="css/carrito-flotante.css">
+    <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
+    <style>
+        .deseos-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            min-height: 60vh;
+        }
+        .deseos-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        .deseos-header h2 {
+            margin: 0;
+            color: #ffb700;
+        }
+        .deseos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .empty-deseos {
+            text-align: center;
+            color: #7a8a9e;
+            padding: 50px;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+<header class="Arriba">
+    <div class="logo">
+        <a href="principal.html" class="logo-link">
+            <img src="imagen/ES.png" alt="Logo ElectroShop" class="logo-img">
+            <h1>ElectroShop</h1>
+        </a>
+    </div>
+    
+    <div style="display: flex; align-items: center; margin-left: auto; gap: 15px;">
+        <button id="headerCartBtn" class="header-cart-btn" title="Ver Carrito">
+            🛒 <span id="headerCartBadge" class="cart-badge" style="display: none;">0</span>
+        </button>
+
+        <div class="Perfil">
+            <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
+            <button class="logout-action" title="Cerrar sesión">🚪 Cerrar</button>
+            <div id="info" class="info">
+                <p id="userName">Usuario</p>
+                <p>Rol: <span id="userType">Común</span></p>
+                <a href="deseos.html" style="display:block; margin: 10px 0; color: #3b82f6; text-decoration: none; text-align: center; font-weight: bold;">❤️ Mi Lista de Deseos</a>
+                <button id="logoutBtn">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="deseos-container">
+    <div class="deseos-header">
+        <h2 style="font-size:2rem;">❤️ Mi Lista de Deseos</h2>
+    </div>
+    <div id="deseosGrid" class="deseos-grid">
+        <div class="empty-deseos">Cargando deseos...</div>
+    </div>
+</div>
+
+<!-- Drawer del carrito flotante -->
+<div id="cartOverlay" class="cart-overlay"></div>
+<div id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+        <h2>🛒 Tu Carrito</h2>
+        <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
+    <div id="cartDrawerBody" class="cart-body"></div>
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartDrawerTotal">C$0.00</span>
+        </div>
+        <button id="cartCheckoutBtn" class="btn-checkout">Pagar Ahora</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 ElectroShop.</p>
+    </div>
+</footer>
+
+<script src="js/principal.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/deseos.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const grid = document.getElementById('deseosGrid');
+    
+    // Esperar a que se cargue la lista (definida en deseos.js)
+    setTimeout(async () => {
+        if (listaDeseos.length === 0) {
+            grid.innerHTML = '<div class="empty-deseos">Tu lista de deseos está vacía 😔<br><a href="catalogo.html" style="color:#3b82f6; text-decoration:none; margin-top:15px; display:inline-block;">Ir al Catálogo</a></div>';
+            return;
+        }
+
+        // Obtener info de productos del backend para mostrarlos
+        try {
+            grid.innerHTML = '<div class="empty-deseos">Cargando detalles de productos...</div>';
+            const res = await fetch('/api/productos');
+            const allProducts = await res.json();
+
+            const myProducts = allProducts.filter(p => listaDeseos.includes(p.nombre));
+
+            grid.innerHTML = '';
+            if (myProducts.length === 0) {
+                 grid.innerHTML = '<div class="empty-deseos">Los productos en tu lista ya no están disponibles.</div>';
+                 return;
+            }
+
+            myProducts.forEach(prod => {
+                const a = document.createElement('a');
+                a.href = "detalle-5700x.html"; // Por defecto, ajustar si es dinámico
+                a.className = "tarjeta-producto";
+                a.dataset.nombre = prod.nombre;
+                a.dataset.precio = prod.precio;
+                a.dataset.img = prod.imagen;
+
+                a.innerHTML = `
+                    <div class="producto" style="position:relative;">
+                        <img src="${prod.imagen}" alt="${prod.nombre}">
+                        <p class="categoria-producto">${prod.categoria}</p>
+                        <h3 class="nombre-producto">${prod.nombre}</h3>
+                        <p class="precio">C$${parseFloat(prod.precio).toLocaleString('es-NI', {minimumFractionDigits:2})}</p>
+                        <button class="boton-carrito">Agregar al carrito</button>
+                    </div>
+                `;
+                grid.appendChild(a);
+            });
+
+            // Reinicializar botones de carrito y corazones en las nuevas tarjetas
+            inicializarCarrito(); // Re-liga eventos de carrito a los nuevos botones
+            inyectarBotonesCorazon(); // Agrega corazones
+
+        } catch (err) {
+            grid.innerHTML = '<div class="empty-deseos">Error cargando productos.</div>';
+        }
+    }, 500); // Pequeño retraso para dejar que deseos.js cargue la lista
+});
+</script>
+</body>
+</html>

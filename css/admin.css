@@ -323,6 +323,8 @@ body {
 
 .panel-body {
     padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ============================================
@@ -330,6 +332,7 @@ body {
 ============================================ */
 .admin-table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
     font-size: 0.88rem;
 }
@@ -688,5 +691,359 @@ body {
 
     .topbar-user {
         display: none;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.5rem;
+        word-break: break-word;
+    }
+
+    .modal-box {
+        width: 95%;
+        max-width: 95%;
+    }
+}
+
+/* ============================================
+   🔴 STOCK ALERTS
+============================================ */
+.stock-low td {
+    background: rgba(239, 68, 68, 0.06) !important;
+}
+
+.stock-low td:first-child {
+    border-left: 3px solid var(--admin-danger);
+}
+
+.stock-badge-low {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    animation: pulse-stock 2s ease-in-out infinite;
+}
+
+.stock-badge-critical {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+}
+
+@keyframes pulse-stock {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.stock-alert-banner {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(245, 158, 11, 0.12));
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.stock-alert-banner .alert-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.stock-alert-banner .alert-text {
+    flex: 1;
+}
+
+.stock-alert-banner .alert-title {
+    font-weight: 700;
+    color: #fbbf24;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.stock-alert-banner .alert-desc {
+    color: var(--admin-text-muted);
+    font-size: 0.82rem;
+}
+
+.stock-alert-banner .alert-count {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #f87171;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* ============================================
+   📸 IMAGE UPLOAD DROPZONE
+============================================ */
+.image-upload-area {
+    position: relative;
+    border: 2px dashed rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(59, 130, 246, 0.04);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.image-upload-area:hover,
+.image-upload-area.dragover {
+    border-color: var(--admin-primary);
+    background: rgba(59, 130, 246, 0.08);
+    transform: translateY(-1px);
+}
+
+.image-upload-area .upload-icon {
+    font-size: 2rem;
+    opacity: 0.7;
+}
+
+.image-upload-area .upload-text {
+    font-size: 0.85rem;
+    color: var(--admin-text-muted);
+}
+
+.image-upload-area .upload-text strong {
+    color: var(--admin-primary);
+}
+
+.image-upload-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 8px;
+    display: none;
+}
+
+.image-preview.active {
+    display: block;
+}
+
+.image-upload-area.has-image {
+    border-style: solid;
+    border-color: var(--admin-success);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.upload-mode-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.upload-mode-toggle button {
+    flex: 1;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--admin-border);
+    background: transparent;
+    color: var(--admin-text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-mode-toggle button.active {
+    background: var(--admin-primary);
+    color: white;
+    border-color: var(--admin-primary);
+}
+
+/* ============================================
+   🔔 TOAST NOTIFICATIONS
+============================================ */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--admin-card);
+    border: 1px solid var(--admin-border);
+    border-left: 4px solid var(--admin-success);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 320px;
+    max-width: 420px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: auto;
+    animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast.toast-out {
+    animation: toastOut 0.3s ease-in forwards;
+}
+
+.toast .toast-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.toast .toast-body {
+    flex: 1;
+}
+
+.toast .toast-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.toast .toast-message {
+    font-size: 0.8rem;
+    color: var(--admin-text-muted);
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes toastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%) scale(0.9);
+    }
+}
+
+/* ============================================
+   🟢 LIVE BADGE
+============================================ */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    margin-left: 10px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+
+.new-order-highlight td {
+    animation: highlightNew 2s ease-out;
+}
+
+@keyframes highlightNew {
+    from { background: rgba(34, 197, 94, 0.15); }
+    to { background: transparent; }
+}
+
+/* ============================================
+   📊 CHARTS GRID
+============================================ */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.chart-panel {
+    background: var(--admin-card);
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    padding: 24px;
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.chart-panel:nth-child(1) { animation-delay: 0.25s; }
+.chart-panel:nth-child(2) { animation-delay: 0.30s; }
+
+.chart-panel h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-panel canvas {
+    width: 100% !important;
+    max-height: 280px;
+}
+
+@media (max-width: 900px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .toast {
+        min-width: auto;
+        max-width: 90vw;
+        right: 5vw;
+    }
+    
+    .toast-container {
+        right: 0;
+        left: 0;
+        align-items: center;
     }
 }

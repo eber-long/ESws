@@ -115,6 +115,18 @@
 /* ============================================
    📱 RESPONSIVE
 ============================================ */
+@media (max-width: 768px) {
+    .info {
+        position: fixed;
+        top: auto;
+        bottom: 16px;
+        right: 16px;
+        left: auto;
+        width: 220px;
+        z-index: 1001;
+    }
+}
+
 @media (max-width: 480px) {
     .logout-action {
         padding: 6px 8px;
@@ -127,8 +139,13 @@
     }
 
     .info {
-        width: 180px;
+        position: fixed;
+        top: auto;
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        width: auto;
         padding: 16px;
-        right: -10px;
+        z-index: 1001;
     }
 }

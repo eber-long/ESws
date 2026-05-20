@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
+    <link rel="stylesheet" href="css/carrito-flotante.css">
 </head>
 <body>
     <header class="Arriba">
@@ -16,19 +17,48 @@
             <input type="text" placeholder="Buscar...">
             <button class="lupa">🔎</button>
         </div>
-        <div class="Perfil">
-            <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
-            <button class="logout-action" title="Cerrar sesión">🚪 Cerrar</button>
-            <div id="info" class="info">
-                <p id="userName">Usuario</p>
-                <p>Rol: <span id="userType">Común</span></p>
-                <button id="logoutBtn">Cerrar sesión</button>
+        
+        <div style="display: flex; align-items: center; margin-left: auto; gap: 15px;">
+            <!-- Botón de carrito en header -->
+            <button id="headerCartBtn" class="header-cart-btn" title="Ver Carrito">
+                🛒
+                <span id="headerCartBadge" class="cart-badge" style="display: none;">0</span>
+            </button>
+
+            <div class="Perfil">
+                <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
+                <button class="logout-action" title="Cerrar sesión">🚪 Cerrar</button>
+                <div id="info" class="info">
+                    <p id="userName">Usuario</p>
+                    <p>Rol: <span id="userType">Común</span></p>
+                    <a href="deseos.html" style="display:block; margin: 10px 0; color: #3b82f6; text-decoration: none; text-align: center; font-weight: bold;">❤️ Mi Lista de Deseos</a>
+                    <button id="logoutBtn">Cerrar sesión</button>
+                </div>
             </div>
         </div>
-    
     </header>   
+
+    <!-- Drawer del carrito flotante -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>🛒 Tu Carrito</h2>
+            <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+        </div>
+        <div id="cartDrawerBody" class="cart-body">
+            <!-- Los items del carrito se inyectan aquí con JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartDrawerTotal">C$0.00</span>
+            </div>
+            <button id="cartCheckoutBtn" class="btn-checkout">Pagar Ahora</button>
+        </div>
+    </div>
 
 <script src="javascrip/header.js"></script>
 <script src="javascrip/include-header.js"></script>
+<script src="js/carrito.js"></script>
 </body>
 </html>

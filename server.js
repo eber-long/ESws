@@ -6,6 +6,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { Pool } = require('pg');
+const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +20,34 @@ app.use(express.json());
 
 // Servir TODOS los archivos estáticos (HTML, CSS, JS, imágenes)
 app.use(express.static(path.join(__dirname)));
+
+// Crear carpeta uploads si no existe
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Servir archivos subidos
+app.use('/uploads', express.static(uploadsDir));
+
+// Configurar Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, uploadsDir),
+    filename: (req, file, cb) => {
+        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
+        cb(null, uniqueName);
+    }
+});
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowed = /jpeg|jpg|png|gif|webp|avif/;
+        const ext = allowed.test(path.extname(file.originalname).toLowerCase());
+        const mime = allowed.test(file.mimetype);
+        cb(null, ext && mime);
+    }
+});
 
 /* ============================================
    🗄️ CONEXIÓN A POSTGRESQL
@@ -238,6 +268,65 @@ app.delete('/api/usuarios/:id', async (req, res) => {
 });
 
 /* ============================================
+   ❤️ API — LISTA DE DESEOS
+============================================ */
+// Asegurar que la columna existe (Migración automática)
+pool.query(`ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS lista_deseos TEXT[] DEFAULT '{}'`)
+    .then(() => console.log('✅ Migración lista_deseos verificada'))
+    .catch(err => console.error('❌ Error verificando lista_deseos:', err.message));
+
+// GET deseos de un usuario
+app.get('/api/usuarios/:nombre/deseos', async (req, res) => {
+    try {
+        const { nombre } = req.params;
+        const result = await pool.query('SELECT lista_deseos FROM usuarios WHERE nombre = $1', [nombre]);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Usuario no encontrado' });
+        res.json(result.rows[0].lista_deseos || []);
+    } catch (err) {
+        console.error('Error al obtener deseos:', err);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+// POST agregar/quitar deseo
+app.post('/api/usuarios/:nombre/deseos', async (req, res) => {
+    try {
+        const { nombre } = req.params;
+        const { producto } = req.body; // Nombre del producto
+        if (!producto) return res.status(400).json({ error: 'Falta producto' });
+
+        const userRes = await pool.query('SELECT id, lista_deseos FROM usuarios WHERE nombre = $1', [nombre]);
+        if (userRes.rows.length === 0) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+        let deseos = userRes.rows[0].lista_deseos || [];
+        
+        // Toggle
+        if (deseos.includes(producto)) {
+            deseos = deseos.filter(p => p !== producto);
+        } else {
+            deseos.push(producto);
+        }
+
+        await pool.query('UPDATE usuarios SET lista_deseos = $1 WHERE nombre = $2', [deseos, nombre]);
+        res.json({ lista_deseos: deseos });
+    } catch (err) {
+        console.error('Error al actualizar deseos:', err);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+
+/* ============================================
+   📸 API — UPLOAD DE IMÁGENES
+============================================ */
+app.post('/api/upload', upload.single('imagen'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: 'No se recibió ninguna imagen válida' });
+    }
+    res.json({ path: `uploads/${req.file.filename}` });
+});
+
+/* ============================================
    🧾 API — PEDIDOS
 ============================================ */
 
@@ -249,6 +338,26 @@ app.get('/api/pedidos', async (req, res) => {
     } catch (err) {
         console.error('Error al obtener pedidos:', err);
         res.status(500).json({ error: 'Error al obtener pedidos' });
+    }
+});
+
+// POST nuevo pedido
+app.post('/api/pedidos', async (req, res) => {
+    try {
+        const { codigo, cliente, productos, total } = req.body;
+        if (!codigo || !cliente || !productos || total == null) {
+            return res.status(400).json({ error: 'Faltan datos requeridos' });
+        }
+
+        const result = await pool.query(
+            `INSERT INTO pedidos (codigo, cliente, productos, total, estado, fecha) 
+             VALUES ($1, $2, $3, $4, 'pendiente', CURRENT_DATE) RETURNING *`,
+            [codigo, cliente, productos, total]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error al crear pedido:', err);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
 

@@ -1,0 +1,265 @@
+* ============================================
+   🛒 ElectroShop — Carrito Flotante (Drawer)
+   ============================================ */
+
+/* Overlay oscuro para el fondo */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Panel lateral del carrito */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: #0f1923;
+    color: #e0e6ed;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cart-drawer.active {
+    right: 0;
+}
+
+/* Cabecera del carrito */
+.cart-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: #182635;
+}
+
+.cart-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-close-btn {
+    background: transparent;
+    border: none;
+    color: #7a8a9e;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.cart-close-btn:hover {
+    color: #ef4444;
+}
+
+/* Cuerpo del carrito (lista de productos) */
+.cart-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Estilos de la tarjeta individual en el carrito */
+.cart-item {
+    display: flex;
+    gap: 16px;
+    background: #182635;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+}
+
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cart-item-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: white;
+}
+
+.cart-item-price {
+    font-weight: 700;
+    color: #3b82f6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.cart-item-qty {
+    font-size: 0.8rem;
+    color: #7a8a9e;
+}
+
+.cart-item-remove {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    transition: transform 0.2s;
+}
+
+.cart-item-remove:hover {
+    transform: scale(1.1);
+}
+
+.cart-empty-message {
+    text-align: center;
+    color: #7a8a9e;
+    margin-top: 50px;
+    font-size: 0.95rem;
+}
+
+/* Footer del carrito (Total y botón de pago) */
+.cart-footer {
+    padding: 24px;
+    background: #182635;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #e0e6ed;
+}
+
+.cart-total span:last-child {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 14px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-checkout:hover {
+    background: #60a5fa;
+}
+
+.btn-checkout:active {
+    transform: scale(0.98);
+}
+
+/* Botón flotante para abrir carrito (por si no usan el del header) */
+.cart-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    color: white;
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+    cursor: pointer;
+    z-index: 990;
+    transition: transform 0.2s, background 0.2s;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-fab:hover {
+    transform: scale(1.05);
+    background: #60a5fa;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 800;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Indicador de carrito en el Header */
+.header-cart-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.header-cart-btn:hover {
+    transform: scale(1.1);
+}

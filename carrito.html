@@ -37,47 +37,44 @@
 </header>
 
     <div class="Ajustes-barra">
-        <div class="Menu">
-            <button id="menuBtn">☰ Categorías</button>
-            <div id="menuPlegable" class="menuPlegable">
-                <ul>
-                    <li><a href="#Accesorios">Accesorios</a></li>
-                    <li><a href="#Monitores">Monitores</a></li>
-                    <li><a href="#Laptops">Laptops</a></li>
-                    <li><a href="#Ordenadores">Ordenadores</a></li>
-                    <li><a href="#Proyectores">Proyectores</a></li>
-                    <li><a href="#Dispositivos-Móviles">Dispositivos Móviles</a></li>
-                </ul>
-            </div>
-
-        </div>
         <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
         <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
         <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
         <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
+        <a href="deseos.html" class="nav-button-style">❤️ Lista de Deseos</a>
     </div>
 
   <h1>Carrito de compras</h1>
 <div class="cafe-nav">
-  <div class="carrito-contenedor">
-    <section>
-      <div class="carrito-compras">
+  <div class="carrito-y-deseos-wrapper">
+    <div class="carrito-contenedor">
+      <section>
+        <div class="carrito-compras">
 
-        <div id="carrito-vacio">
-          <img src="imagen/kindpng_285204.png" alt="Carrito vacío" style="width:80px; opacity:0.7;">
-          <p>Tu carrito está vacío</p>
+          <div id="carrito-vacio">
+            <img src="imagen/kindpng_285204.png" alt="Carrito vacío" style="width:80px; opacity:0.7;">
+            <p>Tu carrito está vacío</p>
+          </div>
+
+          <div data-carrito class="lista-carrito"></div>
         </div>
+      </section>
 
-        <div data-carrito class="lista-carrito"></div>
+      <div class="merca">
+        <button id="comprarBtn">Monto total: 
+          <p class="inline" data-total-carrito>C$0.00</p>
+        </button>
+      </div> 
+    </div>
+
+    <!-- Panel Lateral de Lista de Deseos -->
+    <div class="deseos-panel-contenedor">
+      <h2>❤️ Mis Favoritos</h2>
+      <div id="deseos-lista" class="deseos-lista">
+        <!-- Cargado dinámicamente con JavaScript -->
       </div>
-    </section>
+    </div>
   </div>
-
-  <div class="merca">
-    <button id="comprarBtn">Monto total: 
-      <p class="inline" data-total-carrito>C$0.00</p>
-    </button>
-  </div> 
 
   <div id="modal" style="display: none;">
     <div id="modalContent">

@@ -75,6 +75,7 @@ html, body {
     color: var(--text-primary);
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 /* ============================================
@@ -90,6 +91,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -682,6 +685,7 @@ footer {
     font-size: 0.9rem;
     background: rgba(255, 255, 255, 0.95);
     transition: var(--transition-fast);
+    box-sizing: border-box;
 }
 
 .busqueda input:focus {
