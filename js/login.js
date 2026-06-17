@@ -1,67 +1,56 @@
 /* ============================================
-   🔐 ElectroShop — Login (con API Backend)
+   🔐 ElectroShop — Login (con JWT)
 ============================================ */
-
-// Usuarios locales como fallback
-const usuariosFallback = [
-  { nombre: "admin", contrasena: "1234", tipo: "administrador" },
-  { nombre: "juan", contrasena: "abcd", tipo: "comun" },
-  { nombre: "paco", contrasena: "1234", tipo: "comun" }
-];
 
 // Escucha el submit del formulario
 document.getElementById("loginForm").addEventListener("submit", async function (event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const usuarioInput = document.getElementById("usuario").value.trim();
-  const contrasenaInput = document.getElementById("contrasena").value;
+    const usuarioInput = document.getElementById("usuario").value.trim();
+    const contrasenaInput = document.getElementById("contrasena").value;
 
-  try {
-    // Intentar login via API
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: usuarioInput, contrasena: contrasenaInput })
-    });
-
-    if (response.ok) {
-      const usuario = await response.json();
-      sessionStorage.setItem("NombreUsuario", usuario.nombre);
-      sessionStorage.setItem("tipoUsuario", usuario.tipo);
-      window.location.href = "principal.html";
-      return;
+    if (!usuarioInput || !contrasenaInput) {
+        mostrarError("Por favor completa todos los campos.");
+        return;
     }
 
-    // Credenciales incorrectas (401)
-    if (response.status === 401) {
-      mostrarError();
-      return;
+    try {
+        // Login via API — retorna JWT
+        const data = await API.post('login', {
+            nombre: usuarioInput,
+            contrasena: contrasenaInput
+        }, false);
+
+        if (data.success && data.token) {
+            // Guardar sesión con JWT
+            API.saveSession(data.token, data.usuario.nombre, data.usuario.rol);
+            
+            // Redirección según rol
+            if (data.usuario.rol === 'administrador' || data.usuario.rol === 'ventas') {
+                window.location.href = "admin.html";
+            } else {
+                window.location.href = "principal.html";
+            }
+        } else {
+            mostrarError("Respuesta inesperada del servidor.");
+        }
+
+    } catch (err) {
+        console.error('Error en login:', err);
+        if (err.status === 401) {
+            mostrarError("Usuario o contraseña incorrectos.");
+        } else if (err.status === 400) {
+            const detalles = err.data?.detalles;
+            mostrarError(detalles ? detalles.join(' ') : "Datos inválidos.");
+        } else {
+            mostrarError("⚠️ No se pudo conectar con el servidor. Intenta más tarde.");
+        }
     }
-
-    // Otro error del servidor → fallback local
-    throw new Error('Error del servidor');
-
-  } catch (err) {
-    // Si la API no responde, usar fallback local
-    console.warn('⚠️ API no disponible, usando login local:', err.message);
-
-    const usuarioValido = usuariosFallback.find(
-      u => u.nombre === usuarioInput && u.contrasena === contrasenaInput
-    );
-
-    if (usuarioValido) {
-      sessionStorage.setItem("NombreUsuario", usuarioValido.nombre);
-      sessionStorage.setItem("tipoUsuario", usuarioValido.tipo);
-      window.location.href = "principal.html";
-    } else {
-      mostrarError();
-    }
-  }
 });
 
-function mostrarError() {
-  const form = document.getElementById("loginForm");
-  form.classList.add("shake");
-  setTimeout(() => form.classList.remove("shake"), 500);
-  alert("Usuario o contraseña incorrectos");
+function mostrarError(mensaje) {
+    const form = document.getElementById("loginForm");
+    form.classList.add("shake");
+    setTimeout(() => form.classList.remove("shake"), 500);
+    alert(mensaje || "Usuario o contraseña incorrectos");
 }

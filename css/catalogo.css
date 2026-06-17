@@ -15,7 +15,7 @@ h1 {
     margin-bottom: 8px;
     font-weight: 800;
     font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--text-primary, #1a1a2e);
+    color: var(--text-primary, #000000);
     letter-spacing: -0.02em;
 }
 
@@ -509,3 +509,77 @@ button.next { right: 10px; }
         transform: translateY(0);
     }
 }
+
+/* ============================================
+   🏷️ DISCOUNT BADGES & PRICES — Tienda
+============================================ */
+
+/* Wrapper for relative positioning of badge */
+.tarjeta-producto .contenido {
+    position: relative;
+}
+
+/* Discount badge — positioned top-right of the card */
+.discount-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+    animation: badgePulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Old price — struck through */
+.old-price {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-decoration: line-through;
+    margin: 6px 0 0;
+    line-height: 1.2;
+}
+
+/* New discounted price — bold and red */
+.new-price {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #e53935;
+    margin: 2px 0;
+    line-height: 1.3;
+}
+
+/* Hide original .precio when discount is applied (JS adds class) */
+.tarjeta-producto.has-discount .precio {
+    display: none;
+}
+
+/* Dark variant for gaming cards */
+.carrusel-contenedor--dark .discount-badge {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.carrusel-contenedor--dark .old-price {
+    color: #6b7280;
+}
+
+.carrusel-contenedor--dark .new-price {
+    color: #fb923c;
+}
+

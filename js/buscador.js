@@ -47,28 +47,46 @@
   async function buildIndex() {
     if (indexed) return;
 
-    // Indexar desde la página actual
-    indexFromDoc(document);
+    try {
+      // Intentar obtener todos los productos de la API del backend
+      const dbProducts = await API.get('productos', false);
+      dbProducts.forEach(p => {
+        productIndex.push({
+          id: p.id,
+          nombre: p.nombre,
+          precio: p.precio.toString(),
+          img: p.imagen,
+          href: `producto.html?id=${p.id}`,
+          categoria: p.categoria
+        });
+      });
+      indexed = true;
+    } catch (err) {
+      console.warn('⚠️ Error al construir índice de búsqueda desde la API, usando fallback DOM:', err.message);
+      
+      // Indexar desde la página actual
+      indexFromDoc(document);
 
-    // Siempre traer catálogo para tener todos los productos
-    if (!isCatalogo) {
-      await fetchAndIndex('catalogo.html');
-    }
-    // Traer también principal si no hay suficientes productos
-    if (productIndex.length < 5) {
-      await fetchAndIndex('principal.html');
-    }
+      // Siempre traer catálogo para tener todos los productos
+      if (!isCatalogo) {
+        await fetchAndIndex('catalogo.html');
+      }
+      // Traer también principal si no hay suficientes productos
+      if (productIndex.length < 5) {
+        await fetchAndIndex('principal.html');
+      }
 
-    // Deduplicar por nombre (case-insensitive)
-    const seen  = new Set();
-    const uniq  = [];
-    for (const p of productIndex) {
-      const key = p.nombre.toLowerCase();
-      if (!seen.has(key)) { seen.add(key); uniq.push(p); }
+      // Deduplicar por nombre (case-insensitive)
+      const seen  = new Set();
+      const uniq  = [];
+      for (const p of productIndex) {
+        const key = p.nombre.toLowerCase();
+        if (!seen.has(key)) { seen.add(key); uniq.push(p); }
+      }
+      productIndex.length = 0;
+      productIndex.push(...uniq);
+      indexed = true;
     }
-    productIndex.length = 0;
-    productIndex.push(...uniq);
-    indexed = true;
   }
 
   /* --------------------------------------------------

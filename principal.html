@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
+    <link rel="stylesheet" href="css/icons.css">    
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
+    <script src="js/theme.js"></script>
 </head>
 <body>
 
@@ -37,11 +39,47 @@
 
 <!-- ===== NAVBAR ===== -->
 <div class="Ajustes-barra">
-    <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
-    <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-    <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
-    <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
-    <a href="deseos.html" class="nav-button-style">❤️ Lista de Deseos</a>
+
+    <a href="principal.html" class="nav-button-style">
+        <!-- Home -->
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5Z"/>
+        </svg>
+        Inicio
+    </a>
+
+    <a href="nosotros.html" class="nav-button-style">
+        <!-- Usuario -->
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/>
+        </svg>
+        Nosotros
+    </a>
+
+    <a href="catalogo.html" class="nav-button-style">
+        <!-- Catálogo -->
+        <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
+        </svg>
+        Catálogo
+    </a>
+
+    <a href="carrito.html" class="nav-button-style">
+        <!-- Carrito -->
+        <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+        </svg>
+        Carrito
+    </a>
+
+    <a href="deseos.html" class="nav-button-style">
+        <!-- Corazón -->
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="m12 21-1.4-1.3C5.4 15 2 12 2 8.5A4.5 4.5 0 0 1 6.5 4c2 0 3.2 1 4.1 2.1C11.3 5 12.5 4 14.5 4A4.5 4.5 0 0 1 19 8.5c0 3.5-3.4 6.5-8.6 11.2L12 21Z"/>
+        </svg>
+        Favoritos
+    </a>
+
 </div>
 
 <!-- ============================================================
@@ -73,11 +111,12 @@
     <div class="products-grid">
 
         <!-- Producto 1 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Lenovo LOQ Gen 9"
            data-precio="20500"
-           data-img="imagen/Lenovo LOQ Gen 9.png">
+           data-img="imagen/Lenovo LOQ Gen 9.png"
+           data-categoria="Laptops">
             <div class="producto">
                 <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
                 <p class="categoria-producto">Laptop</p>
@@ -88,11 +127,12 @@
         </a>
 
         <!-- Producto 2 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Lenovo LOQ 15IAX9I"
            data-precio="44400"
-           data-img="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png">
+           data-img="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png"
+           data-categoria="Laptops">
             <div class="producto">
                 <img src="imagen/Lenovo LOQ 15IAX9I Gaming Laptop.png" alt="Lenovo LOQ 15IAX9I Gaming Laptop">
                 <p class="categoria-producto">Laptop Gaming</p>
@@ -103,11 +143,12 @@
         </a>
 
         <!-- Producto 3 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="G213 Prodigy"
            data-precio="5500"
-           data-img="imagen/G213 Prodigy.png">
+           data-img="imagen/G213 Prodigy.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
                 <p class="categoria-producto">Teclado</p>
@@ -118,11 +159,12 @@
         </a>
 
         <!-- Producto 4 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="ASTRO A40 TR"
            data-precio="5000"
-           data-img="imagen/ASTRO A40 TR.png">
+           data-img="imagen/ASTRO A40 TR.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
                 <p class="categoria-producto">Audífonos</p>
@@ -133,11 +175,12 @@
         </a>
 
         <!-- Producto 5 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="G502 X PLUS"
            data-precio="3000"
-           data-img="imagen/G502 X PLUS.png">
+           data-img="imagen/G502 X PLUS.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
                 <p class="categoria-producto">Mouse</p>
@@ -165,86 +208,81 @@
     <div class="products-grid">
 
         <!-- Producto 6 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="RYZEN 7 9800X3D"
-           data-precio="12200"
-           data-img="imagen/RYZEN 7 9800X3D.png">
-            <span class="badge-descuento">−21%</span>
+           data-precio="15500"
+           data-img="imagen/RYZEN 7 9800X3D.png"
+           data-categoria="Procesadores">
             <div class="producto">
                 <img src="imagen/RYZEN 7 9800X3D.png" alt="RYZEN 7 9800X3D">
                 <p class="categoria-producto">Procesador</p>
                 <h3 class="nombre-producto">RYZEN 7 9800X3D</h3>
-                <p class="precio-original">C$ 15,500</p>
-                <p class="precio-descuento">C$ 12,200</p>
+                <p class="precio">C$ 15,500</p>
                 <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 7 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Crucial Kit Pro DDR5 RAM de 32 GB"
-           data-precio="4200"
-           data-img="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png">
-            <span class="badge-descuento">−24%</span>
+           data-precio="5500"
+           data-img="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/Crucial Kit Pro DDR5 RAM de 32 GB.png" alt="Crucial Kit Pro DDR5 RAM de 32 GB">
                 <p class="categoria-producto">Memoria RAM</p>
                 <h3 class="nombre-producto">Crucial Kit Pro DDR5 32 GB</h3>
-                <p class="precio-original">C$ 5,500</p>
-                <p class="precio-descuento">C$ 4,200</p>
+                <p class="precio">C$ 5,500</p>
                 <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 8 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Samsung Galaxy Z Flip7"
-           data-precio="38200"
-           data-img="imagen/Galaxy Z Flip7.png">
-            <span class="badge-descuento">−6%</span>
+           data-precio="40500"
+           data-img="imagen/Galaxy Z Flip7.png"
+           data-categoria="Dispositivos Móviles">
             <div class="producto">
                 <img src="imagen/Galaxy Z Flip7.png" alt="Samsung Galaxy Z Flip7">
                 <p class="categoria-producto">Smartphone</p>
                 <h3 class="nombre-producto">Samsung Galaxy Z Flip7</h3>
-                <p class="precio-original">C$ 40,500</p>
-                <p class="precio-descuento">C$ 38,200</p>
+                <p class="precio">C$ 40,500</p>
                 <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 9 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="G502 X PLUS"
-           data-precio="3000"
-           data-img="imagen/G502 X PLUS.png">
-            <span class="badge-descuento">−30%</span>
+           data-precio="4300"
+           data-img="imagen/G502 X PLUS.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
                 <p class="categoria-producto">Mouse Gaming</p>
                 <h3 class="nombre-producto">G502 X PLUS</h3>
-                <p class="precio-original">C$ 4,300</p>
-                <p class="precio-descuento">C$ 3,000</p>
+                <p class="precio">C$ 4,300</p>
                 <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
 
         <!-- Producto 10 -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Galaxy Watch 6 Classic"
-           data-precio="7999"
-           data-img="imagen/watch6.jpeg">
-            <span class="badge-descuento">−3%</span>
+           data-precio="8215"
+           data-img="imagen/watch6.jpeg"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/watch6.jpeg" alt="Samsung Galaxy Watch 6 Classic">
                 <p class="categoria-producto">Smartwatch</p>
                 <h3 class="nombre-producto">Galaxy Watch 6 Classic</h3>
-                <p class="precio-original">C$ 8,215</p>
-                <p class="precio-descuento">C$ 7,999</p>
+                <p class="precio">C$ 8,215</p>
                 <button class="boton-carrito">Agregar al carrito</button>
             </div>
         </a>
@@ -267,11 +305,12 @@
         <!-- Ranking 1 -->
         <div class="ranking-item">
             <span class="rank-number">1</span>
-            <a href="detalle-5700x.html"
+            <a href="producto.html"
                class="tarjeta-producto"
                data-nombre="Lenovo LOQ Gen 9"
                data-precio="20500"
-               data-img="imagen/Lenovo LOQ Gen 9.png">
+               data-img="imagen/Lenovo LOQ Gen 9.png"
+               data-categoria="Laptops">
                 <div class="producto">
                     <img src="imagen/Lenovo LOQ Gen 9.png" alt="Lenovo LOQ Gen 9">
                     <p class="categoria-producto">Laptop Gaming</p>
@@ -285,11 +324,12 @@
         <!-- Ranking 2 -->
         <div class="ranking-item">
             <span class="rank-number">2</span>
-            <a href="detalle-5700x.html"
+            <a href="producto.html"
                class="tarjeta-producto"
                data-nombre="G502 X PLUS"
                data-precio="3000"
-               data-img="imagen/G502 X PLUS.png">
+               data-img="imagen/G502 X PLUS.png"
+               data-categoria="Accesorios">
                 <div class="producto">
                     <img src="imagen/G502 X PLUS.png" alt="G502 X PLUS">
                     <p class="categoria-producto">Mouse Gaming</p>
@@ -303,11 +343,12 @@
         <!-- Ranking 3 -->
         <div class="ranking-item">
             <span class="rank-number">3</span>
-            <a href="detalle-5700x.html"
+            <a href="producto.html"
                class="tarjeta-producto"
                data-nombre="ASTRO A40 TR"
                data-precio="5000"
-               data-img="imagen/ASTRO A40 TR.png">
+               data-img="imagen/ASTRO A40 TR.png"
+               data-categoria="Accesorios">
                 <div class="producto">
                     <img src="imagen/ASTRO A40 TR.png" alt="ASTRO A40 TR">
                     <p class="categoria-producto">Audífonos Gaming</p>
@@ -336,11 +377,12 @@
     <div class="products-grid">
 
         <!-- RedMagic Gaming Laptop -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="RedMagic Gaming Laptop 16 Pro"
            data-precio="62000"
-           data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg">
+           data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg"
+           data-categoria="Laptops">
             <div class="producto">
                 <img src="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg" alt="RedMagic Gaming Laptop 16 Pro">
                 <p class="categoria-producto">Laptop Gaming</p>
@@ -351,11 +393,12 @@
         </a>
 
         <!-- Audífonos Gamer -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Audífonos Gamer Pro"
            data-precio="8500"
-           data-img="imagen/Audifonosgamer.png">
+           data-img="imagen/Audifonos Gamer.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/Audifonosgamer.png" alt="Audífonos Gamer Pro">
                 <p class="categoria-producto">Audífonos Gaming</p>
@@ -366,11 +409,12 @@
         </a>
 
         <!-- G213 Prodigy -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="G213 Prodigy"
            data-precio="5500"
-           data-img="imagen/G213 Prodigy.png">
+           data-img="imagen/G213 Prodigy.png"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
                 <p class="categoria-producto">Teclado Gaming</p>
@@ -381,11 +425,12 @@
         </a>
 
         <!-- Mouse Redragon -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Mouse Redragon Gaming"
            data-precio="1800"
-           data-img="imagen/MouseRedragon.webp">
+           data-img="imagen/MouseRedragon.webp"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/MouseRedragon.webp" alt="Mouse Redragon Gaming">
                 <p class="categoria-producto">Mouse Gaming</p>
@@ -413,11 +458,12 @@
     <div class="products-grid">
 
         <!-- AOC Monitor -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="AOC Monitor"
            data-precio="9800"
-           data-img="imagen/AOCMonitor.png">
+           data-img="imagen/AOCMonitor.png"
+           data-categoria="Monitores">
             <div class="producto">
                 <img src="imagen/AOCMonitor.png" alt="AOC Monitor">
                 <p class="categoria-producto">Monitor</p>
@@ -428,11 +474,12 @@
         </a>
 
         <!-- BenQ Monitor -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="BenQ EX2510S MOBIUZ"
            data-precio="13500"
-           data-img="imagen/BenQ EX2510S MOBIUZ.avif">
+           data-img="imagen/BenQ EX2510S MOBIUZ.avif"
+           data-categoria="Monitores">
             <div class="producto">
                 <img src="imagen/BenQ EX2510S MOBIUZ.avif" alt="BenQ EX2510S MOBIUZ">
                 <p class="categoria-producto">Monitor Gaming</p>
@@ -443,11 +490,12 @@
         </a>
 
         <!-- Mouse Logitech MX Master -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="Logitech MX Master 3S"
            data-precio="4800"
-           data-img="imagen/Mouse Logitech MX Master 3S.jpg">
+           data-img="imagen/Mouse Logitech MX Master 3S.jpg"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/Mouse Logitech MX Master 3S.jpg" alt="Logitech MX Master 3S">
                 <p class="categoria-producto">Mouse</p>
@@ -458,11 +506,12 @@
         </a>
 
         <!-- Bocina JBL -->
-        <a href="detalle-5700x.html"
+        <a href="producto.html"
            class="tarjeta-producto"
            data-nombre="JBL PartyBox Encore Essential"
            data-precio="11200"
-           data-img="imagen/Bocina JBL PartyBox Encore Essential.jpg">
+           data-img="imagen/Bocina JBL PartyBox Encore Essential.jpg"
+           data-categoria="Accesorios">
             <div class="producto">
                 <img src="imagen/Bocina JBL PartyBox Encore Essential.jpg" alt="JBL PartyBox Encore Essential">
                 <p class="categoria-producto">Audio</p>
@@ -488,10 +537,16 @@
     </div>
 </footer>
 
-<script src="js/principal.js"></script>
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/auth-modal.js"></script>
 <script src="js/carrito.js"></script>
+<script src="js/principal.js"></script>
 <script src="js/buscador.js"></script>
 <script src="js/deseos.js"></script>
+<script src="js/producto.js"></script>
+<script src="js/descuentos.js"></script>
+
 
 </body>
 </html>

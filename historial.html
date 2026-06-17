@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos — ElectroShop</title>
+    <meta name="description" content="Historial de pedidos en ElectroShop. Revisa tus compras anteriores.">
+    <link rel="stylesheet" href="css/principal.css">
+    <link rel="stylesheet" href="css/flotantes/secion.css">
+    <link rel="stylesheet" href="css/flotantes/menu.css">
+    <link rel="stylesheet" href="css/historial.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="Arriba">
+    <div class="logo">
+        <a href="principal.html" class="logo-link">
+            <img src="imagen/ES.png" alt="Logo ElectroShop" class="logo-img">
+            <h1>ElectroShop</h1>
+        </a>
+    </div>
+    <div class="busqueda">
+        <input type="text" id="searchInput" placeholder="Buscar productos...">
+        <button class="lupa" id="lupaBtn" aria-label="Buscar">🔎</button>
+    </div>
+    <div class="Perfil">
+        <img src="imagen/O.webp" alt="Perfil" id="imagen" class="imagen">
+        <button class="logout-action" title="Cerrar sesión">🚪 Cerrar</button>
+        <div id="info" class="info">
+            <p id="userName">Usuario</p>
+            <p>Rol: <span id="userType">Común</span></p>
+            <button id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== NAVBAR ===== -->
+<div class="Ajustes-barra">
+    <a href="principal.html" class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5Z"/>
+        </svg>
+        Inicio
+    </a>
+    <a href="nosotros.html" class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/>
+        </svg>
+        Nosotros
+    </a>
+    <a href="catalogo.html" class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M4 5h16v14H4z"/>
+        </svg>
+        Catálogo
+    </a>
+    <a href="carrito.html" class="nav-button-style">
+        <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+        </svg>
+        Carrito
+    </a>
+    <a href="deseos.html" class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="m12 21-1.4-1.3C5.4 15 2 12 2 8.5A4.5 4.5 0 0 1 6.5 4c2 0 3.2 1 4.1 2.1C11.3 5 12.5 4 14.5 4A4.5 4.5 0 0 1 19 8.5c0 3.5-3.4 6.5-8.6 11.2L12 21Z"/>
+        </svg>
+        Favoritos
+    </a>
+    <a href="historial.html" class="nav-button-style active">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+        </svg>
+        Mis Pedidos
+    </a>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main class="historial-main">
+    <div class="historial-header">
+        <div class="section-title__accent"></div>
+        <h2 style="display: flex; align-items: center; gap: 8px;">
+            <svg style="width: 28px; height: 28px; color: #ffb700; flex-shrink: 0;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+            </svg>
+            Mis Pedidos
+        </h2>
+        <p>Historial de compras realizadas</p>
+    </div>
+
+    <div id="historial-container">
+        <!-- Filled by JS -->
+    </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 ElectroShop. Todos los derechos reservados.</p>
+        <p>Correo: contacto@electroshop.com</p>
+        <p>Teléfono: +505 2222 3333</p>
+        <p>
+            <a href="polterm/politica.html">Política de privacidad</a> |
+            <a href="polterm/termuso.html">Términos de uso</a>
+        </p>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/auth-modal.js"></script>
+<script src="js/historial.js"></script>
+<script src="js/buscador.js"></script>
+
+</body>
+</html>

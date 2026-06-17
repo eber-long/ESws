@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/nosotros.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
-    <link rel="stylesheet" href="css/flotantes/menu.css">
+     <link rel="stylesheet" href="css/flotantes/menu.css">
+    <link rel="stylesheet" href="css/icons.css">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
+    <script src="js/theme.js"></script>
 </head>
 <body>
     <header class="Arriba">
@@ -34,11 +36,37 @@
 </header>
 
     <div class="Ajustes-barra">
-        <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
-        <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-        <a href="catalogo.html" class="nav-button-style">📰 Catalogo</a>
-        <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
-        <a href="deseos.html" class="nav-button-style">❤️ Lista de Deseos</a>
+        <a href="principal.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5Z"/>
+            </svg>
+            Inicio
+        </a>
+        <a href="nosotros.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/>
+            </svg>
+            Nosotros
+        </a>
+        <a href="catalogo.html" class="nav-button-style">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
+            </svg>
+
+            Catálogo
+        </a>
+        <a href="carrito.html" class="nav-button-style">
+            <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+            </svg>
+            Carrito
+        </a>
+        <a href="deseos.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="m12 21-1.4-1.3C5.4 15 2 12 2 8.5A4.5 4.5 0 0 1 6.5 4c2 0 3.2 1 4.1 2.1C11.3 5 12.5 4 14.5 4A4.5 4.5 0 0 1 19 8.5c0 3.5-3.4 6.5-8.6 11.2L12 21Z"/>
+            </svg>
+            Favoritos
+        </a>
     </div>
    
     <script src="js/nosotros.js"></script>
@@ -131,7 +159,9 @@
       </div>
     </footer>
 
+    <script src="js/api.js"></script>
     <script src="js/principal.js"></script>
+    <script src="js/buscador.js"></script>
     
 </body>
 </html>

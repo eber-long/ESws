@@ -26,12 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Logout unificado
+    // Logout unificado — usar API.logout() para limpiar también authToken
     const logout = () => {
-        localStorage.removeItem("usuario");
-        sessionStorage.removeItem("NombreUsuario");
-        sessionStorage.removeItem("tipoUsuario");
-        window.location.href = "index.html";
+        if (typeof API !== 'undefined' && API.logout) {
+            API.logout();
+        } else {
+            localStorage.removeItem("usuario");
+            sessionStorage.removeItem("authToken");
+            sessionStorage.removeItem("NombreUsuario");
+            sessionStorage.removeItem("rolUsuario");
+            window.location.href = "index.html";
+        }
     };
 
     logoutBtn?.addEventListener("click", logout);
@@ -39,16 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Cargar datos del usuario
     const userName = sessionStorage.getItem("NombreUsuario");
-    const userType = sessionStorage.getItem("tipoUsuario");
+    const userRol = sessionStorage.getItem("rolUsuario");
     if (userName) {
         const nameEl = document.getElementById("userName");
         const typeEl = document.getElementById("userType");
         if (nameEl) nameEl.textContent = userName;
-        if (typeEl) typeEl.textContent = userType || "Común";
+        if (typeEl) typeEl.textContent = userRol || "Común";
     }
 
     // Show admin panel link for admin users
-    if (userType === "administrador") {
+    if (userRol === "administrador") {
         const navBar = document.querySelector(".Ajustes-barra");
         if (navBar) {
             const adminLink = document.createElement("a");
@@ -176,10 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         comprarBtn?.addEventListener("click", () => {
             if (carrito.length === 0) return;
-            if (modal) modal.style.display = "flex";
-            carrito = [];
-            guardarCarrito();
-            renderCarrito();
+            const total = carrito.reduce((sum, p) => sum + p.precio * (p.cantidad || 1), 0);
+            sessionStorage.setItem('carritoTotal', total);
+            window.location.href = 'metpa.html';
         });
 
         cerrarBtn?.addEventListener("click", () => {
@@ -197,10 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const user = sessionStorage.getItem("NombreUsuario");
             if (user) {
                 try {
-                    const res = await fetch(`/api/usuarios/${user}/deseos`);
-                    if (res.ok) {
-                        listDeseos = await res.json();
-                    }
+                    listDeseos = await API.get(`usuarios/${user}/deseos`);
                 } catch (e) {
                     console.error("Error al obtener lista de deseos:", e);
                 }
@@ -214,10 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
-                const res = await fetch("/api/productos");
-                if (res.ok) {
-                    const todosProductos = await res.json();
-                    const productosFavoritos = todosProductos.filter(p => listDeseos.includes(p.nombre));
+                const todosProductos = await API.get('productos', false);
+                const productosFavoritos = todosProductos.filter(p => listDeseos.includes(p.nombre));
 
                     if (productosFavoritos.length === 0) {
                         deseosLista.innerHTML = '<div class="deseos-vacio">No tienes productos en tu lista de deseos 🤍</div>';
@@ -289,14 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         btnRemove.addEventListener("click", async () => {
                             if (user) {
                                 try {
-                                    const delRes = await fetch(`/api/usuarios/${user}/deseos`, {
-                                        method: "POST",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({ producto: prod.nombre })
-                                    });
-                                    if (delRes.ok) {
-                                        renderDeseosPanel();
-                                    }
+                                    await API.post(`usuarios/${user}/deseos`, { producto: prod.nombre });
+                                    renderDeseosPanel();
                                 } catch (e) {
                                     console.error("Error al eliminar de deseos:", e);
                                 }
@@ -312,7 +305,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         itemDiv.append(img, infoDiv, actionsDiv);
                         deseosLista.appendChild(itemDiv);
                     });
-                }
             } catch (e) {
                 console.error("Error rendering deseos:", e);
                 deseosLista.innerHTML = '<div class="deseos-vacio">Error al cargar favoritos 😔</div>';
@@ -331,6 +323,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupInfiniteCarousel('.carousel-images3', '.boton-carrusel5', '.boton-carrusel6');
     setupInfiniteCarousel('.carousel-images4', '.boton-carrusel7', '.boton-carrusel8');
     setupInfiniteCarousel('.carousel-images5', '.boton-carrusel9', '.boton-carrusel10');
+
+    // Sincronizar todas las tarjetas de producto con los IDs de la base de datos
+    syncProductCardsWithDatabase();
 
 }); // End DOMContentLoaded
 
@@ -398,4 +393,48 @@ function setupInfiniteCarousel(imagesSelector, prevBtnSelector, nextBtnSelector,
     carousel?.addEventListener('mouseleave', () => {
         auto = setInterval(nextSlide, interval);
     });
+}
+
+/* ============================================
+   🔄 SINCRONIZAR TARJETAS DE PRODUCTOS CON DB
+============================================ */
+async function syncProductCardsWithDatabase() {
+    if (typeof API === 'undefined') return;
+    try {
+        const dbProducts = await API.get('productos', false);
+        const cards = document.querySelectorAll('.tarjeta-producto');
+        
+        cards.forEach(card => {
+            const name = card.dataset.nombre;
+            if (!name) return;
+
+            const match = dbProducts.find(p => p.nombre.toLowerCase().trim() === name.toLowerCase().trim());
+            if (match) {
+                // Actualizar href para que apunte al ID dinámico de la base de datos
+                card.setAttribute('href', `producto.html?id=${match.id}`);
+                
+                // Actualizar dataset para que el carrito y favoritos usen los datos reales
+                card.dataset.precio = match.precio;
+                card.dataset.img = match.imagen;
+                card.dataset.categoria = match.categoria;
+
+                // Sincronizar elementos visuales internos si existen
+                const imgEl = card.querySelector('img');
+                if (imgEl) {
+                    imgEl.src = match.imagen;
+                }
+
+                const priceEl = card.querySelector('.precio');
+                if (priceEl && !card.classList.contains('has-discount')) {
+                    // Si no tiene descuento activo aplicado aún, actualizar el precio base
+                    priceEl.textContent = `C$${parseFloat(match.precio).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`;
+                }
+            } else {
+                // Si no se encuentra en la base de datos, usar fallback de búsqueda por nombre
+                card.setAttribute('href', `producto.html?nombre=${encodeURIComponent(name)}`);
+            }
+        });
+    } catch (err) {
+        console.warn('⚠️ Error al sincronizar tarjetas con base de datos:', err.message);
+    }
 }

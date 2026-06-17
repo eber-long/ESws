@@ -13,9 +13,25 @@ async function inicializarDeseos() {
     if (currentUser) {
         // Obtener la lista del backend
         try {
-            const res = await fetch(`/api/usuarios/${currentUser}/deseos`);
-            if (res.ok) {
-                listaDeseos = await res.json();
+            listaDeseos = await API.get(`usuarios/${currentUser}/deseos`);
+
+            // Sincronización automática de favoritos locales al perfil del usuario
+            const deseosLocales = JSON.parse(localStorage.getItem('lista_deseos_local')) || [];
+            if (deseosLocales.length > 0) {
+                for (const prod of deseosLocales) {
+                    if (!listaDeseos.includes(prod)) {
+                        try {
+                            const data = await API.post(`usuarios/${currentUser}/deseos`, { producto: prod });
+                            listaDeseos = data.lista_deseos || listaDeseos;
+                            if (!listaDeseos.includes(prod)) {
+                                listaDeseos.push(prod);
+                            }
+                        } catch (e) {
+                            console.error("Error al sincronizar deseo local en el servidor:", e);
+                        }
+                    }
+                }
+                localStorage.removeItem('lista_deseos_local');
             }
         } catch (error) {
             console.error("Error obteniendo lista de deseos", error);
@@ -29,8 +45,8 @@ async function inicializarDeseos() {
 }
 
 function inyectarBotonesCorazon() {
-    // Buscar todas las tarjetas de producto
-    const tarjetas = document.querySelectorAll('.tarjeta-producto .producto');
+    // Buscar todas las tarjetas de producto (.producto en inicio y .contenido en catálogo)
+    const tarjetas = document.querySelectorAll('.tarjeta-producto .producto, .tarjeta-producto .contenido');
 
     tarjetas.forEach(prodContainer => {
         // Evitar duplicados
@@ -41,24 +57,6 @@ function inyectarBotonesCorazon() {
 
         const btnDeseo = document.createElement('button');
         btnDeseo.classList.add('btn-deseo');
-        
-        // Estilos para el botón flotante
-        btnDeseo.style.position = 'absolute';
-        btnDeseo.style.top = '10px';
-        btnDeseo.style.right = '10px';
-        btnDeseo.style.background = 'rgba(15, 25, 35, 0.6)';
-        btnDeseo.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-        btnDeseo.style.borderRadius = '50%';
-        btnDeseo.style.width = '35px';
-        btnDeseo.style.height = '35px';
-        btnDeseo.style.display = 'flex';
-        btnDeseo.style.alignItems = 'center';
-        btnDeseo.style.justifyContent = 'center';
-        btnDeseo.style.cursor = 'pointer';
-        btnDeseo.style.fontSize = '1.2rem';
-        btnDeseo.style.backdropFilter = 'blur(4px)';
-        btnDeseo.style.transition = 'all 0.2s';
-        btnDeseo.style.zIndex = '10';
 
         // Estado inicial
         actualizarIconoCorazon(btnDeseo, nombreProducto);
@@ -70,11 +68,44 @@ function inyectarBotonesCorazon() {
             e.preventDefault();
             e.stopPropagation(); // Evitar navegar al detalle
             await toggleDeseo(nombreProducto, btnDeseo);
-        });
 
-        // Hover anim
-        btnDeseo.addEventListener('mouseenter', () => btnDeseo.style.transform = 'scale(1.1)');
-        btnDeseo.addEventListener('mouseleave', () => btnDeseo.style.transform = 'scale(1)');
+            // Si estamos en deseos.html y el producto ya no está en la lista de deseos, remover de la interfaz
+            if (window.location.pathname.includes('deseos.html') && !listaDeseos.includes(nombreProducto)) {
+                const card = prodContainer.closest('.tarjeta-producto');
+                if (card) {
+                    card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(15px) scale(0.95)';
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        
+                        // Recalcular contador y actualizar vista si queda vacío
+                        const grid = document.getElementById('deseosGrid');
+                        if (grid) {
+                            const remainingCards = grid.querySelectorAll('.tarjeta-producto');
+                            const count = remainingCards.length;
+                            
+                            const contador = document.getElementById('contadorFavoritos');
+                            if (contador) {
+                                contador.textContent = `${count} ${count === 1 ? 'producto' : 'productos'}`;
+                            }
+                            
+                            if (count === 0) {
+                                grid.innerHTML = `
+                                    <div class="empty-deseos">
+                                        <i class="fi fi-sr-heart"></i>
+                                        <h3>Tu lista de favoritos está vacía</h3>
+                                        <p>Guarda productos para encontrarlos rápidamente más tarde.</p>
+                                        <a href="catalogo.html" class="btn-regresar-catalogo">Ir al Catálogo</a>
+                                    </div>
+                                `;
+                            }
+                        }
+                    }, 400);
+                }
+            }
+        });
 
         prodContainer.appendChild(btnDeseo);
     });
@@ -108,19 +139,11 @@ async function toggleDeseo(nombreProducto, botonElement) {
 
     // Backend
     try {
-        const res = await fetch(`/api/usuarios/${currentUser}/deseos`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ producto: nombreProducto })
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            listaDeseos = data.lista_deseos;
-            actualizarIconoCorazon(botonElement, nombreProducto);
-            if (listaDeseos.includes(nombreProducto)) {
-                mostrarToastDeseos(`❤️ ${nombreProducto} guardado en tu perfil.`);
-            }
+        const data = await API.post(`usuarios/${currentUser}/deseos`, { producto: nombreProducto });
+        listaDeseos = data.lista_deseos;
+        actualizarIconoCorazon(botonElement, nombreProducto);
+        if (listaDeseos.includes(nombreProducto)) {
+            mostrarToastDeseos(`❤️ ${nombreProducto} guardado en tu perfil.`);
         }
     } catch (error) {
         console.error("Error toggling deseo", error);
@@ -155,7 +178,7 @@ function mostrarToastDeseos(mensaje) {
     toast.style.opacity = '0';
     toast.style.transform = 'translateY(20px)';
     
-    toast.innerHTML = mensaje;
+    toast.textContent = mensaje;
     container.appendChild(toast);
 
     // Fade in

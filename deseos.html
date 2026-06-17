@@ -7,41 +7,12 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/carrito-flotante.css">
+    <link rel="stylesheet" href="css/deseos.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
-    <style>
-        .deseos-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            min-height: 60vh;
-        }
-        .deseos-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-        }
-        .deseos-header h2 {
-            margin: 0;
-            color: #ffb700;
-        }
-        .deseos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .empty-deseos {
-            text-align: center;
-            color: #7a8a9e;
-            padding: 50px;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            border: 1px dashed rgba(255,255,255,0.1);
-        }
-    </style>
+    <script src="js/theme.js"></script>
+    
 </head>
 <body>
 <header class="Arriba">
@@ -72,10 +43,16 @@
 
 <div class="deseos-container">
     <div class="deseos-header">
-        <h2 style="font-size:2rem;">❤️ Mi Lista de Deseos</h2>
+        <i class="fi fi-sr-heart"></i>
+        <h2>Mis Favoritos</h2>
+        <span class="contador-favoritos" id="contadorFavoritos">0 productos</span>
     </div>
     <div id="deseosGrid" class="deseos-grid">
-        <div class="empty-deseos">Cargando deseos...</div>
+        <div class="empty-deseos">
+            <i class="fi fi-sr-heart"></i>
+            <h3>Cargando favoritos...</h3>
+            <p>Por favor espera un momento mientras cargamos tus productos.</p>
+        </div>
     </div>
 </div>
 
@@ -102,23 +79,49 @@
     </div>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/principal.js"></script>
 <script src="js/carrito.js"></script>
 <script src="js/deseos.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
     const grid = document.getElementById('deseosGrid');
+    const contador = document.getElementById('contadorFavoritos');
+
+    const actualizarContador = (cantidad) => {
+        if (contador) {
+            contador.textContent = `${cantidad} ${cantidad === 1 ? 'producto' : 'productos'}`;
+        }
+    };
+
+    const renderEmptyState = (mensaje = 'Guarda productos para encontrarlos rápidamente más tarde.') => {
+        grid.innerHTML = `
+            <div class="empty-deseos">
+                <i class="fi fi-sr-heart"></i>
+                <h3>Tu lista de favoritos está vacía</h3>
+                <p>${mensaje}</p>
+                <a href="catalogo.html" class="btn-regresar-catalogo">Ir al Catálogo</a>
+            </div>
+        `;
+        actualizarContador(0);
+    };
     
     // Esperar a que se cargue la lista (definida en deseos.js)
     setTimeout(async () => {
         if (listaDeseos.length === 0) {
-            grid.innerHTML = '<div class="empty-deseos">Tu lista de deseos está vacía 😔<br><a href="catalogo.html" style="color:#3b82f6; text-decoration:none; margin-top:15px; display:inline-block;">Ir al Catálogo</a></div>';
+            renderEmptyState();
             return;
         }
 
         // Obtener info de productos del backend para mostrarlos
         try {
-            grid.innerHTML = '<div class="empty-deseos">Cargando detalles de productos...</div>';
+            grid.innerHTML = `
+                <div class="empty-deseos">
+                    <i class="fi fi-sr-heart"></i>
+                    <h3>Cargando detalles...</h3>
+                    <p>Estamos recuperando la información de tus productos favoritos.</p>
+                </div>
+            `;
             const res = await fetch('/api/productos');
             const allProducts = await res.json();
 
@@ -126,13 +129,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             grid.innerHTML = '';
             if (myProducts.length === 0) {
-                 grid.innerHTML = '<div class="empty-deseos">Los productos en tu lista ya no están disponibles.</div>';
+                 renderEmptyState('Los productos en tu lista ya no están disponibles.');
                  return;
             }
 
+            actualizarContador(myProducts.length);
+
             myProducts.forEach(prod => {
                 const a = document.createElement('a');
-                a.href = "detalle-5700x.html"; // Por defecto, ajustar si es dinámico
+                a.href = `producto.html?id=${prod.id}`;
                 a.className = "tarjeta-producto";
                 a.dataset.nombre = prod.nombre;
                 a.dataset.precio = prod.precio;

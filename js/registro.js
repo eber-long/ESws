@@ -31,29 +31,29 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 
     try {
-        const response = await fetch('/api/registro', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, contrasena: contrasena1 })
-        });
+        const data = await API.post('registro', {
+            nombre,
+            contrasena: contrasena1
+        }, false); // false = no enviar token
 
-        const data = await response.json();
-
-        if (response.ok) {
+        if (data.success) {
             mostrarMensaje("✅ ¡Cuenta creada exitosamente! Redirigiendo...", "success");
-
-            // Guardar sesión y redirigir al login después de 1.5 segundos
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 1500);
         } else {
-            // Error del servidor (409 = usuario duplicado, 400 = validación)
             mostrarMensaje(data.error || "Error al registrar usuario.", "error");
         }
 
     } catch (err) {
-        console.error("Error de conexión:", err);
-        mostrarMensaje("⚠️ No se pudo conectar con el servidor. Intenta más tarde.", "error");
+        console.error("Error de registro:", err);
+        if (err.status === 409) {
+            mostrarMensaje("Ya existe un usuario con ese nombre.", "error");
+        } else if (err.data?.detalles) {
+            mostrarMensaje(err.data.detalles.join(' '), "error");
+        } else {
+            mostrarMensaje("⚠️ No se pudo conectar con el servidor. Intenta más tarde.", "error");
+        }
     }
 });
 

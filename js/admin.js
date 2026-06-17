@@ -1,17 +1,17 @@
 /* ============================================
-   🛡️ ElectroShop — Admin Panel JS (con API Backend)
+   🛡️ ElectroShop — Admin Panel JS (con JWT)
 ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ============================================
-       🔐 ACCESS CONTROL
+       🔐 ACCESS CONTROL — Verificar JWT
     ============================================ */
-    const userName = sessionStorage.getItem('NombreUsuario');
-    const userType = sessionStorage.getItem('tipoUsuario');
+    const userName = API.getUserName();
+    const userRol = API.getUserRol();
 
-    if (!userName || userType !== 'administrador') {
-        alert('⛔ Acceso denegado. Solo administradores pueden acceder a este panel.');
+    if (!API.isLoggedIn() || !API.isStaff()) {
+        alert('⛔ Acceso denegado. No tienes permisos para acceder a este panel.');
         window.location.href = 'index.html';
         return;
     }
@@ -21,115 +21,59 @@ document.addEventListener('DOMContentLoaded', () => {
     if (adminNameEl) adminNameEl.textContent = userName;
 
     /* ============================================
-       🔌 API HELPER
-    ============================================ */
-    const API = {
-        async get(endpoint) {
-            const res = await fetch(`/api/${endpoint}`);
-            if (!res.ok) throw new Error(`GET /api/${endpoint} → ${res.status}`);
-            return res.json();
-        },
-        async post(endpoint, data) {
-            const res = await fetch(`/api/${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.error || `POST /api/${endpoint} → ${res.status}`);
-            }
-            return res.json();
-        },
-        async put(endpoint, data) {
-            const res = await fetch(`/api/${endpoint}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if (!res.ok) throw new Error(`PUT /api/${endpoint} → ${res.status}`);
-            return res.json();
-        },
-        async delete(endpoint) {
-            const res = await fetch(`/api/${endpoint}`, { method: 'DELETE' });
-            if (!res.ok) throw new Error(`DELETE /api/${endpoint} → ${res.status}`);
-            return res.json();
-        }
-    };
-
-    /* ============================================
-       📦 DATA (cargado desde API)
+       📦 DATA
     ============================================ */
     let products = [];
     let users = [];
     let orders = [];
-
-    // Defaults como fallback
-    const defaultProducts = [
-        { nombre: "AMD Ryzen 7 5700X", categoria: "Procesadores", precio: 7708.27, stock: 15, imagen: "imagen/7.webp", descripcion: "8 núcleos / 16 hilos" },
-        { nombre: "Intel Core i7-12700K", categoria: "Procesadores", precio: 9850, stock: 10, imagen: "imagen/intelcorei7.jpg", descripcion: "12 núcleos / 20 hilos" },
-        { nombre: "Intel Core i5-12400F", categoria: "Procesadores", precio: 5950, stock: 20, imagen: "imagen/intelcorei5.jpg", descripcion: "6 núcleos / 12 hilos" },
-        { nombre: "HP Pavilion 15", categoria: "Laptops", precio: 17500, stock: 8, imagen: "imagen/HPpavilion.avif", descripcion: "8 GB RAM / 512 GB SSD" },
-        { nombre: "Dell Inspiron 14", categoria: "Laptops", precio: 22300, stock: 5, imagen: "imagen/Dellinspiron.webp", descripcion: "16 GB RAM / 512 GB SSD" },
-        { nombre: "Lenovo IdeaPad 3", categoria: "Laptops", precio: 15800, stock: 12, imagen: "imagen/ideaPad3.webp", descripcion: "8 GB RAM / 256 GB SSD" },
-        { nombre: "Samsung Galaxy S25", categoria: "Dispositivos Móviles", precio: 44500, stock: 7, imagen: "imagen/samsung-galaxy-s25-5g-256-gb-icyblue.jpg", descripcion: "12 GB RAM / 512 GB" },
-        { nombre: "Xiaomi 15 Pro", categoria: "Dispositivos Móviles", precio: 22900, stock: 10, imagen: "imagen/Xiaomi15Pro.webp", descripcion: "12 GB RAM / 512 GB" },
-        { nombre: "iPhone 16e", categoria: "Dispositivos Móviles", precio: 29800, stock: 6, imagen: "imagen/Iphone16e.webp", descripcion: "6 GB RAM / 256 GB" },
-        { nombre: "Mouse Redragon M607", categoria: "Accesorios", precio: 890, stock: 50, imagen: "imagen/MouseRedragon.webp", descripcion: "DPI: 7200 ajustable" },
-        { nombre: "Audífonos JBL 510BT", categoria: "Accesorios", precio: 1750, stock: 30, imagen: "imagen/Audífonos JBL 510BT.jpeg", descripcion: "Bluetooth / 40h batería" },
-        { nombre: "ASUS TUF VG249Q1A", categoria: "Monitores", precio: 890, stock: 18, imagen: "imagen/monitorasus.png", descripcion: "24\" IPS 165Hz" },
-        { nombre: "Epson PowerLite X49", categoria: "Proyectores", precio: 9800, stock: 4, imagen: "imagen/Epson PowerLite X49.png", descripcion: "HDMI / VGA / USB" },
-        { nombre: "Lenovo LOQ Gen 9", categoria: "Laptops", precio: 20500, stock: 9, imagen: "imagen/Lenovo LOQ Gen 9.png", descripcion: "Laptop Gaming" },
-        { nombre: "G213 Prodigy", categoria: "Accesorios", precio: 5500, stock: 25, imagen: "imagen/G213 Prodigy.png", descripcion: "Teclado Gaming RGB" },
-        { nombre: "G502 X PLUS", categoria: "Accesorios", precio: 3000, stock: 20, imagen: "imagen/G502 X PLUS.png", descripcion: "Mouse inalámbrico" },
-        { nombre: "RYZEN 7 9800X3D", categoria: "Procesadores", precio: 12200, stock: 8, imagen: "imagen/RYZEN 7 9800X3D.png", descripcion: "Procesador Gaming" },
-    ];
-
-    const defaultUsers = [
-        { nombre: "admin", contrasena: "1234", tipo: "administrador" },
-        { nombre: "juan", contrasena: "abcd", tipo: "comun" },
-        { nombre: "paco", contrasena: "1234", tipo: "comun" }
-    ];
-
-    const defaultOrders = [
-        { id: 1, codigo: "ES-001", cliente: "juan", productos: ["AMD Ryzen 7 5700X", "Mouse Redragon M607"], total: 8598.27, estado: "completado", fecha: "2025-04-18" },
-        { id: 2, codigo: "ES-002", cliente: "paco", productos: ["HP Pavilion 15"], total: 17500, estado: "pendiente", fecha: "2025-04-19" },
-        { id: 3, codigo: "ES-003", cliente: "juan", productos: ["Samsung Galaxy S25", "Audífonos JBL 510BT"], total: 46250, estado: "completado", fecha: "2025-04-17" },
-        { id: 4, codigo: "ES-004", cliente: "paco", productos: ["G502 X PLUS"], total: 3000, estado: "cancelado", fecha: "2025-04-16" },
-        { id: 5, codigo: "ES-005", cliente: "juan", productos: ["Lenovo LOQ Gen 9"], total: 20500, estado: "completado", fecha: "2025-04-15" },
-    ];
-
-    // Controla si estamos usando API o fallback
-    let usingAPI = false;
+    let discounts = [];
 
     /* ============================================
        🔄 CARGAR DATOS DESDE API
     ============================================ */
     async function loadAllData() {
         try {
-            const [prods, usrs, ords] = await Promise.all([
-                API.get('productos'),
-                API.get('usuarios'),
-                API.get('pedidos')
-            ]);
+            const prods = await API.get('productos', false);
+            const ords = await API.get('pedidos');
+            const discs = await API.get('descuentos', false);
+
+            let usrs = [];
+            if (userRol === 'administrador') {
+                try {
+                    usrs = await API.get('usuarios');
+                } catch (usrErr) {
+                    console.error('No se pudieron cargar los usuarios:', usrErr);
+                }
+            }
 
             products = prods;
             users = usrs;
             orders = ords;
-            usingAPI = true;
+            discounts = discs;
             console.log('✅ Datos cargados desde API');
         } catch (err) {
-            console.warn('⚠️ API no disponible, usando datos locales:', err.message);
-            products = [...defaultProducts];
-            users = [...defaultUsers];
-            orders = [...defaultOrders];
-            usingAPI = false;
+            console.error('❌ Error cargando datos:', err.message);
+            alert('Error al cargar datos. Verifica tu conexión.');
+            return;
+        }
+
+        // Restricciones visuales de rol Vendedor
+        if (userRol === 'ventas') {
+            const usersLink = document.querySelector('.nav-link[data-section="users"]');
+            if (usersLink) usersLink.style.display = 'none';
+
+            const usersCard = document.querySelector('.stat-card:nth-child(2)');
+            if (usersCard) usersCard.style.display = 'none';
+        } else if (userRol === 'administrador') {
+            const navAuditoria = document.getElementById('navAuditoria');
+            if (navAuditoria) navAuditoria.style.display = 'flex';
         }
 
         updateDashboard();
         renderProducts();
         renderUsers();
         renderOrders();
+        renderDiscounts();
         renderCharts();
         startOrderPolling();
     }
@@ -209,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.innerHTML = `
                 <td>
                     <div class="product-cell">
-                        <img src="${prod.imagen}" alt="${prod.nombre}">
+                        <img src="${prod.imagen}" alt="${prod.nombre}" onerror="this.src='imagen/ES.png'">
                         <div>
                             <strong>${prod.nombre}</strong>
                             <div style="font-size:0.78rem;color:var(--admin-text-muted)">${prod.descripcion || ''}</div>
@@ -221,7 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${stockDisplay}</td>
                 <td>
                     <button class="btn btn-ghost btn-sm btn-edit-product" data-index="${index}">✏️</button>
-                    <button class="btn btn-danger btn-sm btn-delete-product" data-index="${index}">🗑️</button>
+                    ${userRol === 'administrador' 
+                        ? `<button class="btn btn-danger btn-sm btn-delete-product" data-index="${index}">🗑️</button>` 
+                        : ''
+                    }
                 </td>
             `;
             tbody.appendChild(tr);
@@ -242,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!confirm(`¿Eliminar "${products[idx].nombre}"?`)) return;
 
                 try {
-                    if (usingAPI && products[idx].id) {
+                    if (products[idx].id) {
                         await API.delete(`productos/${products[idx].id}`);
                     }
                     products.splice(idx, 1);
@@ -250,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateDashboard();
                 } catch (err) {
                     console.error('Error eliminando producto:', err);
-                    alert('Error al eliminar producto');
+                    alert('Error al eliminar producto: ' + err.message);
                 }
             });
         });
@@ -265,8 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         users.forEach((user, index) => {
             const tr = document.createElement('tr');
-            const badgeClass = user.tipo === 'administrador' ? 'badge-admin' : 'badge-user';
-            const typeLabel = user.tipo === 'administrador' ? 'Admin' : 'Usuario';
+            const badgeClass = user.rol === 'administrador' ? 'badge-admin' : 
+                               (user.rol === 'ventas' ? 'badge-vendedor' : 'badge-user');
+            const typeLabel = user.rol === 'administrador' ? 'Admin' : 
+                              (user.rol === 'ventas' ? 'Ventas' : 'Común');
 
             tr.innerHTML = `
                 <td><strong>${user.nombre}</strong></td>
@@ -299,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!confirm(`¿Eliminar usuario "${users[idx].nombre}"?`)) return;
 
                 try {
-                    if (usingAPI && users[idx].id) {
+                    if (users[idx].id) {
                         await API.delete(`usuarios/${users[idx].id}`);
                     }
                     users.splice(idx, 1);
@@ -307,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateDashboard();
                 } catch (err) {
                     console.error('Error eliminando usuario:', err);
-                    alert('Error al eliminar usuario');
+                    alert('Error al eliminar usuario: ' + err.message);
                 }
             });
         });
@@ -328,6 +277,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const orderCode = order.codigo || order.id;
             const productsList = Array.isArray(order.productos) ? order.productos.join(', ') : order.productos;
 
+            const actionsHTML = `
+                <div style="display: inline-flex; gap: 8px; align-items: center;">
+                    <select class="btn btn-ghost btn-sm order-status-select" data-index="${index}" style="padding:4px 8px;font-size:0.75rem;">
+                        <option value="pendiente" ${order.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+                        <option value="completado" ${order.estado === 'completado' ? 'selected' : ''}>Completado</option>
+                        <option value="cancelado" ${order.estado === 'cancelado' ? 'selected' : ''}>Cancelado</option>
+                    </select>
+                    ${order.estado === 'pendiente' 
+                        ? `<button class="btn btn-primary btn-sm btn-confirm-order" data-index="${index}" style="padding: 4px 8px; font-size: 0.75rem;">Confirmar</button>` 
+                        : ''
+                    }
+                    ${order.estado === 'completado' 
+                        ? `<button class="btn btn-ghost btn-sm btn-download-invoice" data-index="${index}" style="padding: 4px 8px; font-size: 0.75rem;" title="Descargar Factura">📥 PDF</button>
+                           <button class="btn btn-ghost btn-sm btn-send-invoice" data-index="${index}" style="padding: 4px 8px; font-size: 0.75rem;" title="Enviar por Correo">✉️ Enviar</button>` 
+                        : ''
+                    }
+                </div>
+            `;
+
             tr.innerHTML = `
                 <td><strong>${orderCode}</strong></td>
                 <td>${order.cliente}</td>
@@ -335,13 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>C$${parseFloat(order.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}</td>
                 <td><span class="order-status"><span class="status-dot ${statusClass}"></span> ${statusText}</span></td>
                 <td>${order.fecha}</td>
-                <td>
-                    <select class="btn btn-ghost btn-sm order-status-select" data-index="${index}" style="padding:4px 8px;font-size:0.75rem;">
-                        <option value="pendiente" ${order.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
-                        <option value="completado" ${order.estado === 'completado' ? 'selected' : ''}>Completado</option>
-                        <option value="cancelado" ${order.estado === 'cancelado' ? 'selected' : ''}>Cancelado</option>
-                    </select>
-                </td>
+                <td>${actionsHTML}</td>
             `;
             tbody.appendChild(tr);
         });
@@ -353,15 +315,76 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newEstado = sel.value;
 
                 try {
-                    if (usingAPI && orders[idx].id) {
-                        await API.put(`pedidos/${orders[idx].id}`, { estado: newEstado });
+                    if (orders[idx].id) {
+                        const result = await API.put(`pedidos/${orders[idx].id}`, { estado: newEstado });
+                        orders[idx] = result.pedido || { ...orders[idx], estado: newEstado };
+                    } else {
+                        orders[idx].estado = newEstado;
                     }
-                    orders[idx].estado = newEstado;
                     renderOrders();
                     updateDashboard();
                 } catch (err) {
                     console.error('Error actualizando pedido:', err);
-                    alert('Error al actualizar estado del pedido');
+                    alert('Error al actualizar estado del pedido: ' + err.message);
+                }
+            });
+        });
+
+        // Confirm order buttons
+        document.querySelectorAll('.btn-confirm-order').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const idx = parseInt(btn.dataset.index);
+                const order = orders[idx];
+
+                if (!confirm(`¿Confirmar venta para el pedido ${order.codigo || order.id}?`)) return;
+
+                btn.disabled = true;
+                btn.textContent = 'Procesando...';
+
+                try {
+                    const res = await API.post(`pedidos/${order.id}/confirmar`, {});
+                    if (res.success) {
+                        alert('✅ Venta confirmada correctamente.');
+                        orders[idx] = res.pedido;
+                        renderOrders();
+                        updateDashboard();
+                    }
+                } catch (err) {
+                    console.error('Error al confirmar pedido:', err);
+                    alert('Error al confirmar pedido: ' + err.message);
+                    btn.disabled = false;
+                    btn.textContent = 'Confirmar';
+                }
+            });
+        });
+
+        // Download invoice buttons
+        document.querySelectorAll('.btn-download-invoice').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.index);
+                const order = orders[idx];
+                window.open(`/api/facturas/${order.id}?token=${API.getToken()}`, '_blank');
+            });
+        });
+
+        // Send invoice buttons
+        document.querySelectorAll('.btn-send-invoice').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const idx = parseInt(btn.dataset.index);
+                const order = orders[idx];
+
+                btn.disabled = true;
+                btn.textContent = 'Enviando...';
+
+                try {
+                    const res = await API.post(`facturas/${order.id}/enviar`, {});
+                    alert(res.message || 'Factura enviada correctamente.');
+                } catch (err) {
+                    console.error('Error al enviar factura:', err);
+                    alert('Error al enviar factura: ' + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = '✉️ Enviar';
                 }
             });
         });
@@ -378,7 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboard: 'Dashboard',
         products: 'Productos',
         users: 'Usuarios',
-        orders: 'Pedidos'
+        orders: 'Pedidos',
+        discounts: 'Descuento'
     };
 
     navLinks.forEach(link => {
@@ -496,9 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function uploadImage(file) {
         const formData = new FormData();
         formData.append('imagen', file);
-        const res = await fetch('/api/upload', { method: 'POST', body: formData });
-        if (!res.ok) throw new Error('Error al subir imagen');
-        const data = await res.json();
+        const data = await API.upload('productos/upload', formData);
         return data.path;
     }
 
@@ -592,20 +614,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 descripcion: desc
             };
 
-            if (usingAPI) {
-                if (editIdx >= 0 && products[editIdx].id) {
-                    const updated = await API.put(`productos/${products[editIdx].id}`, productData);
-                    products[editIdx] = updated;
-                } else {
-                    const created = await API.post('productos', productData);
-                    products.push(created);
-                }
+            if (editIdx >= 0 && products[editIdx].id) {
+                const result = await API.put(`productos/${products[editIdx].id}`, productData);
+                products[editIdx] = result.producto || result;
             } else {
-                if (editIdx >= 0) {
-                    products[editIdx] = productData;
-                } else {
-                    products.push(productData);
-                }
+                const result = await API.post('productos', productData);
+                products.push(result.producto || result);
             }
 
             renderProducts();
@@ -631,10 +645,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = users[editIndex];
             document.getElementById('userModalTitle').textContent = 'Editar Usuario';
             document.getElementById('userNameInput').value = user.nombre;
-            document.getElementById('userPass').value = user.contrasena || '';
-            document.getElementById('userTypeSelect').value = user.tipo;
+            document.getElementById('userPass').value = ''; // No mostrar contraseña hasheada
+            document.getElementById('userPass').placeholder = 'Dejar vacío para no cambiar';
+            document.getElementById('userTypeSelect').value = user.rol || 'comun';
         } else {
             document.getElementById('userModalTitle').textContent = 'Agregar Usuario';
+            document.getElementById('userPass').placeholder = 'Contraseña';
             userForm.reset();
         }
 
@@ -656,32 +672,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = document.getElementById('userTypeSelect').value;
         const editIdx = parseInt(document.getElementById('userEditIndex').value);
 
-        if (!name || !pass || !type) {
-            alert('Por favor completa todos los campos.');
+        if (!name || !type) {
+            alert('Por favor completa nombre y rol.');
             return;
         }
 
-        const userData = { nombre: name, contrasena: pass, tipo: type };
+        // Para nuevo usuario, contraseña es obligatoria
+        if (editIdx < 0 && !pass) {
+            alert('La contraseña es obligatoria para nuevos usuarios.');
+            return;
+        }
+
+        const userData = { nombre: name, rol: type };
+        // Solo enviar contraseña si se escribió una
+        if (pass) userData.contrasena = pass;
 
         try {
-            if (usingAPI) {
-                if (editIdx >= 0 && users[editIdx].id) {
-                    const updated = await API.put(`usuarios/${users[editIdx].id}`, userData);
-                    users[editIdx] = updated;
-                } else {
-                    const created = await API.post('usuarios', userData);
-                    users.push(created);
-                }
+            if (editIdx >= 0 && users[editIdx].id) {
+                const result = await API.put(`usuarios/${users[editIdx].id}`, userData);
+                users[editIdx] = result.usuario || result;
             } else {
-                if (editIdx >= 0) {
-                    users[editIdx] = userData;
-                } else {
-                    if (users.some(u => u.nombre === name)) {
-                        alert('Ya existe un usuario con ese nombre.');
-                        return;
-                    }
-                    users.push(userData);
-                }
+                const result = await API.post('usuarios', userData);
+                users.push(result.usuario || result);
             }
 
             renderUsers();
@@ -698,9 +710,182 @@ document.addEventListener('DOMContentLoaded', () => {
     ============================================ */
     document.getElementById('adminLogout')?.addEventListener('click', (e) => {
         e.preventDefault();
-        sessionStorage.removeItem('NombreUsuario');
-        sessionStorage.removeItem('tipoUsuario');
-        window.location.href = 'index.html';
+        API.logout();
+    });
+
+    /* ============================================
+       🏷️ DISCOUNTS TABLE
+    ============================================ */
+    function renderDiscounts() {
+        const tbody = document.getElementById('discountsTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        if (discounts.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        <div class="discounts-empty">
+                            <div class="empty-icon">🏷️</div>
+                            <p>No hay descuentos configurados</p>
+                        </div>
+                    </td>
+                </tr>`;
+            return;
+        }
+
+        discounts.forEach((disc) => {
+            const tr = document.createElement('tr');
+            const isActive = disc.activo;
+            const statusBadge = isActive
+                ? '<span class="badge badge-discount-active">Activo</span>'
+                : '<span class="badge badge-discount-inactive">Inactivo</span>';
+
+            tr.innerHTML = `
+                <td><span class="badge badge-category">${disc.categoria}</span></td>
+                <td><span class="discount-percent">🏷️ ${parseFloat(disc.porcentaje)}% OFF</span></td>
+                <td>${statusBadge}</td>
+                <td>
+                    <button class="btn-toggle-discount" data-id="${disc.id}" title="${isActive ? 'Desactivar' : 'Activar'}">
+                        ${isActive ? '⏸️ Pausar' : '▶️ Activar'}
+                    </button>
+                    <button class="btn btn-ghost btn-sm btn-edit-discount" data-id="${disc.id}">✏️</button>
+                    <button class="btn btn-danger btn-sm btn-delete-discount" data-id="${disc.id}">🗑️</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // Toggle active/inactive
+        document.querySelectorAll('.btn-toggle-discount').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                const disc = discounts.find(d => String(d.id) === id);
+                if (!disc) return;
+
+                try {
+                    const result = await API.put(`descuentos/${id}`, { activo: !disc.activo });
+                    const idx = discounts.findIndex(d => String(d.id) === id);
+                    if (idx >= 0) discounts[idx] = result.descuento || result;
+                    renderDiscounts();
+                    showToast('🏷️ Descuento actualizado', `${disc.categoria} ${!disc.activo ? 'activado' : 'pausado'}`, 'success');
+                } catch (err) {
+                    console.error('Error toggling descuento:', err);
+                    alert('Error al actualizar descuento: ' + err.message);
+                }
+            });
+        });
+
+        // Edit buttons
+        document.querySelectorAll('.btn-edit-discount').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const disc = discounts.find(d => String(d.id) === id);
+                if (disc) openDiscountModal(disc);
+            });
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.btn-delete-discount').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                const disc = discounts.find(d => String(d.id) === id);
+                if (!disc) return;
+                if (!confirm(`¿Eliminar descuento de "${disc.categoria}"?`)) return;
+
+                try {
+                    await API.delete(`descuentos/${id}`);
+                    discounts = discounts.filter(d => String(d.id) !== id);
+                    renderDiscounts();
+                    showToast('🗑️ Descuento eliminado', disc.categoria, 'success');
+                } catch (err) {
+                    console.error('Error eliminando descuento:', err);
+                    alert('Error al eliminar descuento: ' + err.message);
+                }
+            });
+        });
+    }
+
+    /* ============================================
+       🏷️ DISCOUNT MODAL
+    ============================================ */
+    const discountModal = document.getElementById('discountModal');
+    const discountForm = document.getElementById('discountForm');
+    const discountActiveCheckbox = document.getElementById('discountActive');
+    const discountActiveLabel = document.getElementById('discountActiveLabel');
+
+    // Update toggle label text
+    discountActiveCheckbox?.addEventListener('change', () => {
+        if (discountActiveLabel) {
+            discountActiveLabel.textContent = discountActiveCheckbox.checked ? 'Activo' : 'Inactivo';
+        }
+    });
+
+    function openDiscountModal(editDiscount = null) {
+        if (editDiscount) {
+            document.getElementById('discountModalTitle').textContent = 'Editar Descuento';
+            document.getElementById('discountCategory').value = editDiscount.categoria;
+            document.getElementById('discountPercent').value = editDiscount.porcentaje;
+            discountActiveCheckbox.checked = editDiscount.activo;
+            document.getElementById('discountEditId').value = editDiscount.id;
+        } else {
+            document.getElementById('discountModalTitle').textContent = 'Agregar Descuento';
+            discountForm.reset();
+            discountActiveCheckbox.checked = true;
+            document.getElementById('discountEditId').value = '-1';
+        }
+
+        if (discountActiveLabel) {
+            discountActiveLabel.textContent = discountActiveCheckbox.checked ? 'Activo' : 'Inactivo';
+        }
+
+        discountModal.classList.add('active');
+    }
+
+    function closeDiscountModalFn() {
+        discountModal.classList.remove('active');
+        discountForm.reset();
+    }
+
+    document.getElementById('btnAddDiscount')?.addEventListener('click', () => openDiscountModal());
+    document.getElementById('closeDiscountModal')?.addEventListener('click', closeDiscountModalFn);
+    document.getElementById('cancelDiscountModal')?.addEventListener('click', closeDiscountModalFn);
+
+    document.getElementById('saveDiscount')?.addEventListener('click', async () => {
+        const categoria = document.getElementById('discountCategory').value;
+        const porcentaje = parseFloat(document.getElementById('discountPercent').value);
+        const activo = discountActiveCheckbox.checked;
+        const editId = document.getElementById('discountEditId').value;
+
+        if (!categoria) {
+            alert('Por favor selecciona una categoría.');
+            return;
+        }
+        if (isNaN(porcentaje) || porcentaje < 0 || porcentaje > 100) {
+            alert('El porcentaje debe ser un número entre 0 y 100.');
+            return;
+        }
+
+        const discountData = { categoria, porcentaje, activo };
+
+        try {
+            if (editId !== '-1') {
+                const result = await API.put(`descuentos/${editId}`, discountData);
+                const idx = discounts.findIndex(d => String(d.id) === editId);
+                if (idx >= 0) discounts[idx] = result.descuento || result;
+                showToast('✅ Descuento actualizado', `${categoria}: ${porcentaje}% OFF`, 'success');
+            } else {
+                const result = await API.post('descuentos', discountData);
+                discounts.push(result.descuento || result);
+                showToast('✅ Descuento creado', `${categoria}: ${porcentaje}% OFF`, 'success');
+            }
+
+            renderDiscounts();
+            closeDiscountModalFn();
+        } catch (err) {
+            console.error('Error guardando descuento:', err);
+            alert('Error al guardar descuento: ' + err.message);
+        }
     });
 
     /* ============================================
@@ -885,53 +1070,150 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ============================================
-       🔔 REAL-TIME POLLING — Pedidos cada 10s
+       🔌 SOCKET.IO — Tiempo Real (reemplaza polling)
     ============================================ */
-    let pollingInterval = null;
-    let lastOrderCount = 0;
-
     function startOrderPolling() {
-        lastOrderCount = orders.length;
+        // Socket.IO reemplaza el polling, pero mantenemos la función
+        // por si se llama en loadAllData()
+        if (typeof io === 'undefined') {
+            console.warn('⚠️ Socket.IO no disponible, usando polling como fallback');
+            startFallbackPolling();
+            return;
+        }
 
-        if (pollingInterval) clearInterval(pollingInterval);
+        const socket = io();
+        console.log('🔌 Conectando Socket.IO al panel admin...');
 
-        pollingInterval = setInterval(async () => {
-            if (!usingAPI) return;
+        socket.on('connect', () => {
+            console.log('✅ Socket.IO conectado:', socket.id);
+        });
 
+        /* ── Nuevos pedidos ── */
+        socket.on('nuevoPedido', (pedido) => {
+            console.log('🛒 Nuevo pedido recibido en tiempo real:', pedido);
+            orders.unshift(pedido);
+
+            renderOrders();
+            updateDashboard();
+            renderCharts();
+
+            showToast(
+                '🛒 Nuevo Pedido',
+                `${pedido.cliente} — C$${parseFloat(pedido.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`,
+                'success'
+            );
+            playNotificationSound();
+
+            // Highlight new row
+            setTimeout(() => {
+                const rows = document.querySelectorAll('#ordersTableBody tr');
+                if (rows.length > 0) rows[0].classList.add('new-order-highlight');
+            }, 100);
+        });
+
+        /* ── Pedido actualizado (cambio de estado) ── */
+        socket.on('pedidoActualizado', (pedido) => {
+            const idx = orders.findIndex(o => o.id === pedido.id);
+            if (idx >= 0) orders[idx] = pedido;
+            renderOrders();
+            updateDashboard();
+            renderCharts();
+        });
+
+        /* ── Nuevo producto ── */
+        socket.on('nuevoProducto', (producto) => {
+            // Solo agregar si no fue creado desde esta sesión
+            if (!products.find(p => p.id === producto.id)) {
+                products.push(producto);
+                renderProducts();
+                updateDashboard();
+                renderCharts();
+                showToast('📦 Nuevo Producto', producto.nombre, 'info');
+            }
+        });
+
+        /* ── Producto actualizado ── */
+        socket.on('productoActualizado', (producto) => {
+            const idx = products.findIndex(p => p.id === producto.id);
+            if (idx >= 0) {
+                products[idx] = producto;
+                renderProducts();
+                updateDashboard();
+                renderCharts();
+            }
+        });
+
+        /* ── Producto eliminado ── */
+        socket.on('productoEliminado', (producto) => {
+            products = products.filter(p => p.id !== producto.id);
+            renderProducts();
+            updateDashboard();
+            renderCharts();
+        });
+
+        /* ── Stock actualizado ── */
+        socket.on('stockActualizado', (producto) => {
+            const idx = products.findIndex(p => p.id === producto.id);
+            if (idx >= 0) {
+                products[idx] = producto;
+                renderProducts();
+                updateDashboard();
+
+                // Alerta si stock bajo
+                if (parseInt(producto.stock) < 5) {
+                    showToast('⚠️ Stock Bajo', `${producto.nombre}: ${producto.stock} unidades`, 'warning');
+                }
+            }
+        });
+
+        /* ── Descuento actualizado ── */
+        socket.on('descuentoActualizado', (descuento) => {
+            const idx = discounts.findIndex(d => d.id === descuento.id);
+            if (idx >= 0) {
+                discounts[idx] = descuento;
+            } else {
+                discounts.push(descuento);
+            }
+            renderDiscounts();
+            showToast('🏷️ Descuento', `${descuento.categoria}: ${descuento.porcentaje}% ${descuento.activo ? 'activo' : 'pausado'}`, 'info');
+        });
+
+        /* ── Descuento eliminado ── */
+        socket.on('descuentoEliminado', (descuento) => {
+            discounts = discounts.filter(d => d.id !== descuento.id);
+            renderDiscounts();
+        });
+
+        /* ── Reconexión ── */
+        socket.on('disconnect', () => {
+            console.warn('🔌 Socket.IO desconectado, intentando reconectar...');
+        });
+
+        socket.on('reconnect', () => {
+            console.log('🔌 Socket.IO reconectado, recargando datos...');
+            loadAllData();
+        });
+    }
+
+    /* Fallback: polling si Socket.IO no está disponible */
+    function startFallbackPolling() {
+        let lastOrderCount = orders.length;
+        setInterval(async () => {
             try {
                 const newOrders = await API.get('pedidos');
                 if (newOrders.length > lastOrderCount) {
                     const diff = newOrders.length - lastOrderCount;
                     const newest = newOrders.slice(0, diff);
-
                     orders = newOrders;
                     lastOrderCount = newOrders.length;
-
                     renderOrders();
                     updateDashboard();
                     renderCharts();
-
-                    // Toast notification
                     newest.forEach(o => {
-                        showToast(
-                            '🛒 Nuevo Pedido',
-                            `${o.cliente} — C$${parseFloat(o.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`,
-                            'success'
-                        );
+                        showToast('🛒 Nuevo Pedido', `${o.cliente} — C$${parseFloat(o.total).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`, 'success');
                     });
-
-                    // Audio notification
                     playNotificationSound();
-
-                    // Highlight new rows
-                    setTimeout(() => {
-                        const rows = document.querySelectorAll('#ordersTableBody tr');
-                        for (let i = 0; i < Math.min(diff, rows.length); i++) {
-                            rows[i].classList.add('new-order-highlight');
-                        }
-                    }, 100);
                 } else {
-                    // Update order states silently
                     orders = newOrders;
                     lastOrderCount = newOrders.length;
                 }

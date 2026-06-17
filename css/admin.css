@@ -6,6 +6,21 @@
 
 :root {
     --admin-sidebar-width: 260px;
+    --admin-bg: #f8fafc;
+    --admin-sidebar: #ffffff;
+    --admin-card: #ffffff;
+    --admin-border: #e2e8f0;
+    --admin-text: #0f172a;
+    --admin-text-muted: #64748b;
+    --admin-primary: #3b82f6;
+    --admin-primary-hover: #2563eb;
+    --admin-accent: #ffb700;
+    --admin-danger: #ef4444;
+    --admin-success: #10b981;
+    --admin-warning: #f59e0b;
+}
+
+html.dark-theme {
     --admin-bg: #0f1923;
     --admin-sidebar: #111d2b;
     --admin-card: #182635;
@@ -76,7 +91,7 @@ body {
 .sidebar-header h2 {
     font-size: 1.1rem;
     font-weight: 700;
-    color: white;
+    color: var(--admin-text);
     margin: 0;
 }
 
@@ -185,7 +200,7 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     margin: 0;
-    color: white;
+    color: var(--admin-text);
     text-align: left;
 }
 
@@ -249,6 +264,10 @@ body {
 
 .stat-card:hover {
     transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+html.dark-theme .stat-card:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -268,7 +287,7 @@ body {
 .stat-card .stat-value {
     font-size: 2rem;
     font-weight: 800;
-    color: white;
+    color: var(--admin-text);
     margin: 4px 0;
     letter-spacing: -0.02em;
 }
@@ -317,7 +336,7 @@ body {
 .panel-header h3 {
     font-size: 1rem;
     font-weight: 700;
-    color: white;
+    color: var(--admin-text);
     margin: 0;
 }
 
@@ -338,6 +357,10 @@ body {
 }
 
 .admin-table thead {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+html.dark-theme .admin-table thead {
     background: rgba(255, 255, 255, 0.03);
 }
 
@@ -377,8 +400,12 @@ body {
     height: 40px;
     border-radius: 8px;
     object-fit: contain;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.03);
     padding: 4px;
+}
+
+html.dark-theme .admin-table .product-cell img {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 /* ============================================
@@ -395,21 +422,37 @@ body {
 
 .badge-admin {
     background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+html.dark-theme .badge-admin {
     color: #f87171;
 }
 
 .badge-user {
     background: rgba(59, 130, 246, 0.15);
+    color: #2563eb;
+}
+
+html.dark-theme .badge-user {
     color: #60a5fa;
 }
 
 .badge-active {
     background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+
+html.dark-theme .badge-active {
     color: #4ade80;
 }
 
 .badge-category {
     background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+html.dark-theme .badge-category {
     color: #fbbf24;
 }
 
@@ -442,6 +485,10 @@ body {
 
 .btn-danger {
     background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+html.dark-theme .btn-danger {
     color: #f87171;
 }
 
@@ -451,6 +498,10 @@ body {
 
 .btn-success {
     background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+
+html.dark-theme .btn-success {
     color: #4ade80;
 }
 
@@ -461,8 +512,12 @@ body {
 }
 
 .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.04);
     color: var(--admin-text);
+}
+
+html.dark-theme .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .btn-sm {
@@ -519,7 +574,7 @@ body {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
-    color: white;
+    color: var(--admin-text);
 }
 
 .modal-close {
@@ -533,7 +588,7 @@ body {
 }
 
 .modal-close:hover {
-    color: white;
+    color: var(--admin-text);
 }
 
 .modal-body {
@@ -724,12 +779,20 @@ body {
     font-size: 0.78rem;
     font-weight: 700;
     background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+    color: #dc2626;
     animation: pulse-stock 2s ease-in-out infinite;
+}
+
+html.dark-theme .stock-badge-low {
+    color: #f87171;
 }
 
 .stock-badge-critical {
     background: rgba(239, 68, 68, 0.25);
+    color: #b91c1c;
+}
+
+html.dark-theme .stock-badge-critical {
     color: #fca5a5;
 }
 
@@ -761,9 +824,13 @@ body {
 
 .stock-alert-banner .alert-title {
     font-weight: 700;
-    color: #fbbf24;
+    color: #d97706;
     font-size: 0.95rem;
     margin-bottom: 2px;
+}
+
+html.dark-theme .stock-alert-banner .alert-title {
+    color: #fbbf24;
 }
 
 .stock-alert-banner .alert-desc {
@@ -774,9 +841,13 @@ body {
 .stock-alert-banner .alert-count {
     font-size: 1.6rem;
     font-weight: 800;
-    color: #f87171;
+    color: #dc2626;
     min-width: 40px;
     text-align: center;
+}
+
+html.dark-theme .stock-alert-banner .alert-count {
+    color: #f87171;
 }
 
 /* ============================================
@@ -897,12 +968,16 @@ body {
     padding: 16px 20px;
     min-width: 320px;
     max-width: 420px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     gap: 12px;
     pointer-events: auto;
     animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.dark-theme .toast {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .toast.toast-out {
@@ -921,7 +996,7 @@ body {
 .toast .toast-title {
     font-weight: 700;
     font-size: 0.88rem;
-    color: white;
+    color: var(--admin-text);
     margin-bottom: 2px;
 }
 
@@ -966,8 +1041,12 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+    color: #16a34a;
     margin-left: 10px;
+}
+
+html.dark-theme .live-badge {
+    color: #4ade80;
 }
 
 .live-dot {
@@ -1016,7 +1095,7 @@ body {
 .chart-panel h4 {
     font-size: 0.95rem;
     font-weight: 700;
-    color: white;
+    color: var(--admin-text);
     margin: 0 0 16px 0;
     display: flex;
     align-items: center;
@@ -1046,4 +1125,211 @@ body {
         left: 0;
         align-items: center;
     }
+}
+
+/* ============================================
+   🏷️ DISCOUNTS MODULE
+============================================ */
+
+/* Discount percentage input with % suffix */
+.discount-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.discount-input-wrap input {
+    width: 100%;
+    padding-right: 40px !important;
+}
+
+.discount-input-suffix {
+    position: absolute;
+    right: 14px;
+    color: var(--admin-text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+/* Toggle Switch */
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--admin-border);
+    border-radius: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.dark-theme .toggle-slider {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background: var(--admin-text-muted);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: rgba(34, 197, 94, 0.25);
+    border-color: var(--admin-success);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+    background: var(--admin-success);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+}
+
+.toggle-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--admin-text-muted);
+}
+
+/* Discount Table Badges */
+.discount-percent {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(249, 115, 22, 0.15));
+    color: #d97706;
+    letter-spacing: 0.02em;
+}
+
+html.dark-theme .discount-percent {
+    color: #fbbf24;
+}
+
+.badge-discount-active {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+
+html.dark-theme .badge-discount-active {
+    color: #4ade80;
+}
+
+.badge-discount-inactive {
+    background: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+}
+
+html.dark-theme .badge-discount-inactive {
+    color: #f87171;
+}
+
+/* Toggle state button in table */
+.btn-toggle-discount {
+    background: transparent;
+    border: 1px solid var(--admin-border);
+    color: var(--admin-text-muted);
+    padding: 5px 10px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-discount:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--admin-text);
+}
+
+html.dark-theme .btn-toggle-discount:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Empty state for discounts table */
+.discounts-empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--admin-text-muted);
+}
+
+.discounts-empty .empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.discounts-empty p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Vendedor Role Badge */
+.badge-vendedor {
+    background: rgba(168, 85, 247, 0.15);
+    color: #7c3aed;
+}
+
+html.dark-theme .badge-vendedor {
+    color: #c084fc;
+}
+
+/* Estilos de botones de facturas */
+.btn-confirm-order {
+    background: var(--admin-success);
+    color: white;
+}
+
+.btn-confirm-order:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+}
+
+.btn-download-invoice, .btn-send-invoice {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--admin-border);
+    color: var(--admin-text);
+}
+
+.btn-download-invoice:hover, .btn-send-invoice:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+html.dark-theme .btn-download-invoice, html.dark-theme .btn-send-invoice {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+html.dark-theme .btn-download-invoice:hover, html.dark-theme .btn-send-invoice:hover {
+    background: rgba(255, 255, 255, 0.1);
 }

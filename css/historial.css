@@ -1,0 +1,212 @@
+/* ============================================
+   📋 ElectroShop — Historial de Pedidos CSS
+============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.historial-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+}
+
+.historial-header {
+    margin-bottom: 32px;
+}
+
+.historial-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin: 8px 0 4px;
+}
+
+.historial-header p {
+    color: #8892b0;
+    font-size: 14px;
+}
+
+/* ─── Order Card ─── */
+.order-card {
+    background: linear-gradient(145deg, #111128, #0d0d24);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.4s ease;
+}
+
+.order-card:hover {
+    border-color: rgba(108,99,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.order-code {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.order-date {
+    font-size: 13px;
+    color: #8892b0;
+}
+
+.order-status {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pendiente {
+    background: rgba(245,158,11,0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245,158,11,0.2);
+}
+
+.status-completado {
+    background: rgba(16,185,129,0.12);
+    color: #34d399;
+    border: 1px solid rgba(16,185,129,0.2);
+}
+
+.status-cancelado {
+    background: rgba(239,68,68,0.12);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.2);
+}
+
+.order-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.order-product-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #ccd6f6;
+}
+
+.order-total {
+    font-size: 20px;
+    font-weight: 700;
+    color: #10b981;
+}
+
+/* ─── Empty State ─── */
+.historial-empty {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.historial-empty .empty-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.historial-empty h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.historial-empty p {
+    color: #8892b0;
+    margin-bottom: 24px;
+}
+
+.historial-empty a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #6c63ff, #5a52e0);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.historial-empty a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108,99,255,0.3);
+}
+
+/* ─── Login Required ─── */
+.login-required {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.login-required h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.login-required p {
+    color: #8892b0;
+    margin-bottom: 24px;
+}
+
+.btn-login-hist {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #6c63ff, #5a52e0);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-login-hist:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108,99,255,0.3);
+}
+
+/* ─── Skeleton ─── */
+.skeleton-order {
+    background: linear-gradient(90deg, #1e1e3a 25%, #2a2a4a 50%, #1e1e3a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 16px;
+    height: 140px;
+    margin-bottom: 16px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@media (max-width: 640px) {
+    .order-header { flex-direction: column; align-items: flex-start; }
+    .historial-main { padding: 16px 12px 40px; }
+}

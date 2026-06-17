@@ -1,0 +1,113 @@
+.deseos-container {
+    max-width: 1300px;
+    margin: 50px auto;
+    padding: 20px;
+    min-height: 60vh;
+}
+
+.deseos-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.deseos-header i {
+    font-size: 1.8rem;
+    color: #ff4d6d;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.4));
+    animation: heartbeat 1.5s infinite;
+}
+
+.deseos-header h2 {
+    margin: 0;
+    color: #ffb700;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.deseos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.empty-deseos {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 70px 30px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 16px;
+    color: #94a3b8;
+    backdrop-filter: blur(10px);
+}
+
+.empty-deseos i {
+    display: inline-block;
+    font-size: 4.5rem;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.3));
+    animation: heartbeat 2s infinite ease-in-out;
+}
+
+.empty-deseos h3 {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.empty-deseos p {
+    max-width: 500px;
+    margin: auto;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.btn-regresar-catalogo {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #ffb700, #ff8800);
+    color: #111827 !important;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(255, 183, 0, 0.3);
+}
+
+.btn-regresar-catalogo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 183, 0, 0.5);
+}
+
+.product-card {
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.contador-favoritos {
+    background: rgba(255,183,0,.15);
+    color: #ffb700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.12); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.12); }
+    70% { transform: scale(1); }
+}

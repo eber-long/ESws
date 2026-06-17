@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
     <link rel="stylesheet" href="css/catalogo.css">
+    <link rel="stylesheet" href="css/icons.css">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
+    <script src="js/theme.js"></script>
 </head>
 <body>
 
@@ -48,11 +50,37 @@
             </div>
 
         </div>
-        <a href="principal.html" class="nav-button-style">🔰 Inicio</a>
-        <a href="nosotros.html" class="nav-button-style">👤 Nosotros</a>
-        <a href="catalogo.html" class="nav-button-style">📰 Catálogo</a>
-        <a href="carrito.html" class="nav-button-style">🛒 Carrito</a>
-        <a href="deseos.html" class="nav-button-style">❤️ Lista de Deseos</a>
+        <a href="principal.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5Z"/>
+            </svg>
+            Inicio
+        </a>
+        <a href="nosotros.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/>
+            </svg>
+            Nosotros
+        </a>
+        <a href="catalogo.html" class="nav-button-style">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
+            </svg>
+
+            Catálogo
+        </a>
+        <a href="carrito.html" class="nav-button-style">
+            <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+            </svg>
+            Carrito
+        </a>
+        <a href="deseos.html" class="nav-button-style">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="m12 21-1.4-1.3C5.4 15 2 12 2 8.5A4.5 4.5 0 0 1 6.5 4c2 0 3.2 1 4.1 2.1C11.3 5 12.5 4 14.5 4A4.5 4.5 0 0 1 19 8.5c0 3.5-3.4 6.5-8.6 11.2L12 21Z"/>
+            </svg>
+            Favoritos
+        </a>
     </div>
    <!-- Separacion entre el cuerpo principal y el catalogo -->
 
@@ -65,7 +93,7 @@
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
-       <a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="AMD Ryzen 7 5700X" data-precio="7708.27" data-img="imagen/7.webp">
+       <a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="AMD Ryzen 7 5700X" data-precio="7708.27" data-img="imagen/7.webp" data-categoria="Procesadores">
        <div class="contenido">
        <img src="imagen/7.webp" alt="Ryzen 7 5700X">
        <h3 class="nombre-producto">AMD Ryzen 7 5700X</h3>
@@ -75,7 +103,7 @@
      </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i7-12700K" data-precio="9850" data-img="imagen/intelcorei7.jpg">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i7-12700K" data-precio="9850" data-img="imagen/intelcorei7.jpg" data-categoria="Procesadores">
   <div class="contenido">
     <img src="imagen/intelcorei7.jpg" alt="intelcorei7">
     <h3 class="nombre-producto">Intel Core i7-12700K</h3>
@@ -85,7 +113,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i7-12700K Ultra" data-precio="10450" data-img="imagen/IntelcoreI7ultra.avif">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i7-12700K Ultra" data-precio="10450" data-img="imagen/IntelcoreI7ultra.avif" data-categoria="Procesadores">
   <div class="contenido">
     <img src="imagen/IntelcoreI7ultra.avif" alt="IntelcoreI7ultra">
     <h3 class="nombre-producto">Intel Core i7-12700K</h3>
@@ -95,7 +123,7 @@
   </div>
 </a>
 
-       <a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i5-12400F" data-precio="5950" data-img="imagen/intelcorei5.jpg">
+       <a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Intel Core i5-12400F" data-precio="5950" data-img="imagen/intelcorei5.jpg" data-categoria="Procesadores">
          <div class="contenido">
             <img src="imagen/intelcorei5.jpg" alt="IntecoreI5">
             <h3 class="nombre-producto">Intel Core i5-12400F</h3>
@@ -141,7 +169,7 @@
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="HP Pavilion 15" data-precio="17500" data-img="imagen/HPpavilion.avif">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="HP Pavilion 15" data-precio="17500" data-img="imagen/HPpavilion.avif" data-categoria="Laptops">
   <div class="contenido">
     <img src="imagen/HPpavilion.avif" alt="HP Pavilion 15">
     <h3 class="nombre-producto">HP Pavilion 15</h3>
@@ -151,7 +179,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Dell Inspiron 14" data-precio="22300" data-img="imagen/Dellinspiron.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Dell Inspiron 14" data-precio="22300" data-img="imagen/Dellinspiron.webp" data-categoria="Laptops">
   <div class="contenido">
     <img src="imagen/Dellinspiron.webp" alt="Dell Inspiron 14">
     <h3 class="nombre-producto">Dell Inspiron 14</h3>
@@ -161,7 +189,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Lenovo IdeaPad 3" data-precio="15800" data-img="imagen/ideaPad3.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Lenovo IdeaPad 3" data-precio="15800" data-img="imagen/ideaPad3.webp" data-categoria="Laptops">
   <div class="contenido">
     <img src="imagen/ideaPad3.webp" alt="Lenovo IdeaPad 3">
     <h3 class="nombre-producto">Lenovo IdeaPad 3</h3>
@@ -171,7 +199,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Acer Aspire 5" data-precio="18900" data-img="imagen/AcerAsoire5.png">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Acer Aspire 5" data-precio="18900" data-img="imagen/AcerAsoire5.png" data-categoria="Laptops">
   <div class="contenido">
     <img src="imagen/AcerAsoire5.png" alt="Acer Aspire 5">
     <h3 class="nombre-producto">Acer Aspire 5</h3>
@@ -217,7 +245,7 @@
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Samsung Galaxy S25" data-precio="44500" data-img="imagen/samsung-galaxy-s25-5g-256-gb-icyblue.jpg">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Samsung Galaxy S25" data-precio="44500" data-img="imagen/samsung-galaxy-s25-5g-256-gb-icyblue.jpg" data-categoria="Dispositivos Móviles">
   <div class="contenido">
     <img src="imagen/samsung-galaxy-s25-5g-256-gb-icyblue.jpg" alt="Samsung Galaxy S25">
     <h3 class="nombre-producto">Samsung Galaxy S25</h3>
@@ -227,7 +255,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Xiaomi 15 Pro" data-precio="22900" data-img="imagen/Xiaomi15Pro.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Xiaomi 15 Pro" data-precio="22900" data-img="imagen/Xiaomi15Pro.webp" data-categoria="Dispositivos Móviles">
   <div class="contenido">
     <img src="imagen/Xiaomi15Pro.webp" alt="Xiaomi 15 Pro">
     <h3 class="nombre-producto">Xiaomi 15 Pro</h3>
@@ -237,7 +265,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="iPhone 16e" data-precio="29800" data-img="imagen/Iphone16e.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="iPhone 16e" data-precio="29800" data-img="imagen/Iphone16e.webp" data-categoria="Dispositivos Móviles">
   <div class="contenido">
     <img src="imagen/Iphone16e.webp" alt="iPhone 16e">
     <h3 class="nombre-producto">iPhone 16e</h3>
@@ -247,7 +275,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Google Pixel 9 Pro" data-precio="24600" data-img="imagen/google-pixel-9-pro_1024x.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Google Pixel 9 Pro" data-precio="24600" data-img="imagen/google-pixel-9-pro_1024x.webp" data-categoria="Dispositivos Móviles">
   <div class="contenido">
     <img src="imagen/google-pixel-9-pro_1024x.webp" alt="Google Pixel 9 Pro">
     <h3 class="nombre-producto">Google Pixel 9 Pro</h3>
@@ -294,7 +322,7 @@
     <div class="carrusel-contenedor carrusel-contenedor--dark">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="RedMagic Gaming Laptop 16 Pro" data-precio="62000" data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="RedMagic Gaming Laptop 16 Pro" data-precio="62000" data-img="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg" data-categoria="Laptops">
   <div class="contenido">
     <img src="imagen/RedMagic-Gaming-Laptop-16-Pro.jpg" alt="RedMagic Gaming Laptop 16 Pro">
     <h3 class="nombre-producto">RedMagic Gaming Laptop 16 Pro</h3>
@@ -304,7 +332,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Audífonos Gamer Pro" data-precio="8500" data-img="imagen/Audifonosgamer.png">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Audífonos Gamer Pro" data-precio="8500" data-img="imagen/Audifonosgamer.png" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/Audifonosgamer.png" alt="Audífonos Gamer Pro">
     <h3 class="nombre-producto">Audífonos Gamer Pro</h3>
@@ -314,7 +342,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="G213 Prodigy" data-precio="5500" data-img="imagen/G213 Prodigy.png">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="G213 Prodigy" data-precio="5500" data-img="imagen/G213 Prodigy.png" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/G213 Prodigy.png" alt="G213 Prodigy">
     <h3 class="nombre-producto">Logitech G213 Prodigy</h3>
@@ -324,7 +352,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="1800" data-img="imagen/MouseRedragon.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="1800" data-img="imagen/MouseRedragon.webp" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/MouseRedragon.webp" alt="Mouse Redragon Gaming">
     <h3 class="nombre-producto">Mouse Redragon Gaming</h3>
@@ -345,7 +373,7 @@
     <div class="carrusel-contenedor carrusel-contenedor--light">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="890" data-img="imagen/MouseRedragon.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Mouse Redragon M607" data-precio="890" data-img="imagen/MouseRedragon.webp" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/MouseRedragon.webp" alt="Samsung Galaxy S25">
     <h3 class="nombre-producto">Mouse Redragon M607</h3>
@@ -355,7 +383,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Audífonos JBL 510BT" data-precio="1750" data-img="imagen/Audífonos JBL 510BT.jpeg">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Audífonos JBL 510BT" data-precio="1750" data-img="imagen/Audífonos JBL 510BT.jpeg" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/Audífonos JBL 510BT.jpeg" alt="Xiaomi 15 Pro">
     <h3 class="nombre-producto">Audífonos JBL 510BT</h3>
@@ -365,7 +393,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Cargador Xiaomi 33W" data-precio="680" data-img="imagen/cargadorxiaomi.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Cargador Xiaomi 33W" data-precio="680" data-img="imagen/cargadorxiaomi.webp" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/cargadorxiaomi.webp" alt="iPhone 16e">
     <h3 class="nombre-producto">Cargador Xiaomi 33W</h3>
@@ -375,7 +403,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Estuche rígido disco" data-precio="270" data-img="imagen/estuche.webp">
+<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Estuche rígido disco" data-precio="270" data-img="imagen/estuche.webp" data-categoria="Accesorios">
   <div class="contenido">
     <img src="imagen/estuche.webp" alt="Google Pixel 9 Pro">
     <h3 class="nombre-producto">Estuche rígido disco</h3>
@@ -421,7 +449,7 @@
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="ASUS TUF VG249Q1A" data-precio="890" data-img="imagen/monitorasus.png">
+<a href="producto.html" class="tarjeta-producto" data-nombre="ASUS TUF VG249Q1A" data-precio="890" data-img="imagen/monitorasus.png" data-categoria="Monitores">
   <div class="contenido">
     <img src="imagen/monitorasus.png" alt="Samsung Galaxy S25">
     <h3 class="nombre-producto">ASUS TUF VG249Q1A</h3>
@@ -431,7 +459,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="LG Ultr27GN75aGear" data-precio="6750" data-img="imagen/Lgmonitor.jpg">
+<a href="producto.html" class="tarjeta-producto" data-nombre="LG Ultr27GN75aGear" data-precio="6750" data-img="imagen/Lgmonitor.jpg" data-categoria="Monitores">
   <div class="contenido">
     <img src="imagen/Lgmonitor.jpg" alt="Xiaomi 15 Pro">
     <h3 class="nombre-producto">LG Ultr27GN75aGear</h3>
@@ -441,7 +469,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Dell P2422H Monitor" data-precio="6100" data-img="imagen/Dell led moniot.jpg">
+<a href="producto.html" class="tarjeta-producto" data-nombre="Dell P2422H Monitor" data-precio="6100" data-img="imagen/Dell led moniot.jpg" data-categoria="Monitores">
   <div class="contenido">
     <img src="imagen/Dell led moniot.jpg" alt="iPhone 16e">
     <h3 class="nombre-producto">Dell P2422H Monitor</h3>
@@ -451,7 +479,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="AOC Gamer 24G2E5" data-precio="5200" data-img="imagen/AOCMonitor.png">
+<a href="producto.html" class="tarjeta-producto" data-nombre="AOC Gamer 24G2E5" data-precio="5200" data-img="imagen/AOCMonitor.png" data-categoria="Monitores">
   <div class="contenido">
     <img src="imagen/AOCMonitor.png" alt="Google Pixel 9 Pro">
     <h3 class="nombre-producto">AOC Gamer 24G2E5</h3>
@@ -464,22 +492,22 @@
 
             <div class="carousel">
                 <div class="carousel-images4">
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/Samsung Curvo C24F390.jpg" alt="Imagen 1">
                     </a>
-                    <a href="Detalle.hml">
+                    <a href="producto.html">
                     <img src="imagen/ViewSonic VX3276-MHD.webp" alt="Imagen 2">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/BenQ EX2510S MOBIUZ.avif" alt="Imagen 3">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/Samsung Curvo C24F390.jpg" alt="Imagen 1 duplicada">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/ViewSonic VX3276-MHD.webp" alt="Imagen 2 duplicada">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/BenQ EX2510S MOBIUZ.avif" alt="Imagen 3 duplicada">
                     </a>
                 </div>
@@ -497,7 +525,7 @@
     <div class="carrusel-contenedor">
         <div class="fila-productos">
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="Epson PowerLite X49" data-precio="9800" data-img="imagen/Epson PowerLite X49.png">
+<a href="producto.html" class="tarjeta-producto" data-nombre="Epson PowerLite X49" data-precio="9800" data-img="imagen/Epson PowerLite X49.png" data-categoria="Proyectores">
   <div class="contenido">
     <img src="imagen/Epson PowerLite X49.png" alt="Epson PowerLite X49">
     <h3 class="nombre-producto">Epson PowerLite X49</h3>
@@ -507,7 +535,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="LBenQ TH575 Full HD" data-precio="11900" data-img="imagen/LBenQ TH575 Full HD.png">
+<a href="producto.html" class="tarjeta-producto" data-nombre="LBenQ TH575 Full HD" data-precio="11900" data-img="imagen/LBenQ TH575 Full HD.png" data-categoria="Proyectores">
   <div class="contenido">
     <img src="imagen/LBenQ TH575 Full HD.png" alt="Xiaomi 15 Pro">
     <h3 class="nombre-producto">LBenQ TH575 Full HD</h3>
@@ -517,7 +545,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="ViewSonic PA503S" data-precio="7950" data-img="imagen/ViewSonic PA503S.webp">
+<a href="producto.html" class="tarjeta-producto" data-nombre="ViewSonic PA503S" data-precio="7950" data-img="imagen/ViewSonic PA503S.webp" data-categoria="Proyectores">
   <div class="contenido">
     <img src="imagen/ViewSonic PA503S.webp" alt="iPhone 16e">
     <h3 class="nombre-producto">ViewSonic PA503S</h3>
@@ -527,7 +555,7 @@
   </div>
 </a>
 
-<a href="detalle-5700x.html" class="tarjeta-producto" data-nombre="LG CineBeam PF50KA" data-precio="10200" data-img="imagen/LG CineBeam PF50KA.webp">
+<a href="producto.html" class="tarjeta-producto" data-nombre="LG CineBeam PF50KA" data-precio="10200" data-img="imagen/LG CineBeam PF50KA.webp" data-categoria="Proyectores">
   <div class="contenido">
     <img src="imagen/LG CineBeam PF50KA.webp" alt="Google Pixel 9 Pro">
     <h3 class="nombre-producto">LG CineBeam PF50KA</h3>
@@ -540,22 +568,22 @@
 
             <div class="carousel">
                 <div class="carousel-images5">
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/Epson Home Cinema 3800 4K PRO-UHD.jpg" alt="Imagen 1">
                     </a>
-                    <a href="Detalle.hml">
+                    <a href="producto.html">
                     <img src="imagen/XGIMI MoGo 2 Pro.jpeg" alt="Imagen 2">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/XGIMI Horizon Pro Smart 4K.jpg" alt="Imagen 3">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/Epson Home Cinema 3800 4K PRO-UHD.jpg" alt="Imagen 1 duplicada">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/XGIMI MoGo 2 Pro.jpeg" alt="Imagen 2 duplicada">
                     </a>
-                    <a href="Detalle.html">
+                    <a href="producto.html">
                     <img src="imagen/XGIMI Horizon Pro Smart 4K.jpg" alt="Imagen 3 duplicada">
                     </a>
                 </div>
@@ -578,10 +606,14 @@
       </div>
     </footer>
 
+    <script src="js/api.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/auth-modal.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/buscador.js"></script>
     <script src="js/principal.js"></script>
     <script src="js/deseos.js"></script>
-
+    <script src="js/descuentos.js"></script>
+    <script src="js/producto.js"></script>
 </body>
 </html>

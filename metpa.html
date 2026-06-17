@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Pago - ElectroShop</title>
   <link rel="stylesheet" href="css/pago.css">
+  <script src="js/theme.js"></script>
+  <script src="js/api.js"></script>
   <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 </head>
+
 <body>
   <header>
     <h1>ElectroShop - Pago</h1>
@@ -16,38 +20,33 @@
 
   <main class="pago-form">
     <h2>Total a pagar: <span id="totalPago">C$0.00</span></h2>
-    
+
     <form id="formPago">
       <label>Nombre del titular:
         <input type="text" name="nombre" required>
       </label>
 
-      <label>Número de tarjeta:
-        <input type="text" name="numero" maxlength="16" required>
-      </label>
-
-      <label>Fecha de expiración:
-        <input type="month" name="expiracion" required>
-      </label>
-
-      <label>CVV:
-        <input type="text" name="cvv" maxlength="4" required>
-      </label>
 
       <button type="submit" id="btnPagar">Pagar</button>
     </form>
   </main>
 
   <script>
+    // Redirigir si no está logueado
+    if (!API.isLoggedIn()) {
+      alert('Debes iniciar sesión para realizar el pago.');
+      window.location.href = 'index.html';
+    }
+
     const totalElem = document.getElementById('totalPago');
     const totalNum = parseFloat(sessionStorage.getItem('carritoTotal') || 0);
-    totalElem.textContent = `C$${totalNum.toLocaleString('es-NI', {minimumFractionDigits:2})}`;
+    totalElem.textContent = `C$${totalNum.toLocaleString('es-NI', { minimumFractionDigits: 2 })}`;
 
     const form = document.getElementById('formPago');
-    
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const btnPagar = document.getElementById('btnPagar');
       btnPagar.disabled = true;
       btnPagar.textContent = 'Procesando...';
@@ -55,73 +54,66 @@
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const cliente = document.querySelector('input[name="nombre"]').value;
       const codigoFactura = 'FAC-' + Math.floor(100000 + Math.random() * 900000);
-      const nombresProductos = carrito.map(p => `${p.cantidad || 1}x ${p.nombre}`);
+      const nombresProductos = carrito.flatMap(p => Array((p.cantidad || 1)).fill(p.nombre));
 
       try {
-          // 1. Enviar el pedido a la base de datos
-          const res = await fetch('/api/pedidos', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                  codigo: codigoFactura,
-                  cliente: cliente,
-                  productos: nombresProductos,
-                  total: totalNum
-              })
-          });
+        // 1. Enviar el pedido a la base de datos usando API helper (agrega JWT)
+        await API.post('pedidos', {
+          codigo: codigoFactura,
+          cliente: cliente,
+          productos: nombresProductos,
+          total: totalNum
+        });
 
-          if (!res.ok) {
-              console.error('Error al registrar pedido en backend');
-          }
+        // 2. Generar Factura PDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-          // 2. Generar Factura PDF
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
-          
-          doc.setFontSize(20);
-          doc.text('ElectroShop - Factura de Compra', 14, 20);
-          
-          doc.setFontSize(12);
-          doc.text(`Código: ${codigoFactura}`, 14, 30);
-          doc.text(`Cliente: ${cliente}`, 14, 38);
-          doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 46);
+        doc.setFontSize(20);
+        doc.text('ElectroShop - Factura de Compra', 14, 20);
 
-          const tableData = carrito.map(p => [
-              p.nombre, 
-              (p.cantidad || 1).toString(), 
-              `C$${p.precio.toLocaleString('es-NI', {minimumFractionDigits:2})}`, 
-              `C$${(p.precio * (p.cantidad || 1)).toLocaleString('es-NI', {minimumFractionDigits:2})}`
-          ]);
+        doc.setFontSize(12);
+        doc.text(`Código: ${codigoFactura}`, 14, 30);
+        doc.text(`Cliente: ${cliente}`, 14, 38);
+        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 46);
 
-          doc.autoTable({
-              startY: 55,
-              head: [['Producto', 'Cant', 'Precio Unit.', 'Subtotal']],
-              body: tableData,
-              theme: 'striped',
-              headStyles: { fillColor: [59, 130, 246] }
-          });
+        const tableData = carrito.map(p => [
+          p.nombre,
+          (p.cantidad || 1).toString(),
+          `C$${p.precio.toLocaleString('es-NI', { minimumFractionDigits: 2 })}`,
+          `C$${(p.precio * (p.cantidad || 1)).toLocaleString('es-NI', { minimumFractionDigits: 2 })}`
+        ]);
 
-          const finalY = doc.lastAutoTable.finalY || 55;
-          doc.setFontSize(14);
-          doc.text(`Total Pagado: C$${totalNum.toLocaleString('es-NI', {minimumFractionDigits:2})}`, 14, finalY + 15);
+        doc.autoTable({
+          startY: 55,
+          head: [['Producto', 'Cant', 'Precio Unit.', 'Subtotal']],
+          body: tableData,
+          theme: 'striped',
+          headStyles: { fillColor: [59, 130, 246] }
+        });
 
-          // Descargar PDF
-          doc.save(`${codigoFactura}.pdf`);
+        const finalY = doc.lastAutoTable.finalY || 55;
+        doc.setFontSize(14);
+        doc.text(`Total Pagado: C$${totalNum.toLocaleString('es-NI', { minimumFractionDigits: 2 })}`, 14, finalY + 15);
 
-          alert('✅ Pago procesado correctamente! Descargando factura...');
+        // Descargar PDF
+        doc.save(`${codigoFactura}.pdf`);
 
-          // 3. Limpiar y redirigir
-          localStorage.removeItem('carrito');
-          sessionStorage.removeItem('carritoTotal');
-          window.location.href = 'principal.html';
+        alert('✅ Pago procesado correctamente! Descargando factura...');
+
+        // 3. Limpiar y redirigir
+        localStorage.removeItem('carrito');
+        sessionStorage.removeItem('carritoTotal');
+        window.location.href = 'principal.html';
 
       } catch (error) {
-          console.error('Error procesando el pago:', error);
-          alert('Hubo un error procesando el pago.');
-          btnPagar.disabled = false;
-          btnPagar.textContent = 'Pagar';
+        console.error('Error procesando el pago:', error);
+        alert('Hubo un error procesando el pago.');
+        btnPagar.disabled = false;
+        btnPagar.textContent = 'Pagar';
       }
     });
   </script>
 </body>
+
 </html>

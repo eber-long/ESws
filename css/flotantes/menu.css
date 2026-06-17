@@ -101,8 +101,18 @@ a.nav-button-style {
     cursor: pointer;
     margin-right: 8px;
     transition: all 0.3s ease;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    vertical-align: middle;
     letter-spacing: 0.01em;
+}
+
+a.nav-button-style svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: inherit;
 }
 
 a.nav-button-style:hover {

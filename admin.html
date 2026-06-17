@@ -6,7 +6,9 @@
     <title>ElectroShop — Panel de Administración</title>
     <meta name="description" content="Panel de administración de ElectroShop. Gestión de productos, usuarios y pedidos.">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/icons.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="js/theme.js"></script>
 </head>
 <body>
 
@@ -27,27 +29,63 @@
         <nav class="sidebar-nav">
             <div class="nav-section">General</div>
             <a href="#" class="nav-link active" data-section="dashboard">
-                <span class="icon">📊</span> Dashboard
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 4.92857C3 3.90506 3.80497 3 4.88889 3H19.1111C20.195 3 21 3.90506 21 4.92857V13h-3v-2c0-.5523-.4477-1-1-1h-4c-.5523 0-1 .4477-1 1v2H3V4.92857ZM3 15v1.0714C3 17.0949 3.80497 18 4.88889 18h3.47608L7.2318 19.3598c-.35356.4243-.29624 1.0548.12804 1.4084.42428.3536 1.05484.2962 1.40841-.128L10.9684 18h2.0632l2.2002 2.6402c.3535.4242.9841.4816 1.4084.128.4242-.3536.4816-.9841.128-1.4084L15.635 18h3.4761C20.195 18 21 17.0949 21 16.0714V15H3Z"/>
+                        <path d="M16 12v1h-2v-1h2Z"/>
+                    </svg>
+                </span> Dashboard
             </a>
             <a href="#" class="nav-link" data-section="products">
-                <span class="icon">📦</span> Productos
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+                    </svg>
+                </span> Productos
             </a>
             <a href="#" class="nav-link" data-section="users">
-                <span class="icon">👥</span> Usuarios
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                </span> Usuarios
             </a>
             <a href="#" class="nav-link" data-section="orders">
-                <span class="icon">🧾</span> Pedidos
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+                    </svg>
+                </span> Pedidos
             </a>
 
-            <div class="nav-section" style="margin-top: 24px;">Tienda</div>
-            <a href="principal.html">
-                <span class="icon">🏠</span> Ir a la tienda
+            <a href="#" class="nav-link" data-section="discounts">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/>
+                    </svg>
+                </span> Descuentos
             </a>
+
+            <a href="admin-auditoria.html" class="nav-link" id="navAuditoria" style="display: none;">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"/>
+                    </svg>
+                </span> Auditoría
+            </a>
+
+            <!-- Sección tienda eliminada para admins/vendedores -->
+
+            
         </nav>
 
         <div class="sidebar-footer">
             <a href="#" id="adminLogout">
-                <span class="icon">🚪</span> Cerrar sesión
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2"/>
+                    </svg>
+                </span> Cerrar sesión
             </a>
         </div>
     </aside>
@@ -64,8 +102,11 @@
                 <h1 id="pageTitle">Dashboard</h1>
             </div>
             <div class="topbar-actions">
-                <div class="topbar-user">
-                    👤 <strong id="adminName">Admin</strong>
+                <div class="topbar-user" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                    <strong id="adminName">Admin</strong>
                 </div>
             </div>
         </div>
@@ -159,7 +200,10 @@
                     <div class="panel-header">
                         <h3>Gestión de Productos</h3>
                         <button class="btn btn-primary" id="btnAddProduct">
-                            ➕ Agregar producto
+                            <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                            </svg>
+                            Agregar producto
                         </button>
                     </div>
                     <div class="panel-body">
@@ -189,7 +233,10 @@
                     <div class="panel-header">
                         <h3>Gestión de Usuarios</h3>
                         <button class="btn btn-primary" id="btnAddUser">
-                            ➕ Agregar usuario
+                            <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                            </svg>
+                            Agregar usuario
                         </button>
                     </div>
                     <div class="panel-body">
@@ -197,7 +244,7 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Tipo</th>
+                                    <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -232,6 +279,38 @@
                                 </tr>
                             </thead>
                             <tbody id="ordersTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 🏷️ DISCOUNTS SECTION
+            ============================================ -->
+            <div class="admin-section" id="section-discounts">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Gestión de Descuentos</h3>
+                        <button class="btn btn-primary" id="btnAddDiscount">
+                            <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                            </svg>
+                            Agregar descuento
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Descuento</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="discountsTableBody">
                                 <!-- Filled by JS -->
                             </tbody>
                         </table>
@@ -281,7 +360,12 @@
                 <div class="form-group">
                     <label>Imagen del producto</label>
                     <div class="upload-mode-toggle">
-                        <button type="button" class="active" id="btnModeUpload">📁 Subir archivo</button>
+                        <button type="button" class="active" id="btnModeUpload" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+                            </svg>
+                            Subir archivo
+                        </button>
                         <button type="button" id="btnModeUrl">🔗 URL manual</button>
                     </div>
                     <div id="uploadModeFile">
@@ -305,7 +389,12 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-ghost" id="cancelProductModal">Cancelar</button>
-            <button class="btn btn-primary" id="saveProduct">💾 Guardar</button>
+            <button class="btn btn-primary" id="saveProduct" style="display: inline-flex; align-items: center; gap: 8px;">
+                <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+                </svg>
+                Guardar
+            </button>
         </div>
     </div>
 </div>
@@ -330,9 +419,10 @@
                     <input type="text" id="userPass" required placeholder="Contraseña">
                 </div>
                 <div class="form-group">
-                    <label for="userType">Tipo de usuario</label>
+                    <label for="userType">Rol de usuario</label>
                     <select id="userTypeSelect" required>
                         <option value="comun">Común</option>
+                        <option value="ventas">Vendedor</option>
                         <option value="administrador">Administrador</option>
                     </select>
                 </div>
@@ -341,14 +431,75 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-ghost" id="cancelUserModal">Cancelar</button>
-            <button class="btn btn-primary" id="saveUser">💾 Guardar</button>
+            <button class="btn btn-primary" id="saveUser" style="display: inline-flex; align-items: center; gap: 8px;">
+                <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+                </svg>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     🏷️ MODAL: Add/Edit Discount
+============================================ -->
+<div class="modal-overlay" id="discountModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="discountModalTitle">Agregar Descuento</h3>
+            <button class="modal-close" id="closeDiscountModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="discountForm">
+                <div class="form-group">
+                    <label for="discountCategory">Categoría</label>
+                    <select id="discountCategory" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="Procesadores">Procesadores</option>
+                        <option value="Laptops">Laptops</option>
+                        <option value="Monitores">Monitores</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Dispositivos Móviles">Dispositivos Móviles</option>
+                        <option value="Proyectores">Proyectores</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="discountPercent">Porcentaje de descuento</label>
+                    <div class="discount-input-wrap">
+                        <input type="number" id="discountPercent" min="0" max="100" step="1" required placeholder="Ej: 15">
+                        <span class="discount-input-suffix">%</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <div class="toggle-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="discountActive" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label" id="discountActiveLabel">Activo</span>
+                    </div>
+                </div>
+                <input type="hidden" id="discountEditId" value="-1">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" id="cancelDiscountModal">Cancelar</button>
+            <button class="btn btn-primary" id="saveDiscount" style="display: inline-flex; align-items: center; gap: 8px;">
+                <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+                </svg>
+                Guardar
+            </button>
         </div>
     </div>
 </div>
 
 <!-- Toast Notifications Container -->
 <div class="toast-container" id="toastContainer"></div>
-
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/api.js"></script>
 <script src="js/admin.js"></script>
 </body>
 </html>

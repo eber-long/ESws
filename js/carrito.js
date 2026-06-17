@@ -81,6 +81,16 @@ function inicializarCarrito() {
 }
 
 function agregarAlCarrito(producto) {
+    // Proteger si es invitado/guest
+    if (typeof API !== 'undefined' && !API.isLoggedIn()) {
+        if (typeof requireAuth === 'function') {
+            requireAuth('Inicia sesión para agregar productos al carrito', () => {
+                agregarAlCarrito(producto);
+            }, { type: 'addToCart', data: producto });
+            return;
+        }
+    }
+
     const existing = carrito.find(p => p.nombre === producto.nombre);
     if (existing) {
         existing.cantidad = (existing.cantidad || 1) + 1;

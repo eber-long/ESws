@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroShop — Auditoría de Stock</title>
+    <meta name="description" content="Auditoría de cambios de stock de ElectroShop.">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+<div class="admin-layout">
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================
+         📜 SIDEBAR
+    ============================================ -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <img src="imagen/ES.png" alt="ElectroShop">
+            <h2>ElectroShop</h2>
+            <span>Admin</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">General</div>
+            <a href="admin.html" class="nav-link">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 4.92857C3 3.90506 3.80497 3 4.88889 3H19.1111C20.195 3 21 3.90506 21 4.92857V13h-3v-2c0-.5523-.4477-1-1-1h-4c-.5523 0-1 .4477-1 1v2H3V4.92857ZM3 15v1.0714C3 17.0949 3.80497 18 4.88889 18h3.47608L7.2318 19.3598c-.35356.4243-.29624 1.0548.12804 1.4084.42428.3536 1.05484.2962 1.40841-.128L10.9684 18h2.0632l2.2002 2.6402c.3535.4242.9841.4816 1.4084.128.4242-.3536.4816-.9841.128-1.4084L15.635 18h3.4761C20.195 18 21 17.0949 21 16.0714V15H3Z"/>
+                        <path d="M16 12v1h-2v-1h2Z"/>
+                    </svg>
+                </span> Dashboard
+            </a>
+            <a href="admin.html" class="nav-link">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+                    </svg>
+                </span> Productos
+            </a>
+            <a href="admin.html" class="nav-link">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                </span> Usuarios
+            </a>
+            <a href="admin.html" class="nav-link">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .087.586l2.977-7.937A1 1 0 0 1 6 10h12V9a2 2 0 0 0-2-2h-4.532l-1.9-2.28A2 2 0 0 0 8.032 4H4Zm2.693 8H6.5l-3 8H18l3-8H6.693Z" clip-rule="evenodd"/>
+                    </svg>
+                </span> Pedidos
+            </a>
+            <a href="admin.html" class="nav-link">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/>
+                    </svg>
+                </span> Descuentos
+            </a>
+            <a href="admin-auditoria.html" class="nav-link active">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"/>
+                    </svg>
+                </span> Auditoría
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" id="adminLogout">
+                <span class="icon">
+                    <svg class="nav-icon" style="color: currentColor;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2"/>
+                    </svg>
+                </span> Cerrar sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- ============================================
+         📄 MAIN CONTENT
+    ============================================ -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <div class="admin-topbar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="btn-mobile-menu" id="mobileMenuBtn">☰</button>
+                <h1>Auditoría de Stock</h1>
+            </div>
+            <div class="topbar-actions">
+                <div class="topbar-user" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                    <strong id="adminName">Admin</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <!-- Auditoria Section -->
+            <div class="admin-section active" style="display: block;">
+                <div class="section-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Historial de Movimientos de Inventario</h2>
+                    <button class="btn btn-primary" id="btnRefreshAudit" style="display: inline-flex; align-items: center; gap: 8px;">
+                        🔄 Actualizar
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Producto</th>
+                                <th>Stock Anterior</th>
+                                <th>Stock Nuevo</th>
+                                <th>Diferencia</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
+                                    Cargando historial de auditoría...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/admin-auditoria.js"></script>
+</body>
+</html>

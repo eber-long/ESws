@@ -8,249 +8,10 @@
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/flotantes/secion.css">
     <link rel="stylesheet" href="css/flotantes/menu.css">
+    <link rel="stylesheet" href="css/buscador.css">
+    <link rel="stylesheet" href="css/icons.css">
     <script src="https://kit.fontawesome.com/b408874b64.js" crossorigin="anonymous"></script>
-    <style>
-        /* ============================================
-           🔍 BUSCADOR PAGE STYLES
-        ============================================ */
-
-        .buscador-hero {
-            background: var(--primary-gradient);
-            padding: 48px 24px 56px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .buscador-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 60% 50%, rgba(255,183,0,.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .buscador-hero h1 {
-            color: #fff;
-            font-size: clamp(1.5rem, 4vw, 2.4rem);
-            font-weight: 800;
-            margin: 0 0 28px;
-            letter-spacing: -0.03em;
-        }
-
-        .buscador-hero h1 span {
-            color: var(--accent);
-        }
-
-        /* Search bar inside hero */
-        .hero-search {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            max-width: 640px;
-            margin: 0 auto;
-        }
-
-        .hero-search input {
-            flex: 1;
-            padding: 16px 24px;
-            border-radius: 30px 0 0 30px;
-            border: 2px solid rgba(255,255,255,.3);
-            border-right: none;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            background: rgba(255,255,255,.97);
-            color: var(--text-primary);
-            transition: var(--transition-fast);
-        }
-
-        .hero-search input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(255,183,0,.25);
-        }
-
-        .hero-search button {
-            padding: 16px 28px;
-            background: var(--accent-gradient);
-            border: none;
-            border-radius: 0 30px 30px 0;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            transition: var(--transition-fast);
-            white-space: nowrap;
-        }
-
-        .hero-search button:hover {
-            background: linear-gradient(135deg, #ffd54f 0%, #ffb700 100%);
-            transform: scale(1.04);
-        }
-
-        /* ---- Results area ---- */
-        .search-page {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 32px 24px 60px;
-        }
-
-        #resultCount {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            font-weight: 500;
-            min-height: 24px;
-        }
-
-        /* ---- Results grid ---- */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 24px;
-        }
-
-        .result-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition-normal);
-            border: 1px solid var(--border-color);
-            animation: fadeInUp 0.4s ease-out both;
-        }
-
-        .result-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(26,109,219,.2);
-        }
-
-        .result-img-wrap {
-            background: #f5f7fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 180px;
-            overflow: hidden;
-            padding: 12px;
-        }
-
-        .result-img-wrap img {
-            max-height: 160px;
-            max-width: 100%;
-            object-fit: contain;
-            transition: var(--transition-slow);
-        }
-
-        .result-card:hover .result-img-wrap img {
-            transform: scale(1.07);
-        }
-
-        .result-info {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            flex: 1;
-        }
-
-        .result-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .result-price {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--danger);
-        }
-
-        .result-btn {
-            margin-top: auto;
-        }
-
-        /* ---- No results ---- */
-        .no-results {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
-        }
-
-        .no-results-icon {
-            font-size: 5rem;
-            margin-bottom: 16px;
-            animation: pulse 2s infinite;
-        }
-
-        .no-results h3 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* ---- Loading state ---- */
-        .loading-indicator {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .loading-indicator::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--primary-light);
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ---- Stagger animation ---- */
-        .results-grid .result-card:nth-child(1)  { animation-delay: 0.03s; }
-        .results-grid .result-card:nth-child(2)  { animation-delay: 0.06s; }
-        .results-grid .result-card:nth-child(3)  { animation-delay: 0.09s; }
-        .results-grid .result-card:nth-child(4)  { animation-delay: 0.12s; }
-        .results-grid .result-card:nth-child(5)  { animation-delay: 0.15s; }
-        .results-grid .result-card:nth-child(6)  { animation-delay: 0.18s; }
-        .results-grid .result-card:nth-child(7)  { animation-delay: 0.21s; }
-        .results-grid .result-card:nth-child(8)  { animation-delay: 0.24s; }
-
-        /* ---- Responsive ---- */
-        @media (max-width: 600px) {
-            .buscador-hero { padding: 32px 16px 40px; }
-            .results-grid  { grid-template-columns: 1fr 1fr; gap: 14px; }
-            .result-img-wrap { height: 140px; }
-        }
-
-        @media (max-width: 400px) {
-            .results-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+   
 </head>
 <body>
 
@@ -292,10 +53,36 @@
             </ul>
         </div>
     </div>
-    <a href="principal.html"  class="nav-button-style">🔰 Inicio</a>
-    <a href="nosotros.html"   class="nav-button-style">👤 Nosotros</a>
-    <a href="catalogo.html"   class="nav-button-style">📰 Catálogo</a>
-    <a href="carrito.html"    class="nav-button-style">🛒 Carrito</a>
+    <a href="principal.html"  class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10.5Z"/>
+        </svg>
+        Inicio
+    </a>
+    <a href="nosotros.html"   class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/>
+        </svg>
+        Nosotros
+    </a>
+    <a href="catalogo.html"   class="nav-button-style">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
+        </svg>
+        Catálogo
+    </a>
+    <a href="carrito.html"    class="nav-button-style">
+        <svg class="nav-icon" style="color: currentColor;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+        </svg>
+        Carrito
+    </a>
+    <a href="deseos.html"     class="nav-button-style">
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="m12 21-1.4-1.3C5.4 15 2 12 2 8.5A4.5 4.5 0 0 1 6.5 4c2 0 3.2 1 4.1 2.1C11.3 5 12.5 4 14.5 4A4.5 4.5 0 0 1 19 8.5c0 3.5-3.4 6.5-8.6 11.2L12 21Z"/>
+        </svg>
+        Favoritos
+    </a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -324,6 +111,9 @@
     </div>
 </footer>
 
+<script src="js/api.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/auth-modal.js"></script>
 <script src="js/carrito.js"></script>
 <script src="js/principal.js"></script>
 <script src="js/buscador.js"></script>

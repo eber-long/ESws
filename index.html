@@ -6,6 +6,7 @@
     <title>ElectroShop — Iniciar Sesión</title>
     <meta name="description" content="Inicia sesión en ElectroShop para acceder a los mejores productos electrónicos de Nicaragua.">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
 </head>
 <body>
 
@@ -25,14 +26,19 @@
           <span></span> <!-- Span vacío para efectos visuales o animaciones -->
         </div>
         <div class="Registro">
-        <p>No tienes una cuenta? </p> <a href="Registro.html">Registrate aqui</a>
+          <p>No tienes una cuenta? </p> <a href="Registro.html">Registrate aqui</a>
         </div>
        
         <input type="submit" value="Iniciar"> <!-- Botón de envío del formulario -->
 
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="principal.html" style="color: #a0aec0; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#6c63ff'" onmouseout="this.style.color='#a0aec0'">Continuar como invitado</a>
+        </div>
+
        </form> <!-- Fin del formulario -->
     </div> <!-- Fin del contenedor principal -->
 
+    <script src="js/api.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html>

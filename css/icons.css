@@ -1,0 +1,11 @@
+.nav-icon{
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.nav-button-style{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
