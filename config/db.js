@@ -1,12 +1,17 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT) || 5432,
-});
+const pool = process.env.DATABASE_URL
+    ? new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+    })
+    : new Pool({
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASSWORD,
+        port: parseInt(process.env.DB_PORT) || 5432,
+    });
 
 const initialProducts = [
     { nombre: 'AMD Ryzen 7 5700X', categoria: 'Procesadores', precio: 7708.27, stock: 15, imagen: 'imagen/7.webp', descripcion: '8 núcleos / 16 hilos' },
@@ -79,7 +84,8 @@ async function seedProducts(poolInstance) {
 
 pool.query('SELECT NOW()')
     .then(async () => {
-        console.log(`✅ Conectado a PostgreSQL (${process.env.DB_NAME})`);
+        const dbName = process.env.DATABASE_URL ? 'Supabase (remoto)' : process.env.DB_NAME;
+        console.log(`✅ Conectado a PostgreSQL (${dbName})`);
         await seedProducts(pool);
     })
     .catch(err => console.error('❌ Error de conexión a PostgreSQL:', err.message));
